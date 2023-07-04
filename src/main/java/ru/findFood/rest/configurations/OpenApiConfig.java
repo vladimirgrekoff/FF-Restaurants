@@ -1,4 +1,4 @@
-package ru.findFood.rest.configs;
+package ru.findFood.rest.configurations;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;

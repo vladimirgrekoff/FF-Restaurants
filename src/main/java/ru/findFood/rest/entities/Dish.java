@@ -1,4 +1,4 @@
-package ru.findFood.rest.persistance;
+package ru.findFood.rest.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -28,7 +28,7 @@ public class Dish {
     //заводим диетологам ID в таблице ресторанов, и они под ним смогут пополнять базу блюд
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
-    private Restaurant restaurant;
+//    private Restaurant restaurant;
     //TODO добавить импорт для класса Restaurant
     //TODO добавить связь @OneToMany(mappedBy = "restaurant") в класс Restaurant
 
