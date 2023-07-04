@@ -26,8 +26,8 @@ public class GroupDish {
     @Column(name = "title")
     private String title;
 
-    @OneToMany(mappedBy = "groupDish")
-    private List<Dish> dishes;
+//    @OneToMany(mappedBy = "groupDish")
+//    private List<Dish> dishes;
 
     @Column(name = "created_at")
     @CreationTimestamp

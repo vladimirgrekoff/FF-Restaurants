@@ -79,7 +79,8 @@ public class Dish {
 //    private Boolean isSnack;
 
     //изменено (временно или постоянно решим)!!!!!!!!!!!!!!
-    @ManyToOne
+//    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "group_dish_id")
     private GroupDish groupDish;
 

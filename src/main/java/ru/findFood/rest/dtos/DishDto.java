@@ -42,8 +42,12 @@ public class DishDto {
     @Schema(description = "Углеводы",  requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     private Integer carbohydrates;
 
-    @Schema(description = "Группа блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Супы")
-    private GroupDish group_dish_id;
+//    @Schema(description = "Группа блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Супы")
+//    private String groupDishTitle;
+
+    @Schema(description = "Группа блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "4")
+//    private Long group_dish_id;
+    private GroupDishDto group_dish_id;
 
     public Long getId() {
         return id;
@@ -133,18 +137,36 @@ public class DishDto {
         this.carbohydrates = carbohydrates;
     }
 
-    public GroupDish getGroup_dish_id() {
+//    public String getGroupDishTitle() {
+//        return groupDishTitle;
+//    }
+//
+//    public void setGroupDishTitle(String groupDishTitle) {
+//        this.groupDishTitle = groupDishTitle;
+//    }
+
+
+//    public Long getGroup_dish_id() {
+//        return group_dish_id;
+//    }
+
+    public GroupDishDto getGroup_dish_id() {
         return group_dish_id;
     }
 
-    public void setGroup_dish_id(GroupDish group_dish_id) {
+
+//    public void setGroup_dish_id(Long group_dish_id) {
+//        this.group_dish_id = group_dish_id;
+//    }
+
+    public void setGroup_dish_id(GroupDishDto group_dish_id) {
         this.group_dish_id = group_dish_id;
     }
 
     public DishDto() {
     }
 
-    public DishDto(Long id, String title, Boolean nutritionist_approved, Long restaurant_id, String description, BigDecimal price, byte[] image, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, GroupDish group_dish_id) {
+    public DishDto(Long id, String title, Boolean nutritionist_approved, Long restaurant_id, String description, BigDecimal price, byte[] image, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, /*String groupDishTitle,*/ /*Long*/ GroupDishDto group_dish_id) {
         this.id = id;
         this.title = title;
         this.nutritionist_approved = nutritionist_approved;
@@ -156,6 +178,7 @@ public class DishDto {
         this.proteins = proteins;
         this.fats = fats;
         this.carbohydrates = carbohydrates;
+//        this.groupDishTitle = groupDishTitle;
         this.group_dish_id = group_dish_id;
     }
 }
