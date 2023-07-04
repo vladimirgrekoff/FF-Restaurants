@@ -26,6 +26,9 @@ public class DishController {
 
     // http://localhost:8189/ff-restaurants/api/v1/dishes
 
+    //swagger:
+    //http://localhost:8189/ff-restaurants/swagger-ui/index.html#
+
     //переписать на поиск по id ресторана
     @Operation(
             summary = "Запрос на получение полного списка блюд",
