@@ -10,8 +10,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+
 import java.util.List;
 import java.util.Objects;
+
 
 @Entity
 @Table(name = "dishes")
@@ -76,6 +78,8 @@ public class Dish {
     @Column(name = "snack", nullable = false)
     private Boolean isSnack;*/
 
+    //изменено (временно или постоянно решим)!!!!!!!!!!!!!!
+//    @ManyToOne
     @OneToOne
     @JoinColumn(name = "group_dish_id")
     private GroupDish groupDish;
@@ -99,9 +103,9 @@ public class Dish {
     }
 
     //конструктор с обязательными полями
-    public Dish(String title, Long restaurant, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, LocalDateTime createdAt) {
+    public Dish(String title, Long restaurant_id, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, LocalDateTime createdAt) {
         this.title = title;
-        this.restaurant_id = restaurant;
+        this.restaurant_id = restaurant_id;
         this.calories = calories;
         this.proteins = proteins;
         this.fats = fats;
@@ -110,9 +114,9 @@ public class Dish {
     }
 
     //почти полный конструктор
-    public Dish(String title, Long restaurant, String description, BigDecimal price, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, GroupDish groupDish, List<Category> categories, LocalDateTime createdAt) {
+    public Dish(String title, Long restaurant_id, String description, BigDecimal price, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, GroupDish groupDish, List<Category> categories, LocalDateTime createdAt) {
         this.title = title;
-        this.restaurant_id = restaurant;
+        this.restaurant_id = restaurant_id;
         this.description = description;
         this.price = price;
         this.calories = calories;

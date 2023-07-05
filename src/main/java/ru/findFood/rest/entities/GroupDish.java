@@ -2,10 +2,7 @@ package ru.findFood.rest.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,8 +11,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "group_dishes")
+@Getter
+@Setter
 @NoArgsConstructor
-@Data
+@AllArgsConstructor
 public class GroupDish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,8 +24,8 @@ public class GroupDish {
     @Column(name = "title")
     private String title;
 
-    //@OneToMany(mappedBy = "groupDish")
-    //private List<Dish> dishes;
+//    @OneToMany(mappedBy = "groupDish")
+//    private List<Dish> dishes;
 
     @Column(name = "created_at")
     @CreationTimestamp
