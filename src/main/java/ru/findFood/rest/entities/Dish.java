@@ -2,7 +2,6 @@ package ru.findFood.rest.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,7 +20,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-
 public class Dish {
 
     @Id
@@ -33,16 +31,9 @@ public class Dish {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "healthy", nullable = false)
-    private Boolean healthy;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "restaurant_id", nullable = false)
-//    private Restaurant restaurant;
-    //TODO добавить импорт для класса Restaurant
-    //TODO добавить связь @OneToMany(mappedBy = "restaurant") в класс Restaurant
-
-    //изменено (временно или постоянно решим)!!!!!!!!!!!!!!
+/*    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    private Restaurant restaurant;*/
 
     @Column(name = "restaurant_id", nullable = false)
     private Long restaurant_id;
@@ -87,7 +78,6 @@ public class Dish {
     @Column(name = "snack", nullable = false)
     private Boolean isSnack;*/
 
-
     //изменено (временно или постоянно решим)!!!!!!!!!!!!!!
 //    @ManyToOne
     @OneToOne
@@ -111,10 +101,15 @@ public class Dish {
         this.title = title;
     }
 
-    //конструктор с обязательными полями
-    public Dish(String title, Long restaurant, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, LocalDateTime createdAt) {
+    //минимальный конструктор на всякий случай
+    public Dish(String title) {
         this.title = title;
-        this.restaurant_id = restaurant;
+    }
+
+    //конструктор с обязательными полями
+    public Dish(String title, Long restaurant_id, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, LocalDateTime createdAt) {
+        this.title = title;
+        this.restaurant_id = restaurant_id;
         this.calories = calories;
         this.proteins = proteins;
         this.fats = fats;
@@ -123,13 +118,11 @@ public class Dish {
     }
 
     //почти полный конструктор
-    //изменено (временно или постоянно решим)!!!!!!!!!!!!!!
-    public Dish(String title, Long restaurant_id, String description, BigDecimal price, byte[] image, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, GroupDish groupDish) {
+    public Dish(String title, Long restaurant_id, String description, BigDecimal price, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, GroupDish groupDish, List<Category> categories, LocalDateTime createdAt) {
         this.title = title;
         this.restaurant_id = restaurant_id;
         this.description = description;
         this.price = price;
-        this.image = image;
         this.calories = calories;
         this.proteins = proteins;
         this.fats = fats;
@@ -138,7 +131,6 @@ public class Dish {
         this.categories = categories;
         this.createdAt = createdAt;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -159,35 +151,6 @@ public class Dish {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", restaurant=" + restaurant_id.toString() +
-=======
-        this.approved =  approved;
-        this.groupDish = groupDish;
-    }
-
-    //минимальный конструктор на всякий случай
-    public Dish(String title) {
-        this.title = title;
-    }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Dish dish = (Dish) o;
-//        return title.equals(dish.title) && Objects.equals(restaurant, dish.restaurant) && Objects.equals(calories, dish.calories) && Objects.equals(proteins, dish.proteins) && Objects.equals(fats, dish.fats) && Objects.equals(carbohydrates, dish.carbohydrates);
-//    }
-
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(title, restaurant, calories, proteins, fats, carbohydrates);
-//    }
-
-
-    //изменено (временно или постоянно решим)!!!!!!!!!!!!!!
-    @Override
-    public String toString() {
-        return "Dish{" +
-                "title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", calories=" + calories +
@@ -196,8 +159,8 @@ public class Dish {
                 ", carbohydrates=" + carbohydrates +
                 ", isApproved=" + isApproved +
                 ", isHealthy=" + isHealthy +
-              //  ", groupDish=" + groupDish.toString()+
-              //  ", categories=" + categories.toString() +
+                ", groupDish=" + groupDish.toString()+
+                ", categories=" + categories.toString() +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
