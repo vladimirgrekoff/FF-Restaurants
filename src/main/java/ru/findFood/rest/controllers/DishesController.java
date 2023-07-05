@@ -21,10 +21,13 @@ import java.util.List;
 @RequestMapping("api/v1/dishes")
 @RequiredArgsConstructor
 @Tag(name = "Блюда", description = "Методы работы с блюдами")
-public class DishController {
+public class DishesController {
     private final DishValidator dishValidator;
 
     // http://localhost:8189/ff-restaurants/api/v1/dishes
+
+    //swagger:
+    //http://localhost:8189/ff-restaurants/swagger-ui/index.html#
 
     //переписать на поиск по id ресторана
     @Operation(
