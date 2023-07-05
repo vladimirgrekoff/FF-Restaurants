@@ -96,6 +96,10 @@ public class Dish {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    //минимальный конструктор на всякий случай
+    public Dish(String title) {
+        this.title = title;
+    }
 
     //минимальный конструктор на всякий случай
     public Dish(String title) {
@@ -127,7 +131,6 @@ public class Dish {
         this.categories = categories;
         this.createdAt = createdAt;
     }
-
 
     @Override
     public boolean equals(Object o) {
