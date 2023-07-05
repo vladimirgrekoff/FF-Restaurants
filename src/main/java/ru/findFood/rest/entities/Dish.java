@@ -30,8 +30,8 @@ public class Dish {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "nutritionist")
-    private Boolean nutritionist_approved;
+    @Column(name = "healthy", nullable = false)
+    private Boolean healthy;
 
     //заводим диетологам ID в таблице ресторанов, и они под ним смогут пополнять базу блюд
 //    @ManyToOne(fetch = FetchType.LAZY)
@@ -78,6 +78,9 @@ public class Dish {
 //    @Column(name = "snack", nullable = false)
 //    private Boolean isSnack;
 
+    @Column(name = "approved", nullable = false)
+    private Boolean approved;
+
     //изменено (временно или постоянно решим)!!!!!!!!!!!!!!
 //    @ManyToOne
     @OneToOne
@@ -109,18 +112,19 @@ public class Dish {
 //    }
 
     //изменено (временно или постоянно решим)!!!!!!!!!!!!!!
-    public Dish(Long id, String title, Long restaurant_id, String description, Boolean nutritionist_approved, BigDecimal price, byte[] image, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, GroupDish groupDish) {
+    public Dish(Long id, String title, Long restaurant_id, Boolean healthy, String description, BigDecimal price, byte[] image, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, Boolean approved, GroupDish groupDish) {
         this.id = id;
         this.title = title;
+        this.healthy = healthy;
         this.restaurant_id = restaurant_id;
         this.description = description;
-        this.nutritionist_approved = nutritionist_approved;
         this.price = price;
         this.image = image;
         this.calories = calories;
         this.proteins = proteins;
         this.fats = fats;
         this.carbohydrates = carbohydrates;
+        this.approved =  approved;
         this.groupDish = groupDish;
     }
 

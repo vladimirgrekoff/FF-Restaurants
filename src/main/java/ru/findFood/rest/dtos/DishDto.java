@@ -3,8 +3,11 @@ package ru.findFood.rest.dtos;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import jakarta.persistence.Column;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import ru.findFood.rest.entities.GroupDish;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Schema(description = "Модель блюда")
 public class DishDto {
@@ -12,19 +15,19 @@ public class DishDto {
     @Schema(description = "ID блюда", requiredMode = Schema.RequiredMode.AUTO, example = "13")
     private Long id;
 
-    @Schema(description = "Наименование блюда",  requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 255, minLength = 3, example = "Суп")
+    @Schema(description = "Наименование блюда",  requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 255, minLength = 3, example = "Борщ")
     private String title;
 
     @Schema(description = "Одобрено диетологом",  requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 255, minLength = 3, example = "true")
-    private Boolean nutritionist_approved;
+    private Boolean healthy;
 
     @Schema(description = "ID ресторана",  requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
     private Long restaurant_id;
 
-    @Schema(description = "Описание блюда",  requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 255, minLength = 3, example = "Суп")
+    @Schema(description = "Описание блюда",  requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 255, minLength = 3, example = "Борщ с говядиной, ломтиком сала на хлебном чипсе и сметаной")
     private String description;
 
-    @Schema(description = "Цена блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "100.00")
+    @Schema(description = "Цена блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "360.00")
     private BigDecimal price;
 
     @Schema(description = "Ссылка на фото",  requiredMode = Schema.RequiredMode.REQUIRED, example = "")
@@ -41,13 +44,21 @@ public class DishDto {
 
     @Schema(description = "Углеводы",  requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     private Integer carbohydrates;
-
-//    @Schema(description = "Группа блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Супы")
-//    private String groupDishTitle;
-
-    @Schema(description = "Группа блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "4")
+    @Schema(description = "К/Б/Ж/У подтверждаю",  requiredMode = Schema.RequiredMode.REQUIRED, example = "true")
+    private Boolean approved;
+//    @Schema(description = "Группа блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "4")
 //    private Long group_dish_id;
-    private GroupDishDto group_dish_id;
+//    private GroupDishDto group_dish_id;
+
+    @Schema(description = "Группа блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Супы")
+//    private String groupDishDto.getTitle;
+    private GroupDishDto groupDishDto;
+
+    @Schema(description = "дата внесения",  requiredMode = Schema.RequiredMode.AUTO)
+    private LocalDateTime createdAt;
+
+    @Schema(description = "дата последнего обновления",  requiredMode = Schema.RequiredMode.AUTO)
+    private LocalDateTime updatedAt;
 
     public Long getId() {
         return id;
@@ -61,12 +72,12 @@ public class DishDto {
         return title;
     }
 
-    public Boolean getNutritionist_approved() {
-        return nutritionist_approved;
+    public Boolean getApproved() {
+        return approved;
     }
 
-    public void setNutritionist_approved(Boolean nutritionist_approved) {
-        this.nutritionist_approved = nutritionist_approved;
+    public void setApproved(Boolean approved) {
+        this.approved = approved;
     }
 
     public void setTitle(String title) {
@@ -137,39 +148,78 @@ public class DishDto {
         this.carbohydrates = carbohydrates;
     }
 
+    public Boolean getHealthy() {
+        return healthy;
+    }
+
+    public void setHealthy(Boolean healthy) {
+        this.healthy = healthy;
+    }
+
+
 //    public String getGroupDishTitle() {
 //        return groupDishTitle;
 //    }
+
+//    public GroupDishDto getGroupDishTitle() {
+//        return groupDishTitle;
+//    }
 //
+//    public void setGroupDishTitle(GroupDishDto groupDishTitle) {
+//        this.groupDishTitle = groupDishTitle;
+//    }
+
+    public GroupDishDto getGroupDishDto() {
+        return groupDishDto;
+    }
+
+    public void setGroupDishDto(GroupDishDto groupDishDto) {
+        this.groupDishDto = groupDishDto;
+    }
+
 //    public void setGroupDishTitle(String groupDishTitle) {
 //        this.groupDishTitle = groupDishTitle;
 //    }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 //    public Long getGroup_dish_id() {
 //        return group_dish_id;
 //    }
 
-    public GroupDishDto getGroup_dish_id() {
-        return group_dish_id;
-    }
+//    public GroupDishDto getGroup_dish_id() {
+//        return group_dish_id;
+//    }
 
 
 //    public void setGroup_dish_id(Long group_dish_id) {
 //        this.group_dish_id = group_dish_id;
 //    }
 
-    public void setGroup_dish_id(GroupDishDto group_dish_id) {
-        this.group_dish_id = group_dish_id;
-    }
+//    public void setGroup_dish_id(GroupDishDto group_dish_id) {
+//        this.group_dish_id = group_dish_id;
+//    }
 
     public DishDto() {
     }
 
-    public DishDto(Long id, String title, Boolean nutritionist_approved, Long restaurant_id, String description, BigDecimal price, byte[] image, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, /*String groupDishTitle,*/ /*Long*/ GroupDishDto group_dish_id) {
+    public DishDto(Long id, String title, Boolean healthy, Long restaurant_id, String description, BigDecimal price, byte[] image, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, Boolean approved, GroupDishDto groupDishDto/*GroupDishDto*//* groupDishTitle*//*, *//**//*Long*//**//* GroupDishDto group_dish_id*/) {
         this.id = id;
         this.title = title;
-        this.nutritionist_approved = nutritionist_approved;
+        this.healthy = healthy;
         this.restaurant_id = restaurant_id;
         this.description = description;
         this.price = price;
@@ -178,7 +228,8 @@ public class DishDto {
         this.proteins = proteins;
         this.fats = fats;
         this.carbohydrates = carbohydrates;
-//        this.groupDishTitle = groupDishTitle;
-        this.group_dish_id = group_dish_id;
+        this.approved = approved;
+        this.groupDishDto = groupDishDto;
+        //        this.group_dish_id = group_dish_id;
     }
 }

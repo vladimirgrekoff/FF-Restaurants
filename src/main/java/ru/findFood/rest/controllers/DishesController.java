@@ -21,7 +21,7 @@ import java.util.List;
 @RequestMapping("api/v1/dishes")
 @RequiredArgsConstructor
 @Tag(name = "Блюда", description = "Методы работы с блюдами")
-public class DishController {
+public class DishesController {
     private final DishValidator dishValidator;
 
     // http://localhost:8189/ff-restaurants/api/v1/dishes
