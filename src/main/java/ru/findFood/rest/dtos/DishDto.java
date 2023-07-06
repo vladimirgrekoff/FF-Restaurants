@@ -60,6 +60,7 @@ public class DishDto {
     @Schema(description = "дата последнего обновления",  requiredMode = Schema.RequiredMode.AUTO)
     private LocalDateTime updatedAt;
 
+
     public Long getId() {
         return id;
     }
@@ -190,7 +191,10 @@ public class DishDto {
     public DishDto() {
     }
 
+
     public DishDto(Long id, String title, Boolean healthy, Restaurant restaurant, String description, BigDecimal price, byte[] image, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, Boolean approved, GroupDishDto groupDishDto/*GroupDishDto*//* groupDishTitle*//*, *//**//*Long*//**//* GroupDishDto group_dish_id*/) {
+
+
         this.id = id;
         this.title = title;
         this.healthy = healthy;
