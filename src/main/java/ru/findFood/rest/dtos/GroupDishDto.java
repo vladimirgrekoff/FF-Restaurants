@@ -19,19 +19,7 @@ public class GroupDishDto {
     @Schema(description = "Имя группы блюд",  requiredMode = Schema.RequiredMode.AUTO, example = "Супы")
     private String title;
 
-//    @OneToMany(mappedBy = "groupDish")
-//    @Schema(description = "Список продуктов группы", requiredMode = Schema.RequiredMode.REQUIRED)
-//    private Collection<DishDto> dishes;
 
-//    private List<Dish> dishes;
-//
-//    @Column(name = "created_at")
-//    @CreationTimestamp
-//    private LocalDateTime createdAt;
-//
-//    @Column(name = "updated_at")
-//    @UpdateTimestamp
-//    private LocalDateTime updatedAt;
 
     public Long getId() {
         return id;
@@ -49,21 +37,14 @@ public class GroupDishDto {
         this.title = title;
     }
 
-//    public Collection<DishDto> getDishes() {
-//        return dishes;
-//    }
-//
-//    public void setDishes(Collection<DishDto> dishes) {
-//        this.dishes = dishes;
-//    }
+
 
     public GroupDishDto() {
     }
 
-//    public GroupDishDto(Long id, String title, Collection<DishDto> dishes) {
+
     public GroupDishDto(Long id, String title) {
         this.id = id;
         this.title = title;
-//        this.dishes = dishes;
     }
 }

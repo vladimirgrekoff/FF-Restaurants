@@ -44,11 +44,9 @@ public class DishDto {
 
     @Schema(description = "Углеводы",  requiredMode = Schema.RequiredMode.REQUIRED, example = "")
     private Integer carbohydrates;
+
     @Schema(description = "К/Б/Ж/У подтверждаю",  requiredMode = Schema.RequiredMode.REQUIRED, example = "true")
     private Boolean approved;
-//    @Schema(description = "Группа блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "4")
-//    private Long group_dish_id;
-//    private GroupDishDto group_dish_id;
 
     @Schema(description = "Группа блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Супы")
 //    private String groupDishDto.getTitle;
@@ -157,17 +155,7 @@ public class DishDto {
     }
 
 
-//    public String getGroupDishTitle() {
-//        return groupDishTitle;
-//    }
 
-//    public GroupDishDto getGroupDishTitle() {
-//        return groupDishTitle;
-//    }
-//
-//    public void setGroupDishTitle(GroupDishDto groupDishTitle) {
-//        this.groupDishTitle = groupDishTitle;
-//    }
 
     public GroupDishDto getGroupDishDto() {
         return groupDishDto;
@@ -177,9 +165,7 @@ public class DishDto {
         this.groupDishDto = groupDishDto;
     }
 
-//    public void setGroupDishTitle(String groupDishTitle) {
-//        this.groupDishTitle = groupDishTitle;
-//    }
+
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -196,22 +182,8 @@ public class DishDto {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-//    public Long getGroup_dish_id() {
-//        return group_dish_id;
-//    }
-
-//    public GroupDishDto getGroup_dish_id() {
-//        return group_dish_id;
-//    }
 
 
-//    public void setGroup_dish_id(Long group_dish_id) {
-//        this.group_dish_id = group_dish_id;
-//    }
-
-//    public void setGroup_dish_id(GroupDishDto group_dish_id) {
-//        this.group_dish_id = group_dish_id;
-//    }
 
     public DishDto() {
     }
@@ -230,6 +202,5 @@ public class DishDto {
         this.carbohydrates = carbohydrates;
         this.approved = approved;
         this.groupDishDto = groupDishDto;
-        //        this.group_dish_id = group_dish_id;
     }
 }
