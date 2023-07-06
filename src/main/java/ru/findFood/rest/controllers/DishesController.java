@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.findFood.rest.dtos.DishDto;
+import ru.findFood.rest.services.DishesService;
 import ru.findFood.rest.validators.DishValidator;
 
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.List;
 @Tag(name = "Блюда", description = "Методы работы с блюдами")
 public class DishesController {
     private final DishValidator dishValidator;
+    private final DishesService dishesService;
 
     // http://localhost:8189/ff-restaurants/api/v1/dishes
 
@@ -41,8 +43,7 @@ public class DishesController {
     )
     @GetMapping("/all")
     public List<DishDto> readAllProducts() {
-//        return dishService.findAll();
-        return null;
+        return dishesService.findAll();
     }
 
 
@@ -62,8 +63,7 @@ public class DishesController {
 
     @GetMapping("/{id}")
     public DishDto readDishById(@PathVariable @Parameter(description = "Идентификатор блюда", required = true) Long id){
-//        return dishService.findById(id);
-        return null;
+        return dishesService.findById(id);
     }
 
     @Operation(
@@ -78,7 +78,7 @@ public class DishesController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createNewDish(@RequestBody DishDto dishDto) {
-//        dishService.createNewProduct(dishDto);
+        dishesService.createNewProduct(dishDto);
     }
 
     @Operation(
@@ -94,7 +94,7 @@ public class DishesController {
     @ResponseStatus(HttpStatus.OK)
     public void updateDish(@RequestBody DishDto dishDto) {
         dishValidator.validate(dishDto);
-//        dishService.update(dishDto);
+        dishesService.update(dishDto);
     }
 
     @Operation(
@@ -108,6 +108,6 @@ public class DishesController {
 
     @DeleteMapping("/{id}")
     public void deleteDishById(@PathVariable @Parameter(description = "Идентификатор блюда", required = true) Long id) {
-//        dishService.deleteById(id);
+        dishesService.deleteById(id);
     }
 }
