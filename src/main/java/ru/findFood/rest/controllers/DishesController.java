@@ -78,7 +78,7 @@ public class DishesController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createNewDish(@RequestBody DishDto dishDto) {
-        dishesService.createNewProduct(dishDto);
+        dishesService.createNewDish(dishDto);
     }
 
     @Operation(

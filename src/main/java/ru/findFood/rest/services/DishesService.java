@@ -39,7 +39,7 @@ public class DishesService {
     }
 
     @Transactional
-    public void createNewProduct(DishDto dishDto) {
+    public void createNewDish(DishDto dishDto) {
         Dish dish = dishConverter.dtoToEntity(dishDto);
         dish.setGroupDish(groupDishService.findByTitle(dishDto.getGroupDishDto().getTitle()).orElseThrow(() -> new ResourceNotFoundException("Группа блюд с названием: " + dishDto.getGroupDishDto().getTitle() + " не найдена")));
         dishesRepository.save(dish);
