@@ -7,6 +7,6 @@ import ru.findFood.rest.entities.GroupDish;
 import java.util.Optional;
 
 public interface GroupDishRepository extends JpaRepository<GroupDish, Long> {
-    @Query("select c from Category c where c.title = ?1")
+    @Query("select g from GroupDish g where g.title = ?1")
     Optional<GroupDish> findByTitle(String title);
 }
