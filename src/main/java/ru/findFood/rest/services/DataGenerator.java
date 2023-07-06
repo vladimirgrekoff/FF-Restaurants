@@ -1,14 +1,12 @@
-package ru.findFood.rest.entities;
+package ru.findFood.rest.services;
 
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-import ru.findFood.rest.repositories.CategoryRepository;
-import ru.findFood.rest.repositories.DishesRepository;
-import ru.findFood.rest.repositories.GroupDishRepository;
-import ru.findFood.rest.repositories.RestaurantRepository;
+import ru.findFood.rest.entities.*;
+import ru.findFood.rest.repositories.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -26,19 +24,31 @@ public class DataGenerator {
     @Autowired
     private RestaurantRepository restaurantRepository;
 
+    @Autowired
+    private RestaurantInfoRepository restaurantInfoRepository;
+
     //Запускаем этот класс, когда нужно заполнить базу сгенерированными данными.
     @EventListener(ApplicationReadyEvent.class)
     public void generateData() {
+        Faker faker = new Faker();
 
-        //Создаем рестораны
+        //Создаем рестораны и инфо
         Restaurant restaurant1 = new Restaurant("Диетолог",  LocalDateTime.now());
         restaurantRepository.save(restaurant1);
-        Restaurant restaurant2 = new Restaurant("Вкусно - и точка",  LocalDateTime.now());
+        RestaurantInfo restaurantInfo1 = new RestaurantInfo(restaurant1, faker.company().catchPhrase(), faker.yoda().quote(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
+        restaurantInfoRepository.save(restaurantInfo1);
+        Restaurant restaurant2 = new Restaurant("Пиццерия",  LocalDateTime.now());
         restaurantRepository.save(restaurant2);
-        Restaurant restaurant3 = new Restaurant("KFC",  LocalDateTime.now());
+        RestaurantInfo restaurantInfo2 = new RestaurantInfo(restaurant2, faker.company().catchPhrase(), faker.yoda().quote(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
+        restaurantInfoRepository.save(restaurantInfo2);
+        Restaurant restaurant3 = new Restaurant("Стейкхаус",  LocalDateTime.now());
         restaurantRepository.save(restaurant3);
-        Restaurant restaurant4 = new Restaurant("Burger King",  LocalDateTime.now());
+        RestaurantInfo restaurantInfo3 = new RestaurantInfo(restaurant3, faker.company().catchPhrase(), faker.yoda().quote(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
+        restaurantInfoRepository.save(restaurantInfo3);
+        Restaurant restaurant4 = new Restaurant("Бургерная",  LocalDateTime.now());
         restaurantRepository.save(restaurant4);
+        RestaurantInfo restaurantInfo4 = new RestaurantInfo(restaurant4, faker.company().catchPhrase(), faker.yoda().quote(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
+        restaurantInfoRepository.save(restaurantInfo4);
 
         //Создаем категории
         Category breakfast = new Category("Завтрак", LocalDateTime.now());
@@ -71,7 +81,7 @@ public class DataGenerator {
         groupDishRepository.save(vegetables);
 
         //Заполняем базу блюд. Меняем число итераций на нужное в базе количество строк
-        Faker faker = new Faker();
+
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
             Dish dish = new Dish(faker.food().dish(), (int) faker.number().randomNumber(3, false), (int) faker.number().randomNumber(1, false), (int) faker.number().randomNumber(2, false), (int) faker.number().randomNumber(2, false), LocalDateTime.now());
