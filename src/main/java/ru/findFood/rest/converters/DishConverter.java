@@ -17,7 +17,7 @@ public class DishConverter {
         dish.setId(dishDto.getId());
         dish.setTitle(dishDto.getTitle());
         dish.setHealthy(dishDto.getHealthy());
-        dish.setRestaurant_id(dishDto.getRestaurant_id());
+        dish.setRestaurant(dishDto.getRestaurant());
         dish.setDescription(dishDto.getDescription());
         dish.setPrice(dishDto.getPrice());
         dish.setImage(dishDto.getImage());
@@ -37,7 +37,7 @@ public class DishConverter {
         dishDto.setId(d.getId());
         dishDto.setTitle(d.getTitle());
         dishDto.setHealthy(d.getHealthy());
-        dishDto.setRestaurant_id(d.getRestaurant_id());
+        dishDto.setRestaurant(d.getRestaurant());
         dishDto.setDescription(d.getDescription());
         dishDto.setPrice(d.getPrice());
         dishDto.setImage(d.getImage());

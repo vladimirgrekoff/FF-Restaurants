@@ -8,14 +8,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
 import java.util.List;
-import java.util.Objects;
 
 
 @Entity
 @Table(name = "dishes")
-//@NoArgsConstructor
 @RequiredArgsConstructor
 @Data
 public class Dish {
@@ -29,8 +26,9 @@ public class Dish {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "restaurant_id", nullable = false)
-    private Long restaurant_id;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
 
     @Column(name = "description")
     private String description;
@@ -59,13 +57,13 @@ public class Dish {
     @Column(name = "healthy")
     private Boolean healthy;
 
-    @OneToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "group_dish_id")
     private GroupDish groupDish;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category_id", referencedColumnName = "id")
-    private List<Category> categories;
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -83,9 +81,8 @@ public class Dish {
 //
 
     //конструктор с обязательными полями
-    public Dish(String title, Long restaurant_id, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, LocalDateTime createdAt) {
+    public Dish(String title, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, LocalDateTime createdAt) {
         this.title = title;
-        this.restaurant_id = restaurant_id;
         this.calories = calories;
         this.proteins = proteins;
         this.fats = fats;

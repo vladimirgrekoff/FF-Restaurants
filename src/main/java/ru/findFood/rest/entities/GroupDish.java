@@ -31,4 +31,9 @@ public class GroupDish {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
+    public GroupDish(String title, LocalDateTime createdAt) {
+        this.title = title;
+        this.createdAt = createdAt;
+    }
 }
