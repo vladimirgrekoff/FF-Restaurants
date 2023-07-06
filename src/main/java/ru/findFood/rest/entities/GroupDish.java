@@ -11,8 +11,10 @@ import java.util.List;
 
 @Entity
 @Table(name = "group_dishes")
-@NoArgsConstructor
-@AllArgsConstructor
+//@NoArgsConstructor
+//@AllArgsConstructor
+@RequiredArgsConstructor
+@Data
 public class GroupDish {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
