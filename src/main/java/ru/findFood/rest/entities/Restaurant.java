@@ -2,9 +2,8 @@ package ru.findFood.rest.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -12,8 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "restaurants")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class Restaurant {
 
@@ -26,6 +24,9 @@ public class Restaurant {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @OneToOne
+    @JoinColumn(name="restaurant_info_id")
+    private RestaurantInfo restaurantInfo;
 
     @Column(name = "created_at")
     @CreationTimestamp

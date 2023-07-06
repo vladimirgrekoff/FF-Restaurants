@@ -1,19 +1,17 @@
 package ru.findFood.rest.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @Entity
 @Table(name = "dishes")
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Data
 public class Dish {
 
@@ -22,7 +20,6 @@ public class Dish {
     @Column(name = "id")
     private Long id;
 
-    @NotNull
     @Column(name = "title", nullable = false)
     private String title;
 
@@ -72,13 +69,6 @@ public class Dish {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-
-    //минимальный конструктор на всякий случай
-//    public Dish(String title) {
-//        this.title = title;
-//    }
-//
 
     //конструктор с обязательными полями
     public Dish(String title, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, LocalDateTime createdAt) {

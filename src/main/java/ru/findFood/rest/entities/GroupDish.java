@@ -11,9 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "group_dishes")
-//@NoArgsConstructor
-//@AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 @Data
 public class GroupDish {
     @Id
