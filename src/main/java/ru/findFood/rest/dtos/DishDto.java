@@ -6,6 +6,8 @@ import jakarta.persistence.Column;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import ru.findFood.rest.entities.GroupDish;
+import ru.findFood.rest.entities.Restaurant;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -21,8 +23,8 @@ public class DishDto {
     @Schema(description = "Одобрено диетологом",  requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 255, minLength = 3, example = "true")
     private Boolean healthy;
 
-    @Schema(description = "ID ресторана",  requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    private Long restaurant_id;
+    @Schema(description = "Ресторан",  requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
+    private Restaurant restaurant;
 
     @Schema(description = "Описание блюда",  requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 255, minLength = 3, example = "Борщ с говядиной, ломтиком сала на хлебном чипсе и сметаной")
     private String description;
@@ -83,12 +85,12 @@ public class DishDto {
         this.title = title;
     }
 
-    public Long getRestaurant_id() {
-        return restaurant_id;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setRestaurant_id(Long restaurant_id) {
-        this.restaurant_id = restaurant_id;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public String getDescription() {
@@ -189,14 +191,14 @@ public class DishDto {
     public DishDto() {
     }
 
-    public DishDto(Long i, String title, BigDecimal valueOf, GroupDishDto groupDishDto) {
-    }
 
-    public DishDto(Long id, String title, Boolean healthy, Long restaurant_id, String description, BigDecimal price, byte[] image, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, Boolean approved, GroupDishDto groupDishDto) {
+    public DishDto(Long id, String title, Boolean healthy, Restaurant restaurant, String description, BigDecimal price, byte[] image, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, Boolean approved, GroupDishDto groupDishDto/*GroupDishDto*//* groupDishTitle*//*, *//**//*Long*//**//* GroupDishDto group_dish_id*/) {
+
+
         this.id = id;
         this.title = title;
         this.healthy = healthy;
-        this.restaurant_id = restaurant_id;
+        this.restaurant = restaurant;
         this.description = description;
         this.price = price;
         this.image = image;

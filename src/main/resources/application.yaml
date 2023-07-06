@@ -3,19 +3,17 @@ server:
   servlet:
     context-path: /ff-restaurants
 spring:
-
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/findfood
-    username: postgres
-    password: Normandia1$
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:findfoodDB;MODE=PostgreSQL
+    username: sa
+    password: sa
 
   jpa:
     show-sql: true
     properties:
       hibernate:
-        format-sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.H2Dialect
         ddl-auto: none
         temp:
           use_jdbc_metadata_defaults: false
@@ -23,5 +21,6 @@ spring:
   h2:
     console:
       enabled: true
+      path: /h2
       settings:
-        web-allow-others: false
+        web-allow-others: true

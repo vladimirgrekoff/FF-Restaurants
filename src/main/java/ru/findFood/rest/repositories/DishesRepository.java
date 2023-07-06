@@ -9,10 +9,10 @@ import java.util.Optional;
 
 @Repository
 public interface DishesRepository extends JpaRepository<Dish, Long> {
-    @Query("select count(*) from Dish")
+/*    @Query("select count(*) from Dish")
     Long countDishes();
 
     @Query("select d from Dish d where d.title = ?1")
-    Optional<Dish> findByTitle(String title);
+    Optional<Dish> findByTitle(String title);*/
 
 }
