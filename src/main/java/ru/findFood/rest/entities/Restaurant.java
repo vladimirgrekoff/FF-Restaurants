@@ -44,4 +44,10 @@ public class Restaurant {
         this.title = title;
         this.createdAt = createdAt;
     }
+
+    public Restaurant(String title, RestaurantInfo restaurantInfo, LocalDateTime createdAt) {
+        this.title = title;
+        this.restaurantInfo = restaurantInfo;
+        this.createdAt = createdAt;
+    }
 }

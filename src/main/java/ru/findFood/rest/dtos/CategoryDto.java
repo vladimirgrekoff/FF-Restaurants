@@ -1,22 +1,20 @@
 package ru.findFood.rest.dtos;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
 
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Schema(description = "Модель группы блюд")
-public class GroupDishDto {
+@Schema(description = "Категория блюда")
+public class CategoryDto {
 
-    @Schema(description = "ID группы блюд",  requiredMode = Schema.RequiredMode.AUTO, example = "4")
-    Long id;
+    @Schema(description = "ID категории", requiredMode = Schema.RequiredMode.AUTO, example = "1")
+    private Long id;
 
-    @Schema(description = "Имя группы блюд",  requiredMode = Schema.RequiredMode.AUTO, example = "Супы")
+    @Schema(description = "Наименование категории",  requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 255, minLength = 3, example = "Завтрак")
     private String title;
 
     @Schema(description = "Дата добавления",  requiredMode = Schema.RequiredMode.AUTO)
@@ -24,5 +22,4 @@ public class GroupDishDto {
 
     @Schema(description = "Дата последнего обновления",  requiredMode = Schema.RequiredMode.AUTO)
     private LocalDateTime updatedAt;
-
 }

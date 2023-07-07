@@ -2,14 +2,8 @@ package ru.findFood.rest.dtos;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import ru.findFood.rest.entities.GroupDish;
-import ru.findFood.rest.entities.Restaurant;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -28,7 +22,7 @@ public class DishDto {
     private Boolean healthy;
 
     @Schema(description = "Ресторан",  requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
-    private Restaurant restaurant;
+    private RestaurantDto restaurantDto;
 
     @Schema(description = "Описание блюда",  requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 255, minLength = 3, example = "Борщ с говядиной, ломтиком сала на хлебном чипсе и сметаной")
     private String description;
@@ -58,6 +52,9 @@ public class DishDto {
 //    private String groupDishDto.getTitle;
     private GroupDishDto groupDishDto;
 
+    @Schema(description = "Категория блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Завтрак")
+    private CategoryDto categoryDto;
+
     @Schema(description = "Дата добавления",  requiredMode = Schema.RequiredMode.AUTO)
     private LocalDateTime createdAt;
 
@@ -65,13 +62,13 @@ public class DishDto {
     private LocalDateTime updatedAt;
 
 
-    public DishDto(Long id, String title, Boolean healthy, Restaurant restaurant, String description, BigDecimal price, byte[] image, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, Boolean approved, GroupDishDto groupDishDto/*GroupDishDto*//* groupDishTitle*//*, *//**//*Long*//**//* GroupDishDto group_dish_id*/) {
+    public DishDto(Long id, String title, Boolean healthy, RestaurantDto restaurantDto, String description, BigDecimal price, byte[] image, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, Boolean approved, CategoryDto categoryDto, GroupDishDto groupDishDto/*GroupDishDto*//* groupDishTitle*//*, *//**//*Long*//**//* GroupDishDto group_dish_id*/) {
 
 
         this.id = id;
         this.title = title;
         this.healthy = healthy;
-        this.restaurant = restaurant;
+        this.restaurantDto = restaurantDto;
         this.description = description;
         this.price = price;
         this.image = image;
@@ -81,5 +78,6 @@ public class DishDto {
         this.carbohydrates = carbohydrates;
         this.approved = approved;
         this.groupDishDto = groupDishDto;
+        this.categoryDto = categoryDto;
     }
 }
