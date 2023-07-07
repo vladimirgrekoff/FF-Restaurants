@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.findFood.rest.converters.DishConverter;
+import ru.findFood.rest.converters.GroupDishDtoConverter;
 import ru.findFood.rest.dtos.DishDto;
 import ru.findFood.rest.entities.Dish;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
@@ -24,6 +25,8 @@ public class DishesService {
     private final DishesRepository dishesRepository;
     private final GroupDishService groupDishService;
 
+    private final GroupDishDtoConverter groupDishDtoConverter;
+
     public List<DishDto> findAll() {
         List<DishDto> dishDtoList = new ArrayList<>();
         List<Dish> dishList = dishesRepository.findAll();
@@ -35,20 +38,25 @@ public class DishesService {
     }
 
     public DishDto findById(Long id) {
-        return dishConverter.entityToDto(dishesRepository.findById(id).get());
+        Optional<Dish> dish = dishesRepository.findById(id);
+        if(dish.isPresent()){
+            return dishConverter.entityToDto(dish.get());
+        } else {
+            throw new ResourceNotFoundException("Блюдо с ID " + id + " не найдено");
+        }
     }
 
     @Transactional
     public void createNewDish(DishDto dishDto) {
         Dish dish = dishConverter.dtoToEntity(dishDto);
-        dish.setGroupDish(groupDishService.findByTitle(dishDto.getGroupDishDto().getTitle()).orElseThrow(() -> new ResourceNotFoundException("Группа блюд с названием: " + dishDto.getGroupDishDto().getTitle() + " не найдена")));
+        dish.setGroupDish(groupDishDtoConverter.dtoToEntity(groupDishService.findByTitle(dishDto.getGroupDishDto().getTitle())));
         dishesRepository.save(dish);
     }
 
 
     @Transactional
     public void update(DishDto dishDto) {
-        Dish dish = dishesRepository.findById(dishDto.getId()).orElseThrow(()-> new ResourceNotFoundException("Продукт отсутствует в списке, id: " + dishDto.getId()));
+        Dish dish = dishesRepository.findById(dishDto.getId()).orElseThrow(()-> new ResourceNotFoundException("Блюдо с id: " + dishDto.getId() + " не найдено"));
         if (dish != null) {
             dish = dishConverter.dtoToEntity(dishDto);
             dishesRepository.save(dish);
