@@ -27,7 +27,7 @@ public class RestaurantInfo {
     private String description;
 
     @Column(name = "quisines")
-    private String quisines;
+    private String cuisines;
 
     @Column(name = "address")
     private String address;
@@ -50,10 +50,10 @@ public class RestaurantInfo {
     private LocalDateTime updatedAt;
 
     //полный конструктор без апдейта и id
-    public RestaurantInfo(Restaurant restaurant, String description, String quisines, String address, String phoneNumber, String email, String openHours, LocalDateTime createdAt) {
+    public RestaurantInfo(Restaurant restaurant, String description, String cuisines, String address, String phoneNumber, String email, String openHours, LocalDateTime createdAt) {
         this.restaurant = restaurant;
         this.description = description;
-        this.quisines = quisines;
+        this.cuisines = cuisines;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;

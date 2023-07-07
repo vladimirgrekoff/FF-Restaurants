@@ -3,6 +3,8 @@ package ru.findFood.rest.dtos;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import jakarta.persistence.Column;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import ru.findFood.rest.entities.GroupDish;
@@ -11,6 +13,8 @@ import ru.findFood.rest.entities.Restaurant;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Data
+@NoArgsConstructor
 @Schema(description = "Модель блюда")
 public class DishDto {
 
@@ -54,142 +58,11 @@ public class DishDto {
 //    private String groupDishDto.getTitle;
     private GroupDishDto groupDishDto;
 
-    @Schema(description = "дата внесения",  requiredMode = Schema.RequiredMode.AUTO)
+    @Schema(description = "Дата добавления",  requiredMode = Schema.RequiredMode.AUTO)
     private LocalDateTime createdAt;
 
-    @Schema(description = "дата последнего обновления",  requiredMode = Schema.RequiredMode.AUTO)
+    @Schema(description = "Дата последнего обновления",  requiredMode = Schema.RequiredMode.AUTO)
     private LocalDateTime updatedAt;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Boolean getApproved() {
-        return approved;
-    }
-
-    public void setApproved(Boolean approved) {
-        this.approved = approved;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public Integer getCalories() {
-        return calories;
-    }
-
-    public void setCalories(Integer calories) {
-        this.calories = calories;
-    }
-
-    public Integer getProteins() {
-        return proteins;
-    }
-
-    public void setProteins(Integer proteins) {
-        this.proteins = proteins;
-    }
-
-    public Integer getFats() {
-        return fats;
-    }
-
-    public void setFats(Integer fats) {
-        this.fats = fats;
-    }
-
-    public Integer getCarbohydrates() {
-        return carbohydrates;
-    }
-
-    public void setCarbohydrates(Integer carbohydrates) {
-        this.carbohydrates = carbohydrates;
-    }
-
-    public Boolean getHealthy() {
-        return healthy;
-    }
-
-    public void setHealthy(Boolean healthy) {
-        this.healthy = healthy;
-    }
-
-
-
-
-    public GroupDishDto getGroupDishDto() {
-        return groupDishDto;
-    }
-
-    public void setGroupDishDto(GroupDishDto groupDishDto) {
-        this.groupDishDto = groupDishDto;
-    }
-
-
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-
-
-    public DishDto() {
-    }
 
 
     public DishDto(Long id, String title, Boolean healthy, Restaurant restaurant, String description, BigDecimal price, byte[] image, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, Boolean approved, GroupDishDto groupDishDto/*GroupDishDto*//* groupDishTitle*//*, *//**//*Long*//**//* GroupDishDto group_dish_id*/) {
