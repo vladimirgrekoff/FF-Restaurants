@@ -43,7 +43,7 @@ public class DishesServiceTests {
                 .when(groupDishService)
                 .findByTitle("Фкукты");
 
-        DishDto dishDto = new DishDto(null, "Апельсины", BigDecimal.valueOf(100.0), groupDishDto);
+        DishDto dishDto = new DishDto();
 
         dishesService.createNewDish(dishDto);
 

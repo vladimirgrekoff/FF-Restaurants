@@ -10,6 +10,8 @@ import ru.findFood.rest.entities.Dish;
 @RequiredArgsConstructor
 public class DishConverter {
     private final GroupDishDtoConverter groupDishDtoConverter;
+    private final RestaurantConverter restaurantConverter;
+    private final CategoryConverter categoryConverter;
 
 
     public Dish dtoToEntity(DishDto dishDto) {
@@ -17,7 +19,7 @@ public class DishConverter {
         dish.setId(dishDto.getId());
         dish.setTitle(dishDto.getTitle());
         dish.setHealthy(dishDto.getHealthy());
-        dish.setRestaurant(dishDto.getRestaurant());
+        dish.setRestaurant(restaurantConverter.dtoToEntity(dishDto.getRestaurantDto()));
         dish.setDescription(dishDto.getDescription());
         dish.setPrice(dishDto.getPrice());
         dish.setImage(dishDto.getImage());
@@ -27,6 +29,7 @@ public class DishConverter {
         dish.setCarbohydrates(dishDto.getCarbohydrates());
         dish.setApproved(dishDto.getApproved());
         dish.setGroupDish(groupDishDtoConverter.dtoToEntity(dishDto.getGroupDishDto()));
+        dish.setCategory(categoryConverter.dtoToEntity(dishDto.getCategoryDto()));
         dish.setCreatedAt(dishDto.getCreatedAt());
         dish.setUpdatedAt(dishDto.getUpdatedAt());
         return dish;
@@ -37,7 +40,7 @@ public class DishConverter {
         dishDto.setId(d.getId());
         dishDto.setTitle(d.getTitle());
         dishDto.setHealthy(d.getHealthy());
-        dishDto.setRestaurant(d.getRestaurant());
+        dishDto.setRestaurantDto(restaurantConverter.entityToDto(d.getRestaurant()));
         dishDto.setDescription(d.getDescription());
         dishDto.setPrice(d.getPrice());
         dishDto.setImage(d.getImage());
@@ -47,6 +50,7 @@ public class DishConverter {
         dishDto.setCarbohydrates(d.getCarbohydrates());
         dishDto.setApproved(d.getApproved());
         dishDto.setGroupDishDto(groupDishDtoConverter.entityToDto(d.getGroupDish()));
+        dishDto.setCategoryDto(categoryConverter.entityToDto(d.getCategory()));
         dishDto.setCreatedAt(d.getCreatedAt());
         dishDto.setUpdatedAt(d.getUpdatedAt());
         return dishDto;

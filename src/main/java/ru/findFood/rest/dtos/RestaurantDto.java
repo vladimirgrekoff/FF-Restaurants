@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.findFood.rest.entities.RestaurantInfo;
 
 import java.time.LocalDateTime;
 
@@ -21,7 +20,7 @@ public class RestaurantDto {
     private String title;
 
     @Schema(description = "Информация о ресторане",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Информация о ресторане Стейкхаус: описание, контакты, часы работы")
-    private RestaurantInfo restaurantInfo;
+    private RestaurantInfoDto restaurantInfoDto;
 
     @Schema(description = "Дата добавления",  requiredMode = Schema.RequiredMode.AUTO)
     private LocalDateTime createdAt;

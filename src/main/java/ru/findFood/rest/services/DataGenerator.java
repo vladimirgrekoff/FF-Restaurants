@@ -35,20 +35,28 @@ public class DataGenerator {
         //Создаем рестораны и инфо
         Restaurant restaurant1 = new Restaurant("Диетолог",  LocalDateTime.now());
         restaurantRepository.save(restaurant1);
-        RestaurantInfo restaurantInfo1 = new RestaurantInfo(restaurant1, faker.company().catchPhrase(), faker.yoda().quote(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
+        RestaurantInfo restaurantInfo1 = new RestaurantInfo(restaurant1, faker.company().catchPhrase(), faker.backToTheFuture().character(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
         restaurantInfoRepository.save(restaurantInfo1);
+        restaurant1.setRestaurantInfo(restaurantInfo1);
+        restaurantRepository.save(restaurant1);
         Restaurant restaurant2 = new Restaurant("Пиццерия",  LocalDateTime.now());
         restaurantRepository.save(restaurant2);
-        RestaurantInfo restaurantInfo2 = new RestaurantInfo(restaurant2, faker.company().catchPhrase(), faker.yoda().quote(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
+        RestaurantInfo restaurantInfo2 = new RestaurantInfo(restaurant2, faker.company().catchPhrase(), faker.backToTheFuture().character(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
         restaurantInfoRepository.save(restaurantInfo2);
+        restaurant2.setRestaurantInfo(restaurantInfo2);
+        restaurantRepository.save(restaurant2);
         Restaurant restaurant3 = new Restaurant("Стейкхаус",  LocalDateTime.now());
         restaurantRepository.save(restaurant3);
-        RestaurantInfo restaurantInfo3 = new RestaurantInfo(restaurant3, faker.company().catchPhrase(), faker.yoda().quote(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
+        RestaurantInfo restaurantInfo3 = new RestaurantInfo(restaurant3, faker.company().catchPhrase(), faker.backToTheFuture().character(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
         restaurantInfoRepository.save(restaurantInfo3);
+        restaurant3.setRestaurantInfo(restaurantInfo3);
+        restaurantRepository.save(restaurant3);
         Restaurant restaurant4 = new Restaurant("Бургерная",  LocalDateTime.now());
         restaurantRepository.save(restaurant4);
-        RestaurantInfo restaurantInfo4 = new RestaurantInfo(restaurant4, faker.company().catchPhrase(), faker.yoda().quote(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
+        RestaurantInfo restaurantInfo4 = new RestaurantInfo(restaurant4, faker.company().catchPhrase(), faker.backToTheFuture().character(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
         restaurantInfoRepository.save(restaurantInfo4);
+        restaurant4.setRestaurantInfo(restaurantInfo4);
+        restaurantRepository.save(restaurant4);
 
         //Создаем категории
         Category breakfast = new Category("Завтрак", LocalDateTime.now());

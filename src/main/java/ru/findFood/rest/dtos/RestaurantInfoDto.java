@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.findFood.rest.entities.Restaurant;
 
 import java.time.LocalDateTime;
 
@@ -17,8 +16,8 @@ public class RestaurantInfoDto {
     @Schema(description = "ID информации о ресторане", requiredMode = Schema.RequiredMode.AUTO, example = "1")
     private Long id;
 
-    @Schema(description = "ID и название ресторана",  requiredMode = Schema.RequiredMode.REQUIRED, example = "1, Стейкхаус")
-    private Restaurant restaurant;
+    @Schema(description = "ID ресторана",  requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
+    private Long restaurantId;
 
     @Schema(description = "Описание",  requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 1024, minLength = 0, example = "В нашем ресторане вы попробуете лучшие блюда европейской и американской кухонь, а также знаменитые стейки из отборной говядины!")
     private String description;
