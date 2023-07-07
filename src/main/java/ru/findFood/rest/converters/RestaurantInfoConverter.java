@@ -4,17 +4,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.findFood.rest.dtos.RestaurantInfoDto;
 import ru.findFood.rest.entities.RestaurantInfo;
-import ru.findFood.rest.services.RestaurantService;
+import ru.findFood.rest.exceptions.ResourceNotFoundException;
+import ru.findFood.rest.repositories.RestaurantRepository;
 
 @Component
 @RequiredArgsConstructor
 public class RestaurantInfoConverter {
-    private final RestaurantService restaurantService;
+
+    //конвертер вынужден дергать репо, так как ему нужна сущность, а  сервис возвращает ДТО + иначе у нас возникает циклическая зависимость
+    private final RestaurantRepository restaurantRepository;
 
     public RestaurantInfo dtoToEntity (RestaurantInfoDto restaurantInfoDto){
         RestaurantInfo restaurantInfo = new RestaurantInfo();
         restaurantInfo.setId(restaurantInfoDto.getId());
-        restaurantInfo.setRestaurant(restaurantService.findById(restaurantInfoDto.getRestaurantId()));
+        restaurantInfo.setRestaurant(restaurantRepository.findById(restaurantInfoDto.getRestaurantId()).orElseThrow(() -> new ResourceNotFoundException("Ресторан с ID "+ restaurantInfoDto.getRestaurantId() + " не найден")));
         restaurantInfo.setDescription(restaurantInfoDto.getDescription());
         restaurantInfo.setCuisines(restaurantInfoDto.getCuisines());
         restaurantInfo.setAddress(restaurantInfoDto.getAddress());
