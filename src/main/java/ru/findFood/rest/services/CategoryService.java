@@ -35,4 +35,24 @@ public class CategoryService {
         }
         return categoryDtoList;
     }
+
+    public CategoryDto createNewCategory(CategoryDto categoryDto){
+        Category category = categoryConverter.dtoToEntity(categoryDto);
+        categoryRepository.save(category);
+        categoryDto.setId(category.getId());
+        return categoryDto;
+    }
+
+    public CategoryDto updateCategory(CategoryDto categoryDto){
+        Category category = categoryRepository.findById(categoryDto.getId()).orElseThrow(()-> new ResourceNotFoundException("Категория с ID "+ categoryDto.getId() + " не найдена"));
+        if(category != null){
+            category = categoryConverter.dtoToEntity(categoryDto);
+            categoryRepository.save(category);
+        }
+        return categoryDto;
+    }
+
+    public void deleteCategoryById(Long id){
+        categoryRepository.deleteById(id);
+    }
 }
