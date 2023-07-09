@@ -34,4 +34,24 @@ public class RestaurantInfoService {
         }
         return restaurantInfoDtoList;
     }
+
+    public RestaurantInfoDto createNewRestaurantInfo(RestaurantInfoDto restaurantInfoDto){
+        RestaurantInfo restaurantInfo = restaurantInfoConverter.dtoToEntity(restaurantInfoDto);
+        restaurantInfoRepository.save(restaurantInfo);
+        restaurantInfoDto.setId(restaurantInfo.getId());
+        return restaurantInfoDto;
+    }
+
+    public RestaurantInfoDto updateRestaurantInfo(RestaurantInfoDto restaurantInfoDto) {
+        RestaurantInfo restaurantInfo = restaurantInfoRepository.findById(restaurantInfoDto.getId()).orElseThrow(()-> new ResourceNotFoundException("Информация о ресторане с ID " +restaurantInfoDto.getId()+ " не найдена"));
+        if (restaurantInfo != null){
+            restaurantInfo = restaurantInfoConverter.dtoToEntity(restaurantInfoDto);
+            restaurantInfoRepository.save(restaurantInfo);
+        }
+        return restaurantInfoDto;
+    }
+
+    public void deleteRestaurantInfoById(Long id) {
+        restaurantInfoRepository.deleteById(id);
+    }
 }

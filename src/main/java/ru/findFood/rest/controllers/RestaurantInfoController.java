@@ -87,7 +87,7 @@ public class RestaurantInfoController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createNewRestaurantInfo(@RequestBody RestaurantInfoDto restaurantInfoDto) {
         restaurantInfoValidator.validate(restaurantInfoDto);
-     //   restaurantInfoService.createNewRestaurantInfo(restaurantInfoDto);
+        restaurantInfoService.createNewRestaurantInfo(restaurantInfoDto);
     }
 
     @Operation(
@@ -102,7 +102,7 @@ public class RestaurantInfoController {
     @ResponseStatus(HttpStatus.OK)
     public void updateRestaurantInfo(@RequestBody RestaurantInfoDto restaurantInfoDto) {
         restaurantInfoValidator.validate(restaurantInfoDto);
-     //   restaurantInfoService.update(restaurantInfoDto);
+        restaurantInfoService.updateRestaurantInfo(restaurantInfoDto);
     }
 
     @Operation(
@@ -116,7 +116,7 @@ public class RestaurantInfoController {
 
     @DeleteMapping("/{id}")
     public void deleteRestaurantInfoById(@PathVariable @Parameter(description = "Идентификатор информации о ресторане", required = true) Long id) {
-      //  restaurantInfoService.deleteById(id);
+        restaurantInfoService.deleteRestaurantInfoById(id);
     }
 
 }
