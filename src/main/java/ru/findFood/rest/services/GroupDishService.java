@@ -33,4 +33,24 @@ public class GroupDishService {
         }
         return groupDishDtoList;
     }
+
+    public GroupDishDto createNewGroupDish(GroupDishDto groupDishDto){
+        GroupDish groupDish = groupDishDtoConverter.dtoToEntity(groupDishDto);
+        groupDishRepository.save(groupDish);
+        groupDishDto.setId(groupDish.getId());
+        return groupDishDto;
+    }
+
+    public GroupDishDto updateGroupDish(GroupDishDto groupDishDto){
+        GroupDish groupDish = groupDishRepository.findById(groupDishDto.getId()).orElseThrow(()-> new ResourceNotFoundException("Группа блюд с ID "+ groupDishDto.getId() + " не найдена"));
+        if(groupDish != null){
+            groupDish = groupDishDtoConverter.dtoToEntity(groupDishDto);
+            groupDishRepository.save(groupDish);
+        }
+        return groupDishDto;
+    }
+
+    public void deleteGroupDishById(Long id){
+        groupDishRepository.deleteById(id);
+    }
 }
