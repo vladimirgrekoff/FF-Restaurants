@@ -25,7 +25,7 @@ public class RestaurantService {
         return restaurantConverter.entityToDto(restaurantRepository.findByTitle(title).orElseThrow(() -> new ResourceNotFoundException("Ресторан с названием "+ title + " не найден")));
     }
 
-    public List<RestaurantDto> findAllRestaurants(){
+    public List<RestaurantDto> findAll(){
         List<Restaurant> restaurantList = restaurantRepository.findAll();
         List<RestaurantDto> restaurantDtoList = new ArrayList<>();
         for(Restaurant r: restaurantList){
@@ -34,4 +34,23 @@ public class RestaurantService {
         return restaurantDtoList;
     }
 
+    public RestaurantDto createNewRestaurant(RestaurantDto restaurantDto) {
+        Restaurant restaurant = restaurantConverter.dtoToEntity(restaurantDto);
+        restaurantRepository.save(restaurant);
+        restaurantDto.setId(restaurant.getId());
+        return restaurantDto;
+    }
+
+    public RestaurantDto updateRestaurant(RestaurantDto restaurantDto) {
+        Restaurant restaurant = restaurantRepository.findById(restaurantDto.getId()).orElseThrow(()-> new ResourceNotFoundException("Ресторан с ID"+ restaurantDto.getId() + " не найден"));
+        if(restaurant != null){
+            restaurant = restaurantConverter.dtoToEntity(restaurantDto);
+            restaurantRepository.save(restaurant);
+        }
+        return restaurantDto;
+    }
+
+    public void deleteRestaurantById(Long id) {
+        restaurantRepository.deleteById(id);
+    }
 }
