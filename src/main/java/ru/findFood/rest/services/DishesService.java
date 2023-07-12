@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.findFood.rest.entities.Dish;
-import ru.findFood.rest.exceptions.ResourceAlreadyInUseException;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.repositories.DishesRepository;
 

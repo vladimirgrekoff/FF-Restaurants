@@ -1,10 +1,8 @@
 package ru.findFood.rest.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "restaurants")
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Restaurant {
 
     @Id
@@ -22,7 +20,6 @@ public class Restaurant {
     @Column(name = "id")
     private Long id;
 
-//    @NotNull
     @Column(name = "title", nullable = false)
     private String title;
 
