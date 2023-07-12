@@ -23,7 +23,6 @@ public class Dish {
     @Column(name = "title", nullable = false)
     private String title;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
@@ -55,12 +54,10 @@ public class Dish {
     @Column(name = "healthy")
     private Boolean healthy;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "group_dish_id")
     private GroupDish groupDish;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -72,6 +69,7 @@ public class Dish {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
 
     //конструктор с обязательными полями
     public Dish(String title, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, LocalDateTime createdAt) {

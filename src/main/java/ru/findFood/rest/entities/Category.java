@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,7 +13,7 @@ import java.util.List;
 @Entity
 @Table(name = "categories")
 @Data
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class Category {
 
     @Id
@@ -26,9 +25,9 @@ public class Category {
     @Column(name = "title", nullable = false)
     private String title;
 
-//    @OneToMany(mappedBy = "category")
-//    @JoinColumn(name = "dish_id", referencedColumnName = "id")
-//    private List<Dish> dishes;
+   // @OneToMany(mappedBy = "category")
+    //@JoinColumn(name = "dish_id")
+    //private List<Dish> dishes;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -38,45 +37,7 @@ public class Category {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-//    public List<Dish> getDishes() {
-//        return dishes;
-//    }
-//
-//    public void setDishes(List<Dish> dishes) {
-//        this.dishes = dishes;
-//    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
     public Category(String title, LocalDateTime createdAt){
         this.title = title;

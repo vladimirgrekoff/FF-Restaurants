@@ -1,10 +1,12 @@
 package ru.findFood.rest.utils;
 
 import com.github.javafaker.Faker;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ru.findFood.rest.entities.*;
 import ru.findFood.rest.repositories.*;
 
@@ -12,7 +14,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Random;
 
-@Component
+//@Component
 public class DataGenerator {
 
     @Autowired
@@ -28,32 +30,33 @@ public class DataGenerator {
     private RestaurantInfoRepository restaurantInfoRepository;
 
     //Запускаем этот класс, когда нужно заполнить базу сгенерированными данными.
-    @EventListener(ApplicationReadyEvent.class)
+    @Transactional
+    @PostConstruct
     public void generateData() {
         Faker faker = new Faker();
 
         //Создаем рестораны и инфо
         Restaurant restaurant1 = new Restaurant("Диетолог",  LocalDateTime.now());
         restaurantRepository.save(restaurant1);
-        RestaurantInfo restaurantInfo1 = new RestaurantInfo(restaurant1, faker.company().catchPhrase(), faker.backToTheFuture().character(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
+        RestaurantInfo restaurantInfo1 = new RestaurantInfo(restaurant1, faker.company().industry(), faker.backToTheFuture().character(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
         restaurantInfoRepository.save(restaurantInfo1);
         restaurant1.setRestaurantInfo(restaurantInfo1);
         restaurantRepository.save(restaurant1);
         Restaurant restaurant2 = new Restaurant("Пиццерия",  LocalDateTime.now());
         restaurantRepository.save(restaurant2);
-        RestaurantInfo restaurantInfo2 = new RestaurantInfo(restaurant2, faker.company().catchPhrase(), faker.backToTheFuture().character(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
+        RestaurantInfo restaurantInfo2 = new RestaurantInfo(restaurant2, faker.company().industry(), faker.backToTheFuture().character(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
         restaurantInfoRepository.save(restaurantInfo2);
         restaurant2.setRestaurantInfo(restaurantInfo2);
         restaurantRepository.save(restaurant2);
         Restaurant restaurant3 = new Restaurant("Стейкхаус",  LocalDateTime.now());
         restaurantRepository.save(restaurant3);
-        RestaurantInfo restaurantInfo3 = new RestaurantInfo(restaurant3, faker.company().catchPhrase(), faker.backToTheFuture().character(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
+        RestaurantInfo restaurantInfo3 = new RestaurantInfo(restaurant3, faker.company().industry(), faker.backToTheFuture().character(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
         restaurantInfoRepository.save(restaurantInfo3);
         restaurant3.setRestaurantInfo(restaurantInfo3);
         restaurantRepository.save(restaurant3);
         Restaurant restaurant4 = new Restaurant("Бургерная",  LocalDateTime.now());
         restaurantRepository.save(restaurant4);
-        RestaurantInfo restaurantInfo4 = new RestaurantInfo(restaurant4, faker.company().catchPhrase(), faker.backToTheFuture().character(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
+        RestaurantInfo restaurantInfo4 = new RestaurantInfo(restaurant4, faker.company().industry(), faker.backToTheFuture().character(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), faker.internet().emailAddress(), faker.job().seniority(), LocalDateTime.now());
         restaurantInfoRepository.save(restaurantInfo4);
         restaurant4.setRestaurantInfo(restaurantInfo4);
         restaurantRepository.save(restaurant4);
@@ -97,7 +100,7 @@ public class DataGenerator {
             dish.setPrice(BigDecimal.valueOf(random.nextInt(79, 701)));;
             dish.setGroupDish(groupDishRepository.findById((long) random.nextInt(1, 10)).get());
             dish.setCategory(categoryRepository.findById((long) random.nextInt(1, 5)).get());
-            dish.setDescription(faker.hobbit().quote());
+            dish.setDescription(faker.hobbit().character());
             dishesRepository.save(dish);
         }
     }

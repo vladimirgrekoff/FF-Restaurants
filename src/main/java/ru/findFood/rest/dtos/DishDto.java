@@ -2,15 +2,16 @@ package ru.findFood.rest.dtos;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.findFood.rest.entities.Restaurant;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Schema(description = "Модель блюда")
 public class DishDto {
 
