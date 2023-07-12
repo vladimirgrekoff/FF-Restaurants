@@ -10,19 +10,25 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.findFood.rest.converters.RestaurantInfoConverter;
 import ru.findFood.rest.dtos.RestaurantInfoDto;
+import ru.findFood.rest.entities.RestaurantInfo;
 import ru.findFood.rest.services.RestaurantInfoService;
 import ru.findFood.rest.validators.RestaurantInfoValidator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/restaurants/info")
+@RequestMapping("/api/v1/restaurants/info")
 @RequiredArgsConstructor
-@Tag(name = "Информация о ресторанах", description = "Информация о ресторанах")
+@Tag(name = "Информация о ресторанах", description = "Методы работы информацией о ресторанах")
 public class RestaurantInfoController {
-    private final RestaurantInfoValidator restaurantInfoValidator;
     private final RestaurantInfoService restaurantInfoService;
+    private final RestaurantInfoValidator restaurantInfoValidator;
+    private final RestaurantInfoConverter restaurantInfoConverter;
+
+
 
 
     @Operation(
@@ -36,7 +42,12 @@ public class RestaurantInfoController {
     )
     @GetMapping("/all")
     public List<RestaurantInfoDto> findAllRestaurantInfos() {
-        return restaurantInfoService.findAll();
+        List<RestaurantInfo> restaurantInfoList = restaurantInfoService.findAll();
+        List<RestaurantInfoDto> restaurantInfoDtoList = new ArrayList<>();
+        for(RestaurantInfo ri: restaurantInfoList){
+            restaurantInfoDtoList.add(restaurantInfoConverter.entityToDto(ri));
+        }
+        return restaurantInfoDtoList;
     }
 
     @Operation(
@@ -54,7 +65,7 @@ public class RestaurantInfoController {
     )
     @GetMapping("/{id}")
     public RestaurantInfoDto findRestaurantInfoById(@PathVariable @Parameter(description = "Идентификатор информации о ресторане", required = true) Long id){
-        return restaurantInfoService.findById(id);
+        return restaurantInfoConverter.entityToDto(restaurantInfoService.findById(id));
     }
 
     @Operation(
@@ -70,9 +81,9 @@ public class RestaurantInfoController {
                     )
             }
     )
-    @GetMapping("/{restaurantId}")
-    public RestaurantInfoDto findRestaurantInfoByRestaurantId(@PathVariable @Parameter(description = "Идентификатор ресторана", required = true) Long restaurantId){
-        return restaurantInfoService.findByRestaurantId(restaurantId);
+    @GetMapping("/restaurant/{id}")
+    public RestaurantInfoDto findRestaurantInfoByRestaurantId(@PathVariable @Parameter(description = "Идентификатор ресторана", required = true) Long id){
+        return restaurantInfoConverter.entityToDto(restaurantInfoService.findByRestaurantId(id));
     }
 
     @Operation(
@@ -87,7 +98,7 @@ public class RestaurantInfoController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createNewRestaurantInfo(@RequestBody RestaurantInfoDto restaurantInfoDto) {
         restaurantInfoValidator.validate(restaurantInfoDto);
-        restaurantInfoService.createNewRestaurantInfo(restaurantInfoDto);
+        restaurantInfoService.createNewRestaurantInfo(restaurantInfoConverter.dtoToEntity(restaurantInfoDto));
     }
 
     @Operation(
@@ -102,7 +113,7 @@ public class RestaurantInfoController {
     @ResponseStatus(HttpStatus.OK)
     public void updateRestaurantInfo(@RequestBody RestaurantInfoDto restaurantInfoDto) {
         restaurantInfoValidator.validate(restaurantInfoDto);
-        restaurantInfoService.updateRestaurantInfo(restaurantInfoDto);
+        restaurantInfoService.updateRestaurantInfo(restaurantInfoConverter.dtoToEntity(restaurantInfoDto));
     }
 
     @Operation(

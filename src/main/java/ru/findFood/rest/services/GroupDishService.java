@@ -2,52 +2,63 @@ package ru.findFood.rest.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.findFood.rest.converters.GroupDishDtoConverter;
+import org.springframework.transaction.annotation.Transactional;
+import ru.findFood.rest.converters.GroupDishConverter;
 import ru.findFood.rest.dtos.GroupDishDto;
+import ru.findFood.rest.entities.Dish;
 import ru.findFood.rest.entities.GroupDish;
+import ru.findFood.rest.exceptions.ResourceAlreadyInUseException;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.repositories.GroupDishRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class GroupDishService {
     private final GroupDishRepository groupDishRepository;
-    private final GroupDishDtoConverter groupDishDtoConverter;
 
-    public GroupDishDto findById(Long id){
-        return groupDishDtoConverter.entityToDto(groupDishRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Группа блюд с ID " + id + " не найдена")));
-    }
-
-    public GroupDishDto findByTitle(String title) {
-        return groupDishDtoConverter.entityToDto(groupDishRepository.findByTitle(title).orElseThrow(() -> new ResourceNotFoundException("Группа блюд с названием " + title +" не найдена")));
-    }
-
-    public List<GroupDishDto> findAllGroupDishes(){
-        List<GroupDish> groupDishList = groupDishRepository.findAll();
-        List<GroupDishDto> groupDishDtoList = new ArrayList<>();
-        for (GroupDish gd: groupDishList) {
-            groupDishDtoList.add(groupDishDtoConverter.entityToDto(gd));
+    public GroupDish findById(Long id){
+        Optional<GroupDish > groupDish = groupDishRepository.findById(id);
+        if(groupDish.isPresent()){
+            return groupDish.get();
+        } else {
+            throw new ResourceNotFoundException("Группа блюд с ID " + id + " не найдена");
         }
-        return groupDishDtoList;
     }
 
-    public GroupDishDto createNewGroupDish(GroupDishDto groupDishDto){
-        GroupDish groupDish = groupDishDtoConverter.dtoToEntity(groupDishDto);
-        groupDishRepository.save(groupDish);
-        groupDishDto.setId(groupDish.getId());
-        return groupDishDto;
+    public GroupDish findByTitle(String title) {
+        Optional<GroupDish> groupDish = groupDishRepository.findByTitle(title);
+        if(groupDish.isPresent()){
+            return groupDish.get();
+        } else {
+            throw new ResourceNotFoundException("Группа блюд с названием " + title +" не найдена");
+        }
     }
 
-    public GroupDishDto updateGroupDish(GroupDishDto groupDishDto){
-        GroupDish groupDish = groupDishRepository.findById(groupDishDto.getId()).orElseThrow(()-> new ResourceNotFoundException("Группа блюд с ID "+ groupDishDto.getId() + " не найдена"));
-        if(groupDish != null){
-            groupDish = groupDishDtoConverter.dtoToEntity(groupDishDto);
+    public List<GroupDish> findAll(){
+        return groupDishRepository.findAll();
+    }
+
+    public void createNewGroupDish(GroupDish groupDish){
+        if (groupDishRepository.findByTitle(groupDish.getTitle()).isPresent()){
+            throw new ResourceAlreadyInUseException("Название группы блюд: '" + groupDish.getTitle() + "' уже используется");
+        } else {
             groupDishRepository.save(groupDish);
         }
-        return groupDishDto;
+    }
+    @Transactional
+    public void updateGroupDish(GroupDish groupDish){
+        if (groupDish.getId() != null || groupDish.getId() != 0) {
+            groupDishRepository.findById(groupDish.getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Группа блюд с id: " + groupDish.getId() + " не найдена"));
+
+            groupDishRepository.save(groupDish);
+        } else {
+            throw new ResourceNotFoundException("Группа блюд с id: " + groupDish.getId() + " не найдена");
+        }
     }
 
     public void deleteGroupDishById(Long id){

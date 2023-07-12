@@ -1,4 +1,4 @@
-package ru.findFood.rest.services;
+package ru.findFood.rest.utils;
 
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -4,13 +4,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.findFood.rest.dtos.DishDto;
 import ru.findFood.rest.entities.Dish;
+import ru.findFood.rest.services.CategoryService;
+import ru.findFood.rest.services.GroupDishService;
+import ru.findFood.rest.services.RestaurantService;
 
 
 @Component
 @RequiredArgsConstructor
 public class DishConverter {
-    private final GroupDishDtoConverter groupDishDtoConverter;
-    private final RestaurantConverter restaurantConverter;
+    private final GroupDishService groupDishService;
+    private final CategoryService categoryService;
+    private final RestaurantService restaurantService;
+
+    private final GroupDishConverter groupDishConverter;
     private final CategoryConverter categoryConverter;
 
 
@@ -18,18 +24,18 @@ public class DishConverter {
         Dish dish = new Dish();
         dish.setId(dishDto.getId());
         dish.setTitle(dishDto.getTitle());
-        dish.setHealthy(dishDto.getHealthy());
-        dish.setRestaurant(restaurantConverter.dtoToEntity(dishDto.getRestaurantDto()));
+        dish.setRestaurant(restaurantService.findByTitle(dishDto.getRestaurant_title()));
         dish.setDescription(dishDto.getDescription());
         dish.setPrice(dishDto.getPrice());
-        dish.setImage(dishDto.getImage());
+//        dish.setImage(dishDto.getImage());
         dish.setCalories(dishDto.getCalories());
         dish.setProteins(dishDto.getProteins());
         dish.setFats(dishDto.getFats());
         dish.setCarbohydrates(dishDto.getCarbohydrates());
+        dish.setHealthy(dishDto.getHealthy());
         dish.setApproved(dishDto.getApproved());
-        dish.setGroupDish(groupDishDtoConverter.dtoToEntity(dishDto.getGroupDishDto()));
-        dish.setCategory(categoryConverter.dtoToEntity(dishDto.getCategoryDto()));
+        dish.setGroupDish(groupDishService.findByTitle(dishDto.getGroup_dish_title()));
+        dish.setCategory(categoryService.findByTitle(dishDto.getCategory_title()));
         dish.setCreatedAt(dishDto.getCreatedAt());
         dish.setUpdatedAt(dishDto.getUpdatedAt());
         return dish;
@@ -39,18 +45,18 @@ public class DishConverter {
         DishDto dishDto = new DishDto();
         dishDto.setId(d.getId());
         dishDto.setTitle(d.getTitle());
-        dishDto.setHealthy(d.getHealthy());
-        dishDto.setRestaurantDto(restaurantConverter.entityToDto(d.getRestaurant()));
+        dishDto.setRestaurant_title(d.getRestaurant().getTitle());
         dishDto.setDescription(d.getDescription());
         dishDto.setPrice(d.getPrice());
-        dishDto.setImage(d.getImage());
+//        dishDto.setImage(d.getImage());
         dishDto.setCalories(d.getCalories());
         dishDto.setProteins(d.getProteins());
         dishDto.setFats(d.getFats());
         dishDto.setCarbohydrates(d.getCarbohydrates());
+        dishDto.setHealthy(d.getHealthy());
         dishDto.setApproved(d.getApproved());
-        dishDto.setGroupDishDto(groupDishDtoConverter.entityToDto(d.getGroupDish()));
-        dishDto.setCategoryDto(categoryConverter.entityToDto(d.getCategory()));
+        dishDto.setGroup_dish_title(d.getGroupDish().getTitle());
+        dishDto.setCategory_title(d.getCategory().getTitle());
         dishDto.setCreatedAt(d.getCreatedAt());
         dishDto.setUpdatedAt(d.getUpdatedAt());
         return dishDto;

@@ -23,7 +23,8 @@ public class Dish {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
@@ -54,11 +55,13 @@ public class Dish {
     @Column(name = "healthy")
     private Boolean healthy;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "group_dish_id")
     private GroupDish groupDish;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+//    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -80,18 +83,19 @@ public class Dish {
         this.createdAt = createdAt;
     }
 
-//    //почти полный конструктор
-//    public Dish(String title, Long restaurant_id, String description, BigDecimal price, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, GroupDish groupDish, List<Category> categories, LocalDateTime createdAt) {
-//        this.title = title;
-//        this.restaurant_id = restaurant_id;
-//        this.description = description;
-//        this.price = price;
-//        this.calories = calories;
-//        this.proteins = proteins;
-//        this.fats = fats;
-//        this.carbohydrates = carbohydrates;
-//        this.groupDish = groupDish;
-//        this.categories = categories;
-//        this.createdAt = createdAt;
-//    }
+    //почти полный конструктор
+    public Dish(String title, Restaurant restaurant, String description, BigDecimal price, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, Boolean healthy, Boolean approved, GroupDish groupDish, Category category) {
+        this.title = title;
+        this.restaurant = restaurant;
+        this.description = description;
+        this.price = price;
+        this.calories = calories;
+        this.proteins = proteins;
+        this.fats = fats;
+        this.carbohydrates = carbohydrates;
+        this.healthy = healthy;
+        this.approved = approved;
+        this.groupDish = groupDish;
+        this.category = category;
+    }
 }

@@ -4,10 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.findFood.rest.dtos.CategoryDto;
 import ru.findFood.rest.entities.Category;
+import ru.findFood.rest.repositories.CategoryRepository;
+import ru.findFood.rest.services.CategoryService;
 
 @Component
 @RequiredArgsConstructor
 public class CategoryConverter {
+
+    private final CategoryService categoryService;
 
     public Category dtoToEntity (CategoryDto categoryDto){
         Category category = new Category();

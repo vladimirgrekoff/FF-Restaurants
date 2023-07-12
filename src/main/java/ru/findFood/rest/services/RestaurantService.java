@@ -2,52 +2,76 @@ package ru.findFood.rest.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.findFood.rest.converters.RestaurantConverter;
 import ru.findFood.rest.dtos.RestaurantDto;
+import ru.findFood.rest.entities.Dish;
 import ru.findFood.rest.entities.Restaurant;
+import ru.findFood.rest.entities.RestaurantInfo;
+import ru.findFood.rest.exceptions.ResourceAlreadyInUseException;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.repositories.RestaurantRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
-    private final RestaurantConverter restaurantConverter;
+    private final RestaurantInfoService restaurantInfoService;
 
-    public RestaurantDto findById(Long id){
-        return restaurantConverter.entityToDto(restaurantRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Ресторан с ID "+ id + " не найден")));
+
+    public List<Restaurant> findAll(){
+        return restaurantRepository.findAll();
     }
 
-    public RestaurantDto findByTitle(String title){
-        return restaurantConverter.entityToDto(restaurantRepository.findByTitle(title).orElseThrow(() -> new ResourceNotFoundException("Ресторан с названием "+ title + " не найден")));
-    }
-
-    public List<RestaurantDto> findAll(){
-        List<Restaurant> restaurantList = restaurantRepository.findAll();
-        List<RestaurantDto> restaurantDtoList = new ArrayList<>();
-        for(Restaurant r: restaurantList){
-            restaurantDtoList.add(restaurantConverter.entityToDto(r));
+    public Restaurant findById(Long id){
+        Optional<Restaurant> restaurant = restaurantRepository.findById(id);
+        if(restaurant.isPresent()){
+            return restaurant.get();
+        } else {
+            throw new ResourceNotFoundException("Ресторан с ID "+ id + " не найден");
         }
-        return restaurantDtoList;
     }
 
-    public RestaurantDto createNewRestaurant(RestaurantDto restaurantDto) {
-        Restaurant restaurant = restaurantConverter.dtoToEntity(restaurantDto);
+    public Restaurant findByTitle(String title){
+        Optional<Restaurant> restaurant = restaurantRepository.findByTitle(title);
+        if(restaurant.isPresent()){
+            return restaurant.get();
+        } else {
+            throw new ResourceNotFoundException("Ресторан с названием "+ title + " не найден");
+        }
+    }
+
+    @Transactional
+    public void createNewRestaurant(Restaurant restaurant) {
+        if (restaurantRepository.findByTitle(restaurant.getTitle()).isPresent()) {
+            throw new ResourceAlreadyInUseException("Название ресторана: '" + restaurant.getTitle() + "' уже используется");
+//        } else if ((restaurant.getId() != null || restaurant.getId() != 0) && restaurantRepository.findById(restaurant.getId()).isPresent()) {
+//            throw new ResourceAlreadyInUseException("Ресторан с ID: " + restaurant.getId() + " уже есть в БД. Воспользуйтесь методом правки данных.");
+        }
+
+        RestaurantInfo restaurantInfo = new RestaurantInfo();
+
         restaurantRepository.save(restaurant);
-        restaurantDto.setId(restaurant.getId());
-        return restaurantDto;
+        restaurantInfo.setRestaurant(restaurant);
+        restaurantInfoService.createNewRestaurantInfo(restaurantInfo);
+        restaurant.setRestaurantInfo(restaurantInfo);
+        restaurantRepository.save(restaurant);
     }
 
-    public RestaurantDto updateRestaurant(RestaurantDto restaurantDto) {
-        Restaurant restaurant = restaurantRepository.findById(restaurantDto.getId()).orElseThrow(()-> new ResourceNotFoundException("Ресторан с ID"+ restaurantDto.getId() + " не найден"));
-        if(restaurant != null){
-            restaurant = restaurantConverter.dtoToEntity(restaurantDto);
+    @Transactional
+    public void updateRestaurant(Restaurant restaurant) {
+        if (restaurant.getId() != null || restaurant.getId() != 0) {
+            restaurantRepository.findById(restaurant.getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Ресторан с ID: " + restaurant.getId() + " не найден"));
+
             restaurantRepository.save(restaurant);
+        } else {
+            throw new ResourceNotFoundException("Ресторан с ID: " + restaurant.getId() + " не найден");
         }
-        return restaurantDto;
     }
 
     public void deleteRestaurantById(Long id) {

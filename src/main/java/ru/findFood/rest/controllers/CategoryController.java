@@ -10,19 +10,25 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.findFood.rest.converters.CategoryConverter;
 import ru.findFood.rest.dtos.CategoryDto;
+import ru.findFood.rest.dtos.GroupDishDto;
+import ru.findFood.rest.entities.Category;
+import ru.findFood.rest.entities.GroupDish;
 import ru.findFood.rest.services.CategoryService;
 import ru.findFood.rest.validators.CategoryValidator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/categories")
+@RequestMapping("/api/v1/categories")
 @RequiredArgsConstructor
-@Tag(name = "Категории", description = "Категории блюд")
+@Tag(name = "Категории", description = "Методы работы с категориями блюд")
 public class CategoryController {
     private final CategoryService categoryService;
     private final CategoryValidator categoryValidator;
+    private final CategoryConverter categoryConverter;
 
     @Operation(
             summary = "Запрос на получение полного списка категорий блюд",
@@ -34,8 +40,13 @@ public class CategoryController {
             }
     )
     @GetMapping("/all")
-    public List<CategoryDto> findAllCategories() {
-        return categoryService.findAllCategories();
+    public List<CategoryDto> readAllCategories() {
+        List<Category> categoryList = categoryService.findAll();
+        List<CategoryDto> categoryDtoList = new ArrayList<>();
+        for (Category c: categoryList) {
+            categoryDtoList.add(categoryConverter.entityToDto(c));
+        }
+        return categoryDtoList;
     }
 
     @Operation(
@@ -52,8 +63,8 @@ public class CategoryController {
             }
     )
     @GetMapping("/{id}")
-    public CategoryDto findCategoryById(@PathVariable @Parameter(description = "Идентификатор категории", required = true) Long id){
-        return categoryService.findById(id);
+    public CategoryDto readCategoryById(@PathVariable @Parameter(description = "Идентификатор категории", required = true) Long id){
+        return categoryConverter.entityToDto(categoryService.findById(id));
     }
 
     @Operation(
@@ -68,7 +79,7 @@ public class CategoryController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createNewCategory(@RequestBody CategoryDto categoryDto) {
         categoryValidator.validate(categoryDto);
-        categoryService.createNewCategory(categoryDto);
+        categoryService.createNewCategory(categoryConverter.dtoToEntity(categoryDto));
     }
 
     @Operation(
@@ -79,11 +90,12 @@ public class CategoryController {
                     )
             }
     )
+
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public void updateCategory(@RequestBody CategoryDto categoryDto) {
         categoryValidator.validate(categoryDto);
-        categoryService.updateCategory(categoryDto);
+        categoryService.updateCategory(categoryConverter.dtoToEntity(categoryDto));
     }
 
     @Operation(

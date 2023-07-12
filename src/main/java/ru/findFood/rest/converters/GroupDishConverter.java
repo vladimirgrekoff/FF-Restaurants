@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.findFood.rest.dtos.GroupDishDto;
 import ru.findFood.rest.entities.GroupDish;
+import ru.findFood.rest.services.GroupDishService;
 
 @Component
 @RequiredArgsConstructor
-public class GroupDishDtoConverter {
+public class GroupDishConverter {
+    private final GroupDishService groupDishService;
 
     public GroupDish dtoToEntity(GroupDishDto groupDishDto) {
         GroupDish groupDish = new GroupDish();

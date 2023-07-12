@@ -12,17 +12,22 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.findFood.rest.converters.DishConverter;
+import ru.findFood.rest.converters.GroupDishConverter;
 import ru.findFood.rest.dtos.DishDto;
+import ru.findFood.rest.entities.Dish;
 import ru.findFood.rest.services.DishesService;
 import ru.findFood.rest.validators.DishValidator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/dishes")
+@RequestMapping("/api/v1/dishes")
 @RequiredArgsConstructor
 @Tag(name = "Блюда", description = "Методы работы с блюдами")
 public class DishesController {
+    private final DishConverter dishConverter;
     private final DishValidator dishValidator;
     private final DishesService dishesService;
 
@@ -42,10 +47,35 @@ public class DishesController {
             }
     )
     @GetMapping("/all")
-    public List<DishDto> readAllProducts() {
-        return dishesService.findAll();
+    public List<DishDto> readAllDishes() {
+        List<Dish> dishList = dishesService.findAll();
+        List<DishDto> dishDtoList = new ArrayList<>();
+        for (Dish d: dishList) {
+            DishDto dishDto = dishConverter.entityToDto(d);
+            dishDtoList.add(dishDto);
+        }
+        return dishDtoList;
     }
 
+    @Operation(
+            summary = "Запрос на получение списка блюд по Id ресторана",
+            responses = {
+                    @ApiResponse(
+                            description = "Успешный ответ", responseCode = "200",
+                            content = {@Content(array = @ArraySchema(schema = @Schema(implementation = DishDto.class)))}
+                    )
+            }
+    )
+    @GetMapping("/restaurant/{id}")
+    public List<DishDto> readAllDishesByRestaurantId(@PathVariable @Parameter(description = "Идентификатор ресторана", required = true) Long id) {
+        List<Dish> dishList = dishesService.findAllByRestaurantId(id);
+        List<DishDto> dishDtoList = new ArrayList<>();
+        for (Dish d: dishList) {
+            DishDto dishDto = dishConverter.entityToDto(d);
+            dishDtoList.add(dishDto);
+        }
+        return dishDtoList;
+    }
 
     @Operation(
             summary = "Запрос на получение блюда по id",
@@ -63,7 +93,7 @@ public class DishesController {
 
     @GetMapping("/{id}")
     public DishDto readDishById(@PathVariable @Parameter(description = "Идентификатор блюда", required = true) Long id){
-        return dishesService.findById(id);
+        return dishConverter.entityToDto(dishesService.findById(id));
     }
 
     @Operation(
@@ -78,7 +108,8 @@ public class DishesController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createNewDish(@RequestBody DishDto dishDto) {
-        dishesService.createNewDish(dishDto);
+        dishValidator.validate(dishDto);
+        dishesService.createNewDish(dishConverter.dtoToEntity(dishDto));
     }
 
     @Operation(
@@ -94,7 +125,7 @@ public class DishesController {
     @ResponseStatus(HttpStatus.OK)
     public void updateDish(@RequestBody DishDto dishDto) {
         dishValidator.validate(dishDto);
-        dishesService.update(dishDto);
+        dishesService.update(dishConverter.dtoToEntity(dishDto));
     }
 
     @Operation(

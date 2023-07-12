@@ -11,6 +11,7 @@ import java.util.Optional;
 @Repository
 public interface RestaurantInfoRepository extends JpaRepository<RestaurantInfo, Long> {
 
-    @Query("select ri from RestaurantInfo ri where ri.restaurant.id = :requestedId")
-    Optional<RestaurantInfo> findByRestaurantId(@Param("requestedId")Long requestedId);
+//    @Query("select ri from RestaurantInfo ri where ri.restaurant.id = :requestedId")
+//    Optional<RestaurantInfo> findByRestaurantId(@Param("requestedId")Long requestedId);
+    Optional<RestaurantInfo> findByRestaurantId(Long restaurant_id);
 }

@@ -12,20 +12,21 @@ import java.util.regex.Pattern;
 
 @Component
 public class RestaurantInfoValidator {
-    private RestaurantInfoService restaurantInfoService;
+//    private final RestaurantInfoService restaurantInfoService;
 
     public void validate(RestaurantInfoDto restaurantInfoDto) {
         List<String> errors = new ArrayList<>();
 
         //проверка ID связанного ресторана
         Long restaurantId = restaurantInfoDto.getRestaurantId();
-        if (restaurantId != null) {
-            try {
-                restaurantInfoService.findByRestaurantId(restaurantId);
-            } catch (ResourceNotFoundException re) {
-                errors.add(re.getMessage());
-            }
-        } else {
+        if (restaurantId == null) {
+//        if (restaurantId != null) {
+//            try {
+//                restaurantInfoService.findByRestaurantId(restaurantId);
+//            } catch (ResourceNotFoundException re) {
+//                errors.add(re.getMessage());
+//            }
+//        } else {
             errors.add("ID ресторана не может иметь нулевое значение");
         }
         if (!errors.isEmpty()) {

@@ -1,65 +1,64 @@
 package ru.findFood.rest.services;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.findFood.rest.converters.DishConverter;
-import ru.findFood.rest.converters.GroupDishDtoConverter;
-import ru.findFood.rest.dtos.DishDto;
 import ru.findFood.rest.entities.Dish;
+import ru.findFood.rest.exceptions.ResourceAlreadyInUseException;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.repositories.DishesRepository;
-import ru.findFood.rest.repositories.GroupDishRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class DishesService {
-    private final DishConverter dishConverter;
     private final DishesRepository dishesRepository;
-    private final GroupDishService groupDishService;
 
-    private final GroupDishDtoConverter groupDishDtoConverter;
-
-    public List<DishDto> findAll() {
-        List<DishDto> dishDtoList = new ArrayList<>();
-        List<Dish> dishList = dishesRepository.findAll();
-        for (Dish d: dishList) {
-            DishDto dishDto = dishConverter.entityToDto(d);
-            dishDtoList.add(dishDto);
-        }
-        return dishDtoList;
+    public List<Dish> findAll() {
+        return dishesRepository.findAll();
     }
 
-    public DishDto findById(Long id) {
+    public List<Dish> findAllByRestaurantId(Long restaurant_id) {
+        return dishesRepository.findAllByRestaurantId(restaurant_id);
+    }
+
+    public Dish findById(Long id) {
         Optional<Dish> dish = dishesRepository.findById(id);
         if(dish.isPresent()){
-            return dishConverter.entityToDto(dish.get());
+            return dish.get();
         } else {
             throw new ResourceNotFoundException("Блюдо с ID " + id + " не найдено");
         }
     }
 
+    public Dish findByTitle(String title) {
+        Optional<Dish> dish = dishesRepository.findByTitle(title);
+        if(dish.isPresent()){
+            return dish.get();
+        } else {
+            throw new ResourceNotFoundException("Блюдо с названием " + title + " не найдено");
+        }
+    }
+
     @Transactional
-    public void createNewDish(DishDto dishDto) {
-        Dish dish = dishConverter.dtoToEntity(dishDto);
-        dish.setGroupDish(groupDishDtoConverter.dtoToEntity(groupDishService.findByTitle(dishDto.getGroupDishDto().getTitle())));
+    public void createNewDish(Dish dish) {
         dishesRepository.save(dish);
     }
 
 
     @Transactional
-    public void update(DishDto dishDto) {
-        Dish dish = dishesRepository.findById(dishDto.getId()).orElseThrow(()-> new ResourceNotFoundException("Блюдо с id: " + dishDto.getId() + " не найдено"));
-        if (dish != null) {
-            dish = dishConverter.dtoToEntity(dishDto);
-            dishesRepository.save(dish);
+    public void update(Dish dish) {
+        if (dish.getId() != null || dish.getId() != 0) {
+            Dish dishFound = dishesRepository.findById(dish.getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Блюдо с id: " + dish.getId() + " не найдено"));
+
+            if (dishFound != null) {
+                dishesRepository.save(dish);
+            }
+        } else {
+            throw new ResourceNotFoundException("Блюдо с id: " + dish.getId() + " не найдено");
         }
     }
 

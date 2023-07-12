@@ -4,15 +4,17 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "restaurants")
 @Data
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class Restaurant {
 
     @Id
@@ -20,13 +22,16 @@ public class Restaurant {
     @Column(name = "id")
     private Long id;
 
-    @NotNull
+//    @NotNull
     @Column(name = "title", nullable = false)
     private String title;
 
-    @OneToOne
-    @JoinColumn(name="restaurant_info_id")
+    @OneToOne(cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
+    @JoinColumn(name = "restaurant_info_id")
     private RestaurantInfo restaurantInfo;
+
+//    @OneToMany(mappedBy = "restaurant")
+//    private List<Dish> dishes;
 
     @Column(name = "created_at")
     @CreationTimestamp
@@ -36,18 +41,18 @@ public class Restaurant {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public Restaurant(Long id) {
-        this.id = id;
-    }
+
+
 
     public Restaurant(String title, LocalDateTime createdAt) {
         this.title = title;
         this.createdAt = createdAt;
     }
 
-    public Restaurant(String title, RestaurantInfo restaurantInfo, LocalDateTime createdAt) {
+    public Restaurant(String title, RestaurantInfo restaurantInfo, /*List<Dish> dishes,*/LocalDateTime createdAt) {
         this.title = title;
         this.restaurantInfo = restaurantInfo;
+//        this.dishes = dishes;
         this.createdAt = createdAt;
     }
 }

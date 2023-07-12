@@ -10,19 +10,26 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import ru.findFood.rest.converters.RestaurantConverter;
+import ru.findFood.rest.dtos.DishDto;
 import ru.findFood.rest.dtos.RestaurantDto;
+import ru.findFood.rest.dtos.newRestaurantDto;
+import ru.findFood.rest.entities.Dish;
+import ru.findFood.rest.entities.Restaurant;
 import ru.findFood.rest.services.RestaurantService;
 import ru.findFood.rest.validators.RestaurantValidator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/restaurants")
+@RequestMapping("/api/v1/restaurants")
 @RequiredArgsConstructor
-@Tag(name = "Рестораны", description = "ID и названия ресторанов")
+@Tag(name = "Рестораны", description = "Методы работы с ресторанами")
 public class RestaurantController {
     private final RestaurantService restaurantService;
     private final RestaurantValidator restaurantValidator;
+    private final RestaurantConverter restaurantConverter;
 
     @Operation(
             summary = "Запрос на получение полного списка ресторанов (id и название)",
@@ -34,8 +41,14 @@ public class RestaurantController {
             }
     )
     @GetMapping("/all")
-    public List<RestaurantDto> findAllRestaurants() {
-        return restaurantService.findAll();
+    public List<RestaurantDto> readAllRestaurants() {
+        List<Restaurant> restaurantList = restaurantService.findAll();
+        List<RestaurantDto> restaurantDtoList = new ArrayList<>();
+        for (Restaurant r: restaurantList) {
+            RestaurantDto restaurantDto = restaurantConverter.entityToDto(r);
+            restaurantDtoList.add(restaurantDto);
+        }
+        return restaurantDtoList;
     }
 
     @Operation(
@@ -52,8 +65,8 @@ public class RestaurantController {
             }
     )
     @GetMapping("/{id}")
-    public RestaurantDto findRestaurantById(@PathVariable @Parameter(description = "Идентификатор ресторана", required = true) Long id){
-        return restaurantService.findById(id);
+    public RestaurantDto readRestaurantById(@PathVariable @Parameter(description = "Идентификатор ресторана", required = true) Long id){
+        return restaurantConverter.entityToDto(restaurantService.findById(id));
     }
 
     @Operation(
@@ -66,9 +79,9 @@ public class RestaurantController {
     )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewRestaurant(@RequestBody RestaurantDto restaurantDto) {
-        restaurantValidator.validate(restaurantDto);
-        restaurantService.createNewRestaurant(restaurantDto);
+    public void createNewRestaurant(@RequestBody newRestaurantDto newRestaurantDto) {
+//        restaurantValidator.validate(newRestaurantDto);
+        restaurantService.createNewRestaurant(restaurantConverter.dtoToEntity(newRestaurantDto));
     }
 
     @Operation(
@@ -83,7 +96,7 @@ public class RestaurantController {
     @ResponseStatus(HttpStatus.OK)
     public void updateRestaurant(@RequestBody RestaurantDto restaurantDto) {
         restaurantValidator.validate(restaurantDto);
-        restaurantService.updateRestaurant(restaurantDto);
+        restaurantService.updateRestaurant(restaurantConverter.dtoToEntity(restaurantDto));
     }
 
     @Operation(

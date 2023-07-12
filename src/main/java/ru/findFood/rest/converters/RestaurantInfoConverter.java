@@ -17,7 +17,7 @@ public class RestaurantInfoConverter {
     public RestaurantInfo dtoToEntity (RestaurantInfoDto restaurantInfoDto){
         RestaurantInfo restaurantInfo = new RestaurantInfo();
         restaurantInfo.setId(restaurantInfoDto.getId());
-        restaurantInfo.setRestaurant(restaurantRepository.findById(restaurantInfoDto.getRestaurantId()).orElseThrow(() -> new ResourceNotFoundException("Ресторан с ID "+ restaurantInfoDto.getRestaurantId() + " не найден")));
+//        restaurantInfo.setRestaurant(restaurantRepository.findById(restaurantInfoDto.getRestaurantId()).orElseThrow(() -> new ResourceNotFoundException("Ресторан с ID "+ restaurantInfoDto.getRestaurantId() + " не найден")));
         restaurantInfo.setDescription(restaurantInfoDto.getDescription());
         restaurantInfo.setCuisines(restaurantInfoDto.getCuisines());
         restaurantInfo.setAddress(restaurantInfoDto.getAddress());
