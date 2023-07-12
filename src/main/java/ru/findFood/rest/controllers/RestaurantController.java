@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.findFood.rest.converters.RestaurantConverter;
 import ru.findFood.rest.dtos.RestaurantDto;
-import ru.findFood.rest.dtos.shortRestaurantDto;
+import ru.findFood.rest.dtos.newRestaurantDto;
 import ru.findFood.rest.entities.Restaurant;
 import ru.findFood.rest.services.RestaurantService;
 import ru.findFood.rest.validators.RestaurantValidator;
@@ -77,9 +77,9 @@ public class RestaurantController {
     )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewRestaurant(@RequestBody shortRestaurantDto shortRestaurantDto) {
+    public void createNewRestaurant(@RequestBody newRestaurantDto newRestaurantDto) {
 //        restaurantValidator.validate(newRestaurantDto);
-        restaurantService.createNewRestaurant(restaurantConverter.dtoToEntity(shortRestaurantDto));
+        restaurantService.createNewRestaurant(restaurantConverter.dtoToEntity(newRestaurantDto));
     }
 
     @Operation(

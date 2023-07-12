@@ -3,7 +3,7 @@ package ru.findFood.rest.converters;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.findFood.rest.dtos.RestaurantDto;
-import ru.findFood.rest.dtos.shortRestaurantDto;
+import ru.findFood.rest.dtos.newRestaurantDto;
 import ru.findFood.rest.entities.Restaurant;
 import ru.findFood.rest.services.RestaurantInfoService;
 import ru.findFood.rest.services.RestaurantService;
@@ -34,11 +34,11 @@ public class RestaurantConverter {
         return restaurantDto;
     }
 
-    public Restaurant dtoToEntity (shortRestaurantDto shortRestaurantDto){
+    public Restaurant dtoToEntity (newRestaurantDto newRestaurantDto){
         Restaurant restaurant = new Restaurant();
-        restaurant.setTitle(shortRestaurantDto.getTitle());
-        restaurant.setCreatedAt(shortRestaurantDto.getCreatedAt());
-        restaurant.setUpdatedAt(shortRestaurantDto.getUpdatedAt());
+        restaurant.setTitle(newRestaurantDto.getTitle());
+        restaurant.setCreatedAt(newRestaurantDto.getCreatedAt());
+        restaurant.setUpdatedAt(newRestaurantDto.getUpdatedAt());
         return restaurant;
     }
 }
