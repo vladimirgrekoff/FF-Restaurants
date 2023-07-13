@@ -1,5 +1,6 @@
 package ru.findFood.rest.services;
 
+import jakarta.xml.bind.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.findFood.rest.converters.RestaurantInfoConverter;
@@ -42,8 +43,12 @@ public class RestaurantInfoService {
 //        return restaurantInfoRepository.findByRestaurantId(id).orElseThrow(()-> new ResourceNotFoundException("Информация о ресторане с таким ID - " + id + " не найдена")));
     }
 
-    public void createNewRestaurantInfo(RestaurantInfo restaurantInfo){
-        restaurantInfoRepository.save(restaurantInfo);
+    public void createNewRestaurantInfo(RestaurantInfo restaurantInfo) {
+            if(restaurantInfo.getRestaurant() != null) {
+            restaurantInfoRepository.save(restaurantInfo);
+            } else {
+                throw new ResourceNotFoundException("ID ресторана не указан");
+            }
     }
 
     public void updateRestaurantInfo(RestaurantInfo restaurantInfo) {

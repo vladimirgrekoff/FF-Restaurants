@@ -14,6 +14,7 @@ import ru.findFood.rest.converters.RestaurantInfoConverter;
 import ru.findFood.rest.dtos.RestaurantInfoDto;
 import ru.findFood.rest.entities.RestaurantInfo;
 import ru.findFood.rest.services.RestaurantInfoService;
+import ru.findFood.rest.services.RestaurantService;
 import ru.findFood.rest.validators.RestaurantInfoValidator;
 
 import java.util.ArrayList;
@@ -27,8 +28,6 @@ public class RestaurantInfoController {
     private final RestaurantInfoService restaurantInfoService;
     private final RestaurantInfoValidator restaurantInfoValidator;
     private final RestaurantInfoConverter restaurantInfoConverter;
-
-
 
 
     @Operation(
@@ -98,7 +97,11 @@ public class RestaurantInfoController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createNewRestaurantInfo(@RequestBody RestaurantInfoDto restaurantInfoDto) {
         restaurantInfoValidator.validate(restaurantInfoDto);
-        restaurantInfoService.createNewRestaurantInfo(restaurantInfoConverter.dtoToEntity(restaurantInfoDto));
+        RestaurantInfo newRestaurantInfo = restaurantInfoConverter.dtoToEntity(restaurantInfoDto);
+        RestaurantInfo restaurantInfo = restaurantInfoService.findByRestaurantId(restaurantInfoDto.getRestaurantId());
+        newRestaurantInfo.setId(restaurantInfo.getId());
+        restaurantInfo = newRestaurantInfo;
+        restaurantInfoService.updateRestaurantInfo(restaurantInfo);
     }
 
     @Operation(
