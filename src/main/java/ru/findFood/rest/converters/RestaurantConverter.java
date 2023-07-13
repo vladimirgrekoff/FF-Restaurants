@@ -12,6 +12,7 @@ import ru.findFood.rest.services.RestaurantService;
 @RequiredArgsConstructor
 public class RestaurantConverter {
     private final RestaurantService restaurantService;
+    private final ListDishConverter listDishConverter;
     private final RestaurantInfoService restaurantInfoService;
 
     public Restaurant dtoToEntity (RestaurantDto restaurantDto){
@@ -29,6 +30,7 @@ public class RestaurantConverter {
         restaurantDto.setId(restaurant.getId());
         restaurantDto.setTitle(restaurant.getTitle());
         restaurantDto.setRestaurant_info_id(restaurant.getRestaurantInfo().getId());
+        restaurantDto.setDishesList(listDishConverter.entityToDto(restaurant.getDishes()));
         restaurantDto.setCreatedAt(restaurant.getCreatedAt());
         restaurantDto.setUpdatedAt(restaurant.getUpdatedAt());
         return restaurantDto;

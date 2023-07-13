@@ -14,6 +14,7 @@ import ru.findFood.rest.converters.RestaurantInfoConverter;
 import ru.findFood.rest.dtos.RestaurantInfoDto;
 import ru.findFood.rest.entities.RestaurantInfo;
 import ru.findFood.rest.services.RestaurantInfoService;
+import ru.findFood.rest.services.RestaurantService;
 import ru.findFood.rest.validators.RestaurantInfoValidator;
 
 import java.util.ArrayList;
@@ -27,8 +28,6 @@ public class RestaurantInfoController {
     private final RestaurantInfoService restaurantInfoService;
     private final RestaurantInfoValidator restaurantInfoValidator;
     private final RestaurantInfoConverter restaurantInfoConverter;
-
-
 
 
     @Operation(
@@ -86,7 +85,9 @@ public class RestaurantInfoController {
         return restaurantInfoConverter.entityToDto(restaurantInfoService.findByRestaurantId(id));
     }
 
+
     @Operation(
+
             summary = "Запрос на изменение информации о ресторане",
             responses = {
                     @ApiResponse(

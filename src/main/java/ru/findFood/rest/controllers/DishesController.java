@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.findFood.rest.converters.DishConverter;
-import ru.findFood.rest.converters.GroupDishConverter;
 import ru.findFood.rest.dtos.DishDto;
 import ru.findFood.rest.entities.Dish;
 import ru.findFood.rest.services.DishesService;
@@ -125,7 +124,7 @@ public class DishesController {
     @ResponseStatus(HttpStatus.OK)
     public void updateDish(@RequestBody DishDto dishDto) {
         dishValidator.validate(dishDto);
-        dishesService.update(dishConverter.dtoToEntity(dishDto));
+        dishesService.updateDish(dishConverter.dtoToEntity(dishDto));
     }
 
     @Operation(
@@ -139,6 +138,6 @@ public class DishesController {
 
     @DeleteMapping("/{id}")
     public void deleteDishById(@PathVariable @Parameter(description = "Идентификатор блюда", required = true) Long id) {
-        dishesService.deleteById(id);
+        dishesService.deleteDishById(id);
     }
 }

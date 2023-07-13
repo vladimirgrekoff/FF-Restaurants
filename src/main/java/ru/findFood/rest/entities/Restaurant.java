@@ -28,8 +28,8 @@ public class Restaurant {
     @JoinColumn(name = "restaurant_info_id")
     private RestaurantInfo restaurantInfo;
 
-//    @OneToMany(mappedBy = "restaurant")
-//    private List<Dish> dishes;
+    @OneToMany(mappedBy = "restaurant")
+    private List<Dish> dishes;
 
     @Column(name = "created_at")
     @CreationTimestamp

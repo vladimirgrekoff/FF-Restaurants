@@ -23,8 +23,8 @@ public class RestaurantDto {
     @Schema(description = "Информация о ресторане",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Информация о ресторане Стейкхаус: описание, контакты, часы работы")
     private Long restaurant_info_id;
 
-//    @Schema(description = "Блюда ресторана",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Список блюд ресторана")
-//    private List<DishDto> dishesList;
+    @Schema(description = "Блюда ресторана",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Список блюд ресторана")
+    private List<DishDto> dishesList;
 
 
     @Schema(description = "Дата добавления",  requiredMode = Schema.RequiredMode.AUTO)

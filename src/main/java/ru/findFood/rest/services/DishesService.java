@@ -48,7 +48,7 @@ public class DishesService {
 
 
     @Transactional
-    public void update(Dish dish) {
+    public void updateDish(Dish dish) {
         if (dish.getId() != null || dish.getId() != 0) {
             Dish dishFound = dishesRepository.findById(dish.getId())
                     .orElseThrow(() -> new ResourceNotFoundException("Блюдо с id: " + dish.getId() + " не найдено"));
@@ -61,7 +61,7 @@ public class DishesService {
         }
     }
 
-    public void deleteById(Long id) {
+    public void deleteDishById(Long id) {
         dishesRepository.deleteById(id);
     }
 }
