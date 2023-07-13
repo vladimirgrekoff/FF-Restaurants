@@ -17,6 +17,7 @@ import java.util.Optional;
 public class RestaurantService {
     private final RestaurantRepository restaurantRepository;
     private final RestaurantInfoService restaurantInfoService;
+    private final DishesService dishesService;
 
 
     public List<Restaurant> findAll(){
@@ -26,7 +27,9 @@ public class RestaurantService {
     public Restaurant findById(Long id){
         Optional<Restaurant> restaurant = restaurantRepository.findById(id);
         if(restaurant.isPresent()){
-            return restaurant.get();
+            Restaurant restaurantFound = restaurant.get();
+            restaurantFound.setDishes(dishesService.findAllByRestaurantId(restaurantFound.getId()));
+            return restaurantFound;
         } else {
             throw new ResourceNotFoundException("Ресторан с ID "+ id + " не найден");
         }

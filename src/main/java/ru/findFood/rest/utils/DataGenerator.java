@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.Random;
 
 //Запускаем этот класс, когда нужно заполнить базу сгенерированными данными. Убираем комментарий с @Component
-//@Component
+@Component
 public class DataGenerator {
 
     @Autowired
