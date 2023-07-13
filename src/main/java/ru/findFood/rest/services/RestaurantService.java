@@ -3,16 +3,12 @@ package ru.findFood.rest.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.findFood.rest.converters.RestaurantConverter;
-import ru.findFood.rest.dtos.RestaurantDto;
-import ru.findFood.rest.entities.Dish;
 import ru.findFood.rest.entities.Restaurant;
 import ru.findFood.rest.entities.RestaurantInfo;
 import ru.findFood.rest.exceptions.ResourceAlreadyInUseException;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.repositories.RestaurantRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

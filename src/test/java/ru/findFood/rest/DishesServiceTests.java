@@ -121,18 +121,18 @@ public class DishesServiceTests {
     }
 
     @Test
-    public void updateTest() {
+    public void updateDishTest() {
         Dish dish = new Dish("Помидор", 19, 0, 0, 5, LocalDateTime.now());
         this.dishesService.createNewDish(dish);
         dish.setDescription("Сливовидные томаты");
         dish.setTitle("Томаты");
-        this.dishesService.update(dish);
+        this.dishesService.updateDish(dish);
         assertEquals("Сливовидные томаты", this.dishesService.findById(1L).getDescription());
         assertEquals("Томаты", this.dishesService.findById(1L).getTitle());
     }
 
     @Test
-    public void deleteByIdTest(){
+    public void deleteDishByIdTest(){
         Dish dish = new Dish("Помидор", 19, 0, 0, 5, LocalDateTime.now());
         this.dishesService.createNewDish(dish);
         Dish dish1 = new Dish("Картофельное пюре", 75, 1, 1, 15, LocalDateTime.now());
@@ -142,7 +142,7 @@ public class DishesServiceTests {
         Dish dish3 = new Dish("Рыба", 160, 12, 10, 0, LocalDateTime.now());
         this.dishesService.createNewDish(dish3);
 
-        this.dishesService.deleteById(2L);
+        this.dishesService.deleteDishById(2L);
         List<Dish> correctDishesWithDish1Deleted = new ArrayList<>();
         correctDishesWithDish1Deleted.add(dish);
         correctDishesWithDish1Deleted.add(dish2);
