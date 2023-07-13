@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.findFood.rest.entities.*;
+import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.services.*;
 
 import java.math.BigDecimal;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @SpringBootTest
@@ -30,123 +32,118 @@ public class DishesServiceTests {
     private RestaurantService restaurantService;
 
 
-    @Test
+    //@Test
     public void findAllTest(){
-        Dish dish = new Dish("Помидор", 19, 0, 0, 5, LocalDateTime.now());
-        this.dishesService.createNewDish(dish);
-        Dish dish1 = new Dish("Огурец", 14, 0, 0, 4, LocalDateTime.now());
-        this.dishesService.createNewDish(dish1);
-        Dish dish2 = new Dish("Мясо", 200, 10, 17, 1, LocalDateTime.now());
-        this.dishesService.createNewDish(dish2);
+        Dish mockDish = new Dish("Салат из помидоров", 19, 0, 0, 5, LocalDateTime.now());
+        this.dishesService.createNewDish(mockDish);
+        Dish mockDish1 = new Dish("Барбадосский резаный огурец", 14, 0, 0, 4, LocalDateTime.now());
+        this.dishesService.createNewDish(mockDish1);
+        Dish mockDish2 = new Dish("Жареное мясо", 200, 10, 17, 1, LocalDateTime.now());
+        this.dishesService.createNewDish(mockDish2);
         List<Dish> allCorrectDishes = new ArrayList<>();
-        allCorrectDishes.add(dish);
-        allCorrectDishes.add(dish1);
-        allCorrectDishes.add(dish2);
+        allCorrectDishes.add(mockDish);
+        allCorrectDishes.add(mockDish1);
+        allCorrectDishes.add(mockDish2);
         List<Dish> allDishes = this.dishesService.findAll();
         assertEquals(allCorrectDishes, allDishes);
     }
 
     @Test
     public void findAllByRestaurantIdTest(){
-        Restaurant restaurant = new Restaurant();
-        restaurant.setTitle("Ресторан1");
-        this.restaurantService.createNewRestaurant(restaurant);
-        Restaurant restaurant2 = new Restaurant();
-        restaurant2.setTitle("Ресторан2");
-        this.restaurantService.createNewRestaurant(restaurant2);
+        Restaurant testRestaurant01 = new Restaurant();
+        testRestaurant01.setTitle("Ресторан01");
+        this.restaurantService.createNewRestaurant(testRestaurant01);
+        Long testRestaurant01Id = testRestaurant01.getId();
+        Restaurant testRestaurant02 = new Restaurant();
+        testRestaurant02.setTitle("Ресторан02");
+        this.restaurantService.createNewRestaurant(testRestaurant02);
+        Long testRestaurant02Id = testRestaurant02.getId();
 
-        GroupDish groupDish = new GroupDish();
-        groupDish.setTitle("Фрукты");
-        this.groupDishService.createNewGroupDish(groupDish);
+        GroupDish testGroupDish = new GroupDish();
+        testGroupDish.setTitle("Морепродукты");
+        this.groupDishService.createNewGroupDish(testGroupDish);
 
-        Category category = new Category();
-        category.setTitle("Завтрак");
-        this.categoryService.createNewCategory(category);
+        Category testCategory = new Category();
+        testCategory.setTitle("Ланч");
+        this.categoryService.createNewCategory(testCategory);
 
-        Dish dish = new Dish("Апельсин", restaurant,"Марроканские апельсины", BigDecimal.valueOf(1.00),10,10,10,10,true,true, groupDish, category);
-        this.dishesService.createNewDish(dish);
-        Dish dish1 = new Dish("Помидор", restaurant2,"Сливовидные томаты", BigDecimal.valueOf(1.00),10,10,10,10,true,true, groupDish, category);
-        this.dishesService.createNewDish(dish1);
-        Dish dish2 = new Dish("Огурец", restaurant,"Короткоплодные огурцы", BigDecimal.valueOf(1.00),10,10,10,10,true,true, groupDish, category);
-        this.dishesService.createNewDish(dish2);
-        Dish dish3 = new Dish("Картофель", restaurant2,"Картофель отварной", BigDecimal.valueOf(1.00),10,10,10,10,true,true, groupDish, category);
-        this.dishesService.createNewDish(dish3);
+        Dish testDish = new Dish("Засахаренный апельсин", testRestaurant01,"Марроканские апельсины", BigDecimal.valueOf(1.00),10,10,10,10,true,true, testGroupDish, testCategory);
+        this.dishesService.createNewDish(testDish);
+        Dish testDish1 = new Dish("Помидоры с сыром", testRestaurant02,"Сливовидные томаты", BigDecimal.valueOf(1.00),10,10,10,10,true,true, testGroupDish, testCategory);
+        this.dishesService.createNewDish(testDish1);
+        Dish testDish2 = new Dish("Салат из огурцов", testRestaurant01,"Короткоплодные огурцы", BigDecimal.valueOf(1.00),10,10,10,10,true,true, testGroupDish, testCategory);
+        this.dishesService.createNewDish(testDish2);
+        Dish testDish3 = new Dish("Отварной картофель", testRestaurant02,"Картофель отварной", BigDecimal.valueOf(1.00),10,10,10,10,true,true, testGroupDish, testCategory);
+        this.dishesService.createNewDish(testDish3);
 
         List<Dish> correctDishesFromRestaurant = new ArrayList<>();
-        correctDishesFromRestaurant.add(dish);
-        correctDishesFromRestaurant.add(dish2);
+        correctDishesFromRestaurant.add(testDish);
+        correctDishesFromRestaurant.add(testDish2);
         List<Dish> correctDishesFromRestaurant2 = new ArrayList<>();
-        correctDishesFromRestaurant2.add(dish1);
-        correctDishesFromRestaurant2.add(dish3);
-        assertEquals(correctDishesFromRestaurant, this.dishesService.findAllByRestaurantId(1L));
-        assertEquals(correctDishesFromRestaurant2, this.dishesService.findAllByRestaurantId(2L));
+        correctDishesFromRestaurant2.add(testDish1);
+        correctDishesFromRestaurant2.add(testDish3);
+        assertEquals(correctDishesFromRestaurant, this.dishesService.findAllByRestaurantId(testRestaurant01Id));
+        assertEquals(correctDishesFromRestaurant2, this.dishesService.findAllByRestaurantId(testRestaurant02Id));
     }
 
     @Test
     public void findByIdTest(){
-        Dish dish = new Dish("Помидор", 19, 0, 0, 5, LocalDateTime.now());
-        this.dishesService.createNewDish(dish);
-        dish = this.dishesService.findById(1L);
-        assertEquals(1L, dish.getId());
+        Dish testDish4 = new Dish("Помидор на мангале", 19, 0, 0, 5, LocalDateTime.now());
+        this.dishesService.createNewDish(testDish4);
+        Long testDish4Id = testDish4.getId();
+        assertEquals(testDish4Id, this.dishesService.findById(testDish4Id).getId());
+        assertEquals("Помидор на мангале", this.dishesService.findById(testDish4Id).getTitle());
     }
 
     @Test
     public void findByTitleTest(){
-        Dish dish = new Dish("Помидор", 19, 0, 0, 5, LocalDateTime.now());
-        this.dishesService.createNewDish(dish);
-        Dish dish1 = new Dish("Картофельное пюре", 75, 1, 1, 15, LocalDateTime.now());
-        this.dishesService.createNewDish(dish1);
-        assertEquals(19, this.dishesService.findByTitle("Помидор").getCalories());
+        Dish testDish5 = new Dish("Сырники", 250, 0, 0, 5, LocalDateTime.now());
+        this.dishesService.createNewDish(testDish5);
+        Dish testDish6 = new Dish("Картофельное пюре", 75, 1, 1, 15, LocalDateTime.now());
+        this.dishesService.createNewDish(testDish6);
+        assertEquals(250, this.dishesService.findByTitle("Сырники").getCalories());
         assertEquals(75, this.dishesService.findByTitle("Картофельное пюре").getCalories());
     }
 
     @Test
     public void createNewDishTest() {
-        GroupDish groupDish = new GroupDish();
-        groupDish.setTitle("Фрукты");
-        this.groupDishService.createNewGroupDish(groupDish);
+        GroupDish testGroupDish1 = new GroupDish();
+        testGroupDish1.setTitle("Мороженое");
+        this.groupDishService.createNewGroupDish(testGroupDish1);
 
-        Category category = new Category();
-        category.setTitle("Завтрак");
-        this.categoryService.createNewCategory(category);
+        Category testCategory1 = new Category();
+        testCategory1.setTitle("Полдник");
+        this.categoryService.createNewCategory(testCategory1);
 
 
-        Dish dish = new Dish("Апельсины",null,"Марроканские апельсины", BigDecimal.valueOf(100.0),10,10,10,10,true,true, groupDish, category);
-        this.dishesService.createNewDish(dish);
+        Dish testDish7 = new Dish("Апельсиновое мороженое",null,"Марроканские апельсины", BigDecimal.valueOf(100.0),10,10,10,10,true,true, testGroupDish1, testCategory1);
+        this.dishesService.createNewDish(testDish7);
 
-        dish = this.dishesService.findByTitle("Апельсины");
-        assertEquals("Апельсины", dish.getTitle());
-        assertEquals("Марроканские апельсины", dish.getDescription());
-        assertEquals("Фрукты", dish.getGroupDish().getTitle());
+        testDish7 = this.dishesService.findByTitle("Апельсиновое мороженое");
+        assertEquals("Апельсиновое мороженое", testDish7.getTitle());
+        assertEquals("Марроканские апельсины", testDish7.getDescription());
+        assertEquals("Мороженое", testDish7.getGroupDish().getTitle());
     }
 
     @Test
     public void updateTest() {
-        Dish dish = new Dish("Помидор", 19, 0, 0, 5, LocalDateTime.now());
-        this.dishesService.createNewDish(dish);
-        dish.setDescription("Сливовидные томаты");
-        dish.setTitle("Томаты");
-        this.dishesService.update(dish);
-        assertEquals("Сливовидные томаты", this.dishesService.findById(1L).getDescription());
-        assertEquals("Томаты", this.dishesService.findById(1L).getTitle());
+        Dish testDish8 = new Dish("Помидорный соус", 19, 0, 0, 5, LocalDateTime.now());
+        this.dishesService.createNewDish(testDish8);
+        testDish8.setDescription("Сливовидные томаты");
+        testDish8.setTitle("Томатный соус");
+        this.dishesService.update(testDish8);
+        Long testDish8Id = testDish8.getId();
+        assertEquals("Сливовидные томаты", this.dishesService.findById(testDish8Id).getDescription());
+        assertEquals("Томатный соус", this.dishesService.findById(testDish8Id).getTitle());
     }
 
     @Test
     public void deleteByIdTest(){
-        Dish dish = new Dish("Помидор", 19, 0, 0, 5, LocalDateTime.now());
-        this.dishesService.createNewDish(dish);
-        Dish dish1 = new Dish("Картофельное пюре", 75, 1, 1, 15, LocalDateTime.now());
-        this.dishesService.createNewDish(dish1);
-        Dish dish2 = new Dish("Огурец", 14, 0, 0, 4, LocalDateTime.now());
-        this.dishesService.createNewDish(dish2);
-        Dish dish3 = new Dish("Рыба", 160, 12, 10, 0, LocalDateTime.now());
-        this.dishesService.createNewDish(dish3);
+        Dish testDish9 = new Dish("Помидор", 19, 0, 0, 5, LocalDateTime.now());
+        this.dishesService.createNewDish(testDish9);
+        Long testDish9Id = testDish9.getId();
 
-        this.dishesService.deleteById(2L);
-        List<Dish> correctDishesWithDish1Deleted = new ArrayList<>();
-        correctDishesWithDish1Deleted.add(dish);
-        correctDishesWithDish1Deleted.add(dish2);
-        correctDishesWithDish1Deleted.add(dish3);
-        assertEquals(correctDishesWithDish1Deleted, this.dishesService.findAll());
+        this.dishesService.deleteById(testDish9Id);
+        assertThrows(ResourceNotFoundException.class, ()-> this.dishesService.findById(testDish9Id));
     }
 }

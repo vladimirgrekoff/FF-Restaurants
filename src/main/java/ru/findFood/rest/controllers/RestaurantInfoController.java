@@ -87,21 +87,6 @@ public class RestaurantInfoController {
     }
 
     @Operation(
-            summary = "Запрос на создание новой информации о ресторане",
-            responses = {
-                    @ApiResponse(
-                            description = "Информация о ресторане успешно создана", responseCode = "201"
-                    )
-            }
-    )
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void createNewRestaurantInfo(@RequestBody RestaurantInfoDto restaurantInfoDto) {
-        restaurantInfoValidator.validate(restaurantInfoDto);
-        restaurantInfoService.createNewRestaurantInfo(restaurantInfoConverter.dtoToEntity(restaurantInfoDto));
-    }
-
-    @Operation(
             summary = "Запрос на изменение информации о ресторане",
             responses = {
                     @ApiResponse(
@@ -115,19 +100,4 @@ public class RestaurantInfoController {
         restaurantInfoValidator.validate(restaurantInfoDto);
         restaurantInfoService.updateRestaurantInfo(restaurantInfoConverter.dtoToEntity(restaurantInfoDto));
     }
-
-    @Operation(
-            summary = "Запрос на удаление информации о ресторане по ее id",
-            responses = {
-                    @ApiResponse(
-                            description = "Успешный ответ", responseCode = "200"
-                    )
-            }
-    )
-
-    @DeleteMapping("/{id}")
-    public void deleteRestaurantInfoById(@PathVariable @Parameter(description = "Идентификатор информации о ресторане", required = true) Long id) {
-        restaurantInfoService.deleteRestaurantInfoById(id);
-    }
-
 }

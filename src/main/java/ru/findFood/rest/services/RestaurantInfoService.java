@@ -3,13 +3,10 @@ package ru.findFood.rest.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.findFood.rest.converters.RestaurantInfoConverter;
-import ru.findFood.rest.dtos.RestaurantInfoDto;
-import ru.findFood.rest.entities.Restaurant;
 import ru.findFood.rest.entities.RestaurantInfo;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.repositories.RestaurantInfoRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,9 +52,5 @@ public class RestaurantInfoService {
         } else {
             throw new ResourceNotFoundException("Информация о ресторане с ID " +restaurantInfo.getId()+ " не найдена");
         }
-    }
-
-    public void deleteRestaurantInfoById(Long id) {
-        restaurantInfoRepository.deleteById(id);
     }
 }
