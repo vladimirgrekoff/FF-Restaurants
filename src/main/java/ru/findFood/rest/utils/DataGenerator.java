@@ -3,8 +3,6 @@ package ru.findFood.rest.utils;
 import com.github.javafaker.Faker;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import ru.findFood.rest.entities.*;
@@ -14,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Random;
 
+//Запускаем этот класс, когда нужно заполнить базу сгенерированными данными. Убираем комментарий с @Component
 //@Component
 public class DataGenerator {
 
@@ -29,7 +28,7 @@ public class DataGenerator {
     @Autowired
     private RestaurantInfoRepository restaurantInfoRepository;
 
-    //Запускаем этот класс, когда нужно заполнить базу сгенерированными данными.
+
     @Transactional
     @PostConstruct
     public void generateData() {
@@ -92,7 +91,6 @@ public class DataGenerator {
         groupDishRepository.save(vegetables);
 
         //Заполняем базу блюд. Меняем число итераций на нужное в базе количество строк
-
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
             Dish dish = new Dish(faker.food().dish(), (int) faker.number().randomNumber(3, false), (int) faker.number().randomNumber(1, false), (int) faker.number().randomNumber(2, false), (int) faker.number().randomNumber(2, false), LocalDateTime.now());

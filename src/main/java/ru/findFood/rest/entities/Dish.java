@@ -7,12 +7,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 
 @Entity
 @Table(name = "dishes")
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 public class Dish {
 
     @Id
@@ -95,5 +97,18 @@ public class Dish {
         this.approved = approved;
         this.groupDish = groupDish;
         this.category = category;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dish dish = (Dish) o;
+        return Objects.equals(id, dish.id) && title.equals(dish.title) && Objects.equals(restaurant, dish.restaurant) && Objects.equals(calories, dish.calories) && Objects.equals(proteins, dish.proteins) && Objects.equals(fats, dish.fats) && Objects.equals(carbohydrates, dish.carbohydrates);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, restaurant, calories, proteins, fats, carbohydrates);
     }
 }
