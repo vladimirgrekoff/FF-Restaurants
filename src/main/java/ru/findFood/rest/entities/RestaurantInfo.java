@@ -50,6 +50,7 @@ public class RestaurantInfo {
     private LocalDateTime updatedAt;
 
 
+
     //полный конструктор без апдейта и id
     public RestaurantInfo(Restaurant restaurant, String description, String cuisines, String address, String phoneNumber, String email, String openHours, LocalDateTime createdAt) {
         this.restaurant = restaurant;
@@ -61,5 +62,10 @@ public class RestaurantInfo {
         this.email = email;
         this.openHours = openHours;
         this.createdAt = createdAt;
+    }
+
+    public RestaurantInfo(Restaurant restaurant, String description) {
+        this.restaurant = restaurant;
+        this.description = description;
     }
 }
