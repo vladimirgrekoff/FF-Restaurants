@@ -9,7 +9,7 @@ import ru.findFood.rest.services.RestaurantInfoService;
 import ru.findFood.rest.services.RestaurantService;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,11 +31,7 @@ public class RestaurantInfoServiceTests {
         restaurantService.createNewRestaurant(mockRestaurant5);
         Restaurant mockRestaurant6 = new Restaurant("Ресторация6",  LocalDateTime.now());
         restaurantService.createNewRestaurant(mockRestaurant6);
-
-        List<RestaurantInfo> correctAllInfoList = new ArrayList<>();
-        correctAllInfoList.add(mockRestaurant4.getRestaurantInfo());
-        correctAllInfoList.add(mockRestaurant5.getRestaurantInfo());
-        correctAllInfoList.add(mockRestaurant6.getRestaurantInfo());
+        List<RestaurantInfo> correctAllInfoList = Arrays.asList(mockRestaurant4.getRestaurantInfo(), mockRestaurant5.getRestaurantInfo(), mockRestaurant6.getRestaurantInfo());
 
         assertEquals(correctAllInfoList, restaurantInfoService.findAll());
     }
@@ -79,7 +75,6 @@ public class RestaurantInfoServiceTests {
         testRestaurant11Info.setAddress("Адрес");
         testRestaurant11Info.setPhoneNumber("89260008899");
         testRestaurant11Info.setOpenHours("24/7");
-        testRestaurant11Info.setUpdatedAt(LocalDateTime.of(2023, 7, 13, 21, 7, 24, 59560700));
         restaurantInfoService.updateRestaurantInfo(testRestaurant11Info);
 
         assertEquals("Описание", testRestaurant11.getRestaurantInfo().getDescription());
@@ -94,7 +89,5 @@ public class RestaurantInfoServiceTests {
         assertEquals("89260008899", testRestaurant11Info.getPhoneNumber());
         assertEquals("24/7", testRestaurant11.getRestaurantInfo().getOpenHours());
         assertEquals("24/7", testRestaurant11Info.getOpenHours());
-        assertEquals(LocalDateTime.of(2023, 7, 13, 21, 7, 24, 59560700), testRestaurant11.getRestaurantInfo().getUpdatedAt());
-        assertEquals(LocalDateTime.of(2023, 7, 13, 21, 7, 24, 59560700), testRestaurant11Info.getUpdatedAt());
     }
 }

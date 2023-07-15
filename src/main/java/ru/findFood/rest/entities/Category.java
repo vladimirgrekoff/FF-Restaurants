@@ -25,9 +25,8 @@ public class Category {
     @Column(name = "title", nullable = false)
     private String title;
 
-   // @OneToMany(mappedBy = "category")
-    //@JoinColumn(name = "dish_id")
-    //private List<Dish> dishes;
+    @OneToMany(mappedBy = "category")
+    private List<Dish> dishes;
 
     @Column(name = "created_at")
     @CreationTimestamp

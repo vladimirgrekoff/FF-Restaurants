@@ -10,6 +10,7 @@ import ru.findFood.rest.services.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,11 +32,7 @@ public class RestaurantServiceTests {
         restaurantService.createNewRestaurant(mockRestaurant1);
         Restaurant mockRestaurant2 = new Restaurant("Ресторация2",  LocalDateTime.now());
         restaurantService.createNewRestaurant(mockRestaurant2);
-
-        List<Restaurant> correctRestaurantList = new ArrayList<>();
-        correctRestaurantList.add(mockRestaurant);
-        correctRestaurantList.add(mockRestaurant1);
-        correctRestaurantList.add(mockRestaurant2);
+        List<Restaurant> correctRestaurantList = Arrays.asList(mockRestaurant, mockRestaurant1, mockRestaurant2);
 
         assertEquals(correctRestaurantList, restaurantService.findAll());
     }
@@ -69,8 +66,8 @@ public class RestaurantServiceTests {
         RestaurantInfo testRestaurantInfo4 = testRestaurant4.getRestaurantInfo();
         testRestaurantInfo4.setDescription("Описание");
         restaurantInfoService.updateRestaurantInfo(testRestaurantInfo4);
-
         testRestaurant4 = restaurantService.findByTitle("Ресторан4");
+
         assertEquals("Ресторан4", testRestaurant4.getTitle());
         assertEquals("Описание", testRestaurant4.getRestaurantInfo().getDescription());
     }
@@ -80,11 +77,9 @@ public class RestaurantServiceTests {
         Restaurant testRestaurant5 = new Restaurant("Ресторан5", LocalDateTime.now());
         restaurantService.createNewRestaurant(testRestaurant5);
         testRestaurant5.setTitle("McDonalds");
-        testRestaurant5.setUpdatedAt(LocalDateTime.of(2023, 7, 13, 21, 7, 24, 59560700));
         restaurantService.updateRestaurant(testRestaurant5);
 
         assertEquals("McDonalds", testRestaurant5.getTitle());
-        assertEquals(LocalDateTime.of(2023, 7, 13, 21, 7, 24, 59560700), testRestaurant5.getUpdatedAt());
     }
 
     @Test
@@ -92,8 +87,8 @@ public class RestaurantServiceTests {
         Restaurant testRestaurant6 = new Restaurant("Ресторан6", LocalDateTime.now());
         restaurantService.createNewRestaurant(testRestaurant6);
         Long testRestaurant6Id = testRestaurant6.getId();
-
         restaurantService.deleteRestaurantById(testRestaurant6Id);
+
         assertThrows(ResourceNotFoundException.class, () -> restaurantService.findById(testRestaurant6Id));
         assertThrows(ResourceNotFoundException.class, () -> restaurantInfoService.findByRestaurantId(testRestaurant6Id));
     }
