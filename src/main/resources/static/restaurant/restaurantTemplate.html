@@ -1,0 +1,89 @@
+<div>
+    <p>&nbsp;</p>
+    <h3 align="center">Страница ресторана {{showCurrentRestaurantTitle()}}</h3>
+
+    <p>&nbsp;</p>
+    <div align="center"  ng-show="!showDishes">
+        <h4 align="center">Блюда ресторана</h4>
+    <p>&nbsp;</p>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Название</td>
+            <td>Описание</td>
+            <td>Группа блюд</td>
+            <td>Калории</td>
+            <td>Жиры</td>
+            <td>Белки</td>
+            <td>Углеводы</td>
+            <td>Стоимость</td>
+            <td>Здоровое питание</td>
+            <td>Одобрено диетологом</td>
+            <td>Добавлено в список</td>
+            <td>Изменено</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="d in showRestaurantDishes()">
+            <td>{{d.id}}</td>
+            <td>{{d.title}}</td>
+            <td>{{d.description}}</td>
+            <td>{{d.group_dish_title}}</td>
+            <td>{{d.calories}}</td>
+            <td>{{d.fats}}</td>
+            <td>{{d.proteins}}</td>
+            <td>{{d.carbohydrates}}</td>
+            <td>{{d.price}}</td>
+            <td>{{d.healthy}}</td>
+            <td>{{d.approved}}</td>
+            <td>{{d.createdAt}}</td>
+            <td>{{d.updatedAt}}</td>
+        </tbody>
+    </table>
+    </div>
+    <div align="center"  ng-show="!showInfo">
+        <h4 align="center">Информация ресторана</h4>
+        <p>&nbsp;</p>
+        <table class="table table-hover" ng-model="restaurantInfo">
+            <thead>
+            <tr>
+                <td><b>Поля профиля</b></td><td><b>Значение</b></td>
+            </tr>
+            <thead>
+            <tr>
+                <td>ID информации о ресторане</td><td>{{restaurantInfo.id}}</td>
+            </tr>
+            <tr>
+                <td>ID ресторана</td><td>{{restaurantInfo.restaurantId}}</td>
+            </tr>
+            <tr>
+                <td>Описание</td><td>{{restaurantInfo.description}}</td>
+            </tr>
+            <tr>
+                <td>Кухни</td><td>{{restaurantInfo.cuisines}}</td>
+            </tr>
+            <tr>
+                <td>Адрес</td><td>{{restaurantInfo.address}}</td>
+            </tr>
+            <tr>
+                <td>Номер телефона</td><td>{{restaurantInfo.phoneNumber}}</td>
+            </tr>
+            <tr>
+                <td>E-mail</td><td>{{restaurantInfo.email}}</td>
+            </tr>
+            <tr>
+                <td>Часы работы</td><td>{{restaurantInfo.openHours}}</td>
+            </tr>
+            <tr>
+                <td>Добавлено в список</td><td>{{restaurantInfo.createdAt}}</td>
+            </tr>
+            <tr>
+                <td>Изменено</td><td>{{restaurantInfo.updatedAt}}</td>
+            </tr>
+            </thead>
+            <tbody>
+        </table>
+    </div>
+</div>

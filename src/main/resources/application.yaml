@@ -1,0 +1,27 @@
+server:
+  port: 8189
+  servlet:
+    context-path: /ff-restaurants
+spring:
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/findfood
+    username: postgres
+    password: Normandia1$
+
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format-sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        ddl-auto: none
+        temp:
+          use_jdbc_metadata_defaults: false
+
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: false
