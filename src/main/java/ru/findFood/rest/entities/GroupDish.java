@@ -21,9 +21,9 @@ public class GroupDish {
     @Column(name = "title")
     private String title;
 
-  //  @OneToMany(mappedBy = "groupDish")
-  //  @Column(name = "groupDish")
-   // private List<Dish> dishes;
+    @OneToMany(mappedBy = "groupDish")
+    private List<Dish> dishes;
+
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -31,15 +31,6 @@ public class GroupDish {
     @Column(name = "updated_at")
     @UpdateTimestamp
     private LocalDateTime updatedAt;
-
-
-//    public List<Dish> getDishes() {
-//        return dishes;
-//    }
-//
-//    public void setDishes(List<Dish> dishes) {
-//        this.dishes = dishes;
-//    }
 
     public GroupDish(String title, LocalDateTime createdAt) {
         this.title = title;

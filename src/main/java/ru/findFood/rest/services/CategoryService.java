@@ -23,6 +23,7 @@ public class CategoryService {
     public List<Category> findAll(){
         return categoryRepository.findAll();
     }
+
     public Category findById(Long id){
         Optional<Category> category = categoryRepository.findById(id);
         if(category.isPresent()){
