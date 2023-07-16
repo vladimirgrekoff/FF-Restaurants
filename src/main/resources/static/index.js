@@ -30,6 +30,15 @@
 })();
 
 angular.module('findFood').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage) {
+
+    $rootScope.isCurrentPageRestaurants = function () {
+        if ($rootScope.currentPage == 'restaurants') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     $rootScope.isCurrentPageRestaurant = function () {
         if ($rootScope.currentPage == 'restaurant') {
             return true;
@@ -37,7 +46,6 @@ angular.module('findFood').controller('indexController', function ($rootScope, $
             return false;
         }
     };
-
 
 
 });

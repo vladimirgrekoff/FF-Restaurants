@@ -1,88 +1,87 @@
-<div>
+<div ng-controller="restaurantController">
     <p>&nbsp;</p>
     <h3 align="center">Страница ресторана {{showCurrentRestaurantTitle()}}</h3>
 
     <p>&nbsp;</p>
-    <div align="center"  ng-show="!showDishes">
+    <div class="container-fluid" align="center"  ng-show="!showDishes">
         <h4 align="center">Блюда ресторана</h4>
-    <p>&nbsp;</p>
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <td>ID</td>
-            <td>Название</td>
-            <td>Описание</td>
-            <td>Группа блюд</td>
-            <td>Калории</td>
-            <td>Жиры</td>
-            <td>Белки</td>
-            <td>Углеводы</td>
-            <td>Стоимость</td>
-            <td>Здоровое питание</td>
-            <td>Одобрено диетологом</td>
-            <td>Добавлено в список</td>
-            <td>Изменено</td>
-            <td></td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="d in showRestaurantDishes()">
-            <td>{{d.id}}</td>
-            <td>{{d.title}}</td>
-            <td>{{d.description}}</td>
-            <td>{{d.group_dish_title}}</td>
-            <td>{{d.calories}}</td>
-            <td>{{d.fats}}</td>
-            <td>{{d.proteins}}</td>
-            <td>{{d.carbohydrates}}</td>
-            <td>{{d.price}}</td>
-            <td>{{d.healthy}}</td>
-            <td>{{d.approved}}</td>
-            <td>{{d.createdAt}}</td>
-            <td>{{d.updatedAt}}</td>
-        </tbody>
-    </table>
-    </div>
-    <div align="center"  ng-show="!showInfo">
-        <h4 align="center">Информация ресторана</h4>
         <p>&nbsp;</p>
-        <table class="table table-hover" ng-model="restaurantInfo">
+        <table class="table table-striped" width="80%" cellpadding="0" cellspacing="0" align="center">
             <thead>
             <tr>
-                <td><b>Поля профиля</b></td><td><b>Значение</b></td>
-            </tr>
-            <thead>
-            <tr>
-                <td>ID информации о ресторане</td><td>{{restaurantInfo.id}}</td>
-            </tr>
-            <tr>
-                <td>ID ресторана</td><td>{{restaurantInfo.restaurantId}}</td>
-            </tr>
-            <tr>
-                <td>Описание</td><td>{{restaurantInfo.description}}</td>
-            </tr>
-            <tr>
-                <td>Кухни</td><td>{{restaurantInfo.cuisines}}</td>
-            </tr>
-            <tr>
-                <td>Адрес</td><td>{{restaurantInfo.address}}</td>
-            </tr>
-            <tr>
-                <td>Номер телефона</td><td>{{restaurantInfo.phoneNumber}}</td>
-            </tr>
-            <tr>
-                <td>E-mail</td><td>{{restaurantInfo.email}}</td>
-            </tr>
-            <tr>
-                <td>Часы работы</td><td>{{restaurantInfo.openHours}}</td>
-            </tr>
-            <tr>
-                <td>Добавлено в список</td><td>{{restaurantInfo.createdAt}}</td>
-            </tr>
-            <tr>
-                <td>Изменено</td><td>{{restaurantInfo.updatedAt}}</td>
+                <td><b>ID</b></td>
+                <td><b>Название</b></td>
+                <td><b>Описание</b></td>
+                <td><b>Группа блюд</b></td>
+                <td><b>Калории</b></td>
+                <td><b>Жиры</b></td>
+                <td><b>Белки</b></td>
+                <td><b>Углеводы</b></td>
+                <td><b>Стоимость</b></td>
+                <td><b>Здоровое питание</b></td>
+                <td><b>Одобрено диетологом</b></td>
+                <td><b>Добавлено в список</b></td>
+                <td><b>Изменено</b></td>
             </tr>
             </thead>
+            <tbody>
+            <tr ng-repeat="d in showRestaurantDishes()">
+                <td>{{d.id}}</td>
+                <td>{{d.title}}</td>
+                <td>{{d.description}}</td>
+                <td>{{d.group_dish_title}}</td>
+                <td>{{d.calories}}</td>
+                <td>{{d.fats}}</td>
+                <td>{{d.proteins}}</td>
+                <td>{{d.carbohydrates}}</td>
+                <td>{{d.price}}</td>
+                <td>{{d.healthy}}</td>
+                <td>{{d.approved}}</td>
+                <td>{{d.createdAt}}</td>
+                <td>{{d.updatedAt}}</td>
+            </tbody>
+        </table>
+    </div>
+    <div class="container" align="center"  ng-show="!showInfo">
+        <h4 align="center">Информация ресторана</h4>
+        <p>&nbsp;</p>
+        <table class="table table-striped" width="80%" cellpadding="0" cellspacing="0" align="center" ng-model="restaurantInfo">
+            <thead>
+            <tr>
+                <td width="40%"><b>Поля профиля</b></td><td width="40%"><b>Значение</b></td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td width="40%">ID информации о ресторане</td><td width="40%">{{restaurantInfo.id}}</td>
+            </tr>
+            <tr>
+                <td width="40%">ID ресторана</td><td width="40%">{{restaurantInfo.restaurantId}}</td>
+            </tr>
+            <tr>
+                <td width="40%">Описание</td><td width="40%">{{restaurantInfo.description}}</td>
+            </tr>
+            <tr>
+                <td width="40%">Кухни</td><td width="40%">{{restaurantInfo.cuisines}}</td>
+            </tr>
+            <tr>
+                <td width="40%">Адрес</td><td width="40%">{{restaurantInfo.address}}</td>
+            </tr>
+            <tr>
+                <td width="40%">Номер телефона</td><td width="40%">{{restaurantInfo.phoneNumber}}</td>
+            </tr>
+            <tr>
+                <td width="40%">E-mail</td><td width="40%">{{restaurantInfo.email}}</td>
+            </tr>
+            <tr>
+                <td width="40%">Часы работы</td><td width="40%">{{restaurantInfo.openHours}}</td>
+            </tr>
+            <tr>
+                <td width="40%">Добавлено в список</td><td width="40%">{{restaurantInfo.createdAt}}</td>
+            </tr>
+            <tr>
+                <td width="40%">Изменено</td><td width="40%">{{restaurantInfo.updatedAt}}</td>
+            </tr>
             <tbody>
         </table>
     </div>

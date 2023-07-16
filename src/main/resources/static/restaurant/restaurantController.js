@@ -2,7 +2,7 @@ angular.module('findFood').controller('restaurantController', function ($rootSco
 
     const contextPath = 'http://localhost:8189/ff-restaurants/api/v1/restaurants';
 
-
+    //включение дополнительных пунктов меню для страницы
     $rootScope.currentPage = 'restaurant';
 
     var restaurant;
@@ -21,14 +21,19 @@ angular.module('findFood').controller('restaurantController', function ($rootSco
     $scope.loadRestaurantInfo = function(restaurant){
         var id;
         id = $localStorage.currentRestaurant.id;
-        $http.get('http://localhost:8189/ff-restaurants/api/v1/restaurants/info/restaurant/'+ id)
+        $http.get(contextPath + '/info/restaurant/'+ id)
             .then(function (response) {
                 $scope.restaurantInfo = response.data;
             });
     };
 
+    //обработка выбора пунктов меню
     $scope.showDishes = true;
     $rootScope.showDishesList = function () {
+        if(!$scope.showInfo){
+            //Если откыта информация, закрыть
+            $rootScope.showRestaurantInfo();
+        }
         if($scope.showDishes){
             $scope.showDishes = false;
             return $scope.showDishes;
@@ -40,6 +45,10 @@ angular.module('findFood').controller('restaurantController', function ($rootSco
 
     $scope.showInfo = true;
     $rootScope.showRestaurantInfo = function () {
+        if(!$scope.showDishes){
+            //Если откыт список блюд, закрыть
+            $rootScope.showDishesList();
+        }
         if($scope.showInfo){
             $scope.showInfo = false;
             return $scope.showInfo;

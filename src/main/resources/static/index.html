@@ -36,8 +36,14 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#!/restaurants">Список ресторанов</a>
                 </li>
+                <li class="nav-item" ng-show="isCurrentPageRestaurants()">
+                    <a class="nav-link" href="" ng-click="showAddRestaurantForm()">Добавить ресторан</a>
+                </li>
+                <li class="nav-item" ng-show="isCurrentPageRestaurants()">
+                    <a class="nav-link" href="" ng-click="showDeleteRestaurantButton()">Удалить ресторан</a>
+                </li>
                 <li class="nav-item" ng-show="isCurrentPageRestaurant()">
-                    <a class="nav-link" href="" ng-click="showDishesList();">Список блюд</a>
+                    <a class="nav-link" href="" ng-click="showDishesList()">Список блюд</a>
                 </li>
                 <li class="nav-item" ng-show="isCurrentPageRestaurant()">
                     <a class="nav-link" href="" ng-click="showRestaurantInfo()">Информация ресторана</a>
