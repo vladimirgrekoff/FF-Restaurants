@@ -38,6 +38,16 @@
             controller:'dishController',
             controllerAs:'dish'
         })
+        .when('/dish_edit', {
+            templateUrl:'dish_edit/dishEditTemplate.html',
+            controller:'dishEditController',
+            controllerAs:'dish_edit'
+        })
+        .when('/dish_new', {
+            templateUrl:'dish_new/newDishTemplate.html',
+            controller:'newDishController',
+            controllerAs:'dish_new'
+        })
         .otherwise({
             redirectTo: '/welcome'
         });
@@ -64,6 +74,22 @@ angular.module('findFood').controller('indexController', function ($rootScope, $
 
     $rootScope.isCurrentPageDish = function () {
         if ($rootScope.currentPage == 'dish') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $rootScope.isCurrentPageEditDish = function () {
+        if ($rootScope.currentPage == 'dish_edit') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $rootScope.isCurrentPageAddNewDish = function () {
+        if ($rootScope.currentPage == 'dish_new') {
             return true;
         } else {
             return false;
