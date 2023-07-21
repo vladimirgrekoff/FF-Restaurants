@@ -23,6 +23,11 @@
             controller:'restaurantController',
             controllerAs:'restaurant'
         })
+        .when('/dish', {
+            templateUrl:'dish/dishTemplate.html',
+            controller:'dishController',
+            controllerAs:'dish'
+        })
         .otherwise({
             redirectTo: '/welcome'
         });
@@ -47,5 +52,12 @@ angular.module('findFood').controller('indexController', function ($rootScope, $
         }
     };
 
+    $rootScope.isCurrentPageDish = function () {
+        if ($rootScope.currentPage == 'dish') {
+            return true;
+        } else {
+            return false;
+        }
+    };
 
 });
