@@ -59,5 +59,21 @@ angular.module('findFood').controller('indexController', function ($rootScope, $
             return false;
         }
     };
+    $rootScope.isCurrentPageDishes = function () {
+        if ($rootScope.currentPage == 'dishes') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+
+    $rootScope.isCurrentPageRestaurantEditInfo = function () {
+        if ($rootScope.currentPage == 'restaurant_edit_info') {
+            return true;
+        } else {
+            return false;
+        }
+    };
 
 });
