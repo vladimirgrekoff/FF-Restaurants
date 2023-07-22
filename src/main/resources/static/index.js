@@ -33,11 +33,6 @@
             controller:'restaurantEditInfoController',
             controllerAs:'restaurant_edit_info'
         })
-        .when('/dishes', {
-            templateUrl:'dishes/dishesTemplate.html',
-            controller:'dishesController',
-            controllerAs:'dishes'
-        })
         .when('/dish', {
             templateUrl:'dish/dishTemplate.html',
             controller:'dishController',
