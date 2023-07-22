@@ -23,16 +23,6 @@
             controller:'restaurantController',
             controllerAs:'restaurant'
         })
-        .when('/restaurant_info', {
-            templateUrl:'restaurant_info/restaurantInfoTemplate.html',
-            controller:'restaurantInfoController',
-            controllerAs:'restaurant_info'
-        })
-        .when('/restaurant_edit_info', {
-            templateUrl:'restaurant_edit_info/restaurantEditInfoTemplate.html',
-            controller:'restaurantEditInfoController',
-            controllerAs:'restaurant_edit_info'
-        })
         .when('/dish', {
             templateUrl:'dish/dishTemplate.html',
             controller:'dishController',
