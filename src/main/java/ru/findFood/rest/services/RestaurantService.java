@@ -3,6 +3,7 @@ package ru.findFood.rest.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.findFood.rest.entities.Dish;
 import ru.findFood.rest.entities.Restaurant;
 import ru.findFood.rest.entities.RestaurantInfo;
 import ru.findFood.rest.exceptions.ResourceAlreadyInUseException;
@@ -74,6 +75,10 @@ public class RestaurantService {
     }
 
     public void deleteRestaurantById(Long id) {
+        List<Dish> dishList = dishesService.findAllByRestaurantId(id);
+        for (Dish d : dishList) {
+            dishesService.deleteDishById(d.getId());
+        }
         restaurantRepository.deleteById(id);
     }
 }

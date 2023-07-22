@@ -1,4 +1,4 @@
 angular.module('findFood').controller('welcomeController', function ($rootScope, $scope, $http) {
-//    var currentPage;
+    //включение дополнительных пунктов меню для страницы
     $rootScope.currentPage = 'welcome';
 });
