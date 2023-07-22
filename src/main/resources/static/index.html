@@ -30,26 +30,23 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-<!--                МЕНЮ ДОМАШНЕЙ СТРАНИЦЫ-->
                 <li class="nav-item">
                     <a class="nav-link" href="#!/welcome">Find Food</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#!/restaurants">Список ресторанов</a>
                 </li>
-<!--                МЕНЮ СТРАНИЦЫ ВЫБОРА РЕСТОРАНОВ-->
                 <li class="nav-item" ng-show="isCurrentPageRestaurants()">
                     <a class="nav-link" href="" ng-click="showAddRestaurantForm()">Добавить ресторан</a>
                 </li>
                 <li class="nav-item" ng-show="isCurrentPageRestaurants()">
                     <a class="nav-link" href="" ng-click="showDeleteRestaurantButton()">Удалить ресторан</a>
                 </li>
-<!--                МЕНЮ ДОМАШНЕЙ СТРАНИЦЫ РЕСТОРАНА-->
                 <li class="nav-item" ng-show="isCurrentPageRestaurant()">
-                    <a class="nav-link" href="#!/dishes" >Список блюд</a>
+                    <a class="nav-link" href="" ng-click="showDishesList()">Список блюд</a>
                 </li>
                 <li class="nav-item" ng-show="isCurrentPageRestaurant()">
-                    <a class="nav-link" href="#!/restaurant_info">Профиль ресторана</a>
+                    <a class="nav-link" href="" ng-click="showRestaurantInfo()">Информация ресторана</a>
                 </li>
             </ul>
         </div>
