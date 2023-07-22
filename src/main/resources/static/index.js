@@ -61,6 +61,22 @@
 
 angular.module('findFood').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage) {
 
+    $rootScope.isCurrentPageRestaurants = function () {
+        if ($rootScope.currentPage == 'restaurants') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $rootScope.isCurrentPageRestaurant = function () {
+        if ($rootScope.currentPage == 'restaurant') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
     $rootScope.isCurrentPageDish = function () {
         if ($rootScope.currentPage == 'dish') {
             return true;
@@ -84,8 +100,6 @@ angular.module('findFood').controller('indexController', function ($rootScope, $
             return false;
         }
     };
-
-
     $rootScope.isCurrentPageDishes = function () {
         if ($rootScope.currentPage == 'dishes') {
             return true;
@@ -97,30 +111,6 @@ angular.module('findFood').controller('indexController', function ($rootScope, $
 
     $rootScope.isCurrentPageRestaurantEditInfo = function () {
         if ($rootScope.currentPage == 'restaurant_edit_info') {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
-    $rootScope.isCurrentPageRestaurantInfo = function () {
-        if ($rootScope.currentPage == 'restaurant_info') {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
-    $rootScope.isCurrentPageRestaurant = function () {
-        if ($rootScope.currentPage == 'restaurant') {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
-    $rootScope.isCurrentPageRestaurants = function () {
-        if ($rootScope.currentPage == 'restaurants') {
             return true;
         } else {
             return false;
