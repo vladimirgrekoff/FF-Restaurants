@@ -7,7 +7,6 @@ import ru.findFood.rest.entities.GroupDish;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.services.GroupDishService;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,17 +14,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-public class GroupDishServiceTest {
+public class GroupDishServiceTests {
     @Autowired
     private GroupDishService groupDishService;
 
     //@Test
     public void findAllTest(){
-        GroupDish mockGroupDish = new GroupDish("1", LocalDateTime.now());
+        GroupDish mockGroupDish = new GroupDish("1");
         groupDishService.createNewGroupDish(mockGroupDish);
-        GroupDish mockGroupDish1 = new GroupDish("2", LocalDateTime.now());
+        GroupDish mockGroupDish1 = new GroupDish("2");
         groupDishService.createNewGroupDish(mockGroupDish1);
-        GroupDish mockGroupDish2 = new GroupDish("3", LocalDateTime.now());
+        GroupDish mockGroupDish2 = new GroupDish("3");
         groupDishService.createNewGroupDish(mockGroupDish2);
         List<GroupDish> correctGroupDishList = Arrays.asList(mockGroupDish, mockGroupDish1, mockGroupDish2);
 
@@ -34,9 +33,9 @@ public class GroupDishServiceTest {
 
     @Test
     public void findByIdTest(){
-        GroupDish testGroupDish01 = new GroupDish("Сладкое", LocalDateTime.now());
+        GroupDish testGroupDish01 = new GroupDish("Сладкое");
         groupDishService.createNewGroupDish(testGroupDish01);
-        GroupDish testGroupDish02 = new GroupDish("Хлеб", LocalDateTime.now());
+        GroupDish testGroupDish02 = new GroupDish("Хлеб");
         groupDishService.createNewGroupDish(testGroupDish02);
         Long testGroupDish02Id = testGroupDish02.getId();
 
@@ -46,10 +45,10 @@ public class GroupDishServiceTest {
 
     @Test
     public void findByTitleTest(){
-        GroupDish testGroupDish03 = new GroupDish("Чипсы", LocalDateTime.now());
+        GroupDish testGroupDish03 = new GroupDish("Чипсы");
         groupDishService.createNewGroupDish(testGroupDish03);
         Long testGroupDish03Id = testGroupDish03.getId();
-        GroupDish testGroupDish04 = new GroupDish("Сладости", LocalDateTime.now());
+        GroupDish testGroupDish04 = new GroupDish("Сладости");
         groupDishService.createNewGroupDish(testGroupDish04);
 
         assertEquals(testGroupDish03Id, groupDishService.findByTitle("Чипсы").getId());
@@ -59,7 +58,7 @@ public class GroupDishServiceTest {
 
     @Test
     public void createNewGroupDishTest(){
-        GroupDish testGroupDish05 = new GroupDish("Морепродукты", LocalDateTime.now());
+        GroupDish testGroupDish05 = new GroupDish("Морепродукты");
         groupDishService.createNewGroupDish(testGroupDish05);
         Long testGroupDish05Id = testGroupDish05.getId();
 
@@ -68,7 +67,7 @@ public class GroupDishServiceTest {
 
     @Test
     public void updateGroupDishTest(){
-        GroupDish testGroupDish05 = new GroupDish("Полуфабрикаты", LocalDateTime.now());
+        GroupDish testGroupDish05 = new GroupDish("Полуфабрикаты");
         groupDishService.createNewGroupDish(testGroupDish05);
         Long testGroupDish05Id = testGroupDish05.getId();
         testGroupDish05.setTitle("Мясные блюда");
@@ -79,7 +78,7 @@ public class GroupDishServiceTest {
 
     @Test
     public void deleteGroupDishByIdTest(){
-        GroupDish testGroupDish05 = new GroupDish("Соки", LocalDateTime.now());
+        GroupDish testGroupDish05 = new GroupDish("Соки");
         groupDishService.createNewGroupDish(testGroupDish05);
         Long testGroupDish05Id = testGroupDish05.getId();
         groupDishService.deleteGroupDishById(testGroupDish05Id);

@@ -73,15 +73,22 @@ public class Dish {
     private LocalDateTime updatedAt;
 
 
-
-    //конструктор с обязательными полями
-    public Dish(String title, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, LocalDateTime createdAt) {
+    public Dish(String title, Integer calories, Integer proteins, Integer fats, Integer carbohydrates) {
         this.title = title;
         this.calories = calories;
         this.proteins = proteins;
         this.fats = fats;
         this.carbohydrates = carbohydrates;
-        this.createdAt = createdAt;
+    }
+
+
+    public Dish(String title, Restaurant restaurant, Integer calories, Integer proteins, Integer fats, Integer carbohydrates) {
+        this.title = title;
+        this.restaurant = restaurant;
+        this.calories = calories;
+        this.proteins = proteins;
+        this.fats = fats;
+        this.carbohydrates = carbohydrates;
     }
 
     //почти полный конструктор

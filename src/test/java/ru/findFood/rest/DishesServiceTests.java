@@ -8,7 +8,6 @@ import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.services.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,11 +33,11 @@ public class DishesServiceTests {
 
     //@Test
     public void findAllTest(){
-        Dish mockDish = new Dish("Салат из помидоров", 19, 0, 0, 5, LocalDateTime.now());
+        Dish mockDish = new Dish("Салат из помидоров", 19, 0, 0, 5);
         this.dishesService.createNewDish(mockDish);
-        Dish mockDish1 = new Dish("Барбадосский резаный огурец", 14, 0, 0, 4, LocalDateTime.now());
+        Dish mockDish1 = new Dish("Барбадосский резаный огурец", 14, 0, 0, 4);
         this.dishesService.createNewDish(mockDish1);
-        Dish mockDish2 = new Dish("Жареное мясо", 200, 10, 17, 1, LocalDateTime.now());
+        Dish mockDish2 = new Dish("Жареное мясо", 200, 10, 17, 1);
         this.dishesService.createNewDish(mockDish2);
         List<Dish> allCorrectDishes = Arrays.asList(mockDish, mockDish1, mockDish2);
         List<Dish> allDishes = this.dishesService.findAll();
@@ -82,7 +81,7 @@ public class DishesServiceTests {
 
     @Test
     public void findByIdTest(){
-        Dish testDish4 = new Dish("Помидор на мангале", 19, 0, 0, 5, LocalDateTime.now());
+        Dish testDish4 = new Dish("Помидор на мангале", 19, 0, 0, 5);
         this.dishesService.createNewDish(testDish4);
         Long testDish4Id = testDish4.getId();
 
@@ -92,9 +91,9 @@ public class DishesServiceTests {
 
     @Test
     public void findByTitleTest(){
-        Dish testDish5 = new Dish("Сырники", 250, 0, 0, 5, LocalDateTime.now());
+        Dish testDish5 = new Dish("Сырники", 250, 0, 0, 5);
         this.dishesService.createNewDish(testDish5);
-        Dish testDish6 = new Dish("Картофельное пюре", 75, 1, 1, 15, LocalDateTime.now());
+        Dish testDish6 = new Dish("Картофельное пюре", 75, 1, 1, 15);
         this.dishesService.createNewDish(testDish6);
 
         assertEquals(250, this.dishesService.findByTitle("Сырники").getCalories());
@@ -122,7 +121,7 @@ public class DishesServiceTests {
 
     @Test
     public void updateTest() {
-        Dish testDish8 = new Dish("Помидорный соус", 19, 0, 0, 5, LocalDateTime.now());
+        Dish testDish8 = new Dish("Помидорный соус", 19, 0, 0, 5);
         this.dishesService.createNewDish(testDish8);
         testDish8.setDescription("Сливовидные томаты");
         testDish8.setTitle("Томатный соус");
@@ -135,7 +134,7 @@ public class DishesServiceTests {
 
     @Test
     public void deleteByIdTest(){
-        Dish testDish9 = new Dish("Помидор", 19, 0, 0, 5, LocalDateTime.now());
+        Dish testDish9 = new Dish("Помидор", 19, 0, 0, 5);
         this.dishesService.createNewDish(testDish9);
         Long testDish9Id = testDish9.getId();
         this.dishesService.deleteDishById(testDish9Id);
