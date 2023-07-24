@@ -11,7 +11,6 @@ import ru.findFood.rest.services.RestaurantService;
 @Component
 @RequiredArgsConstructor
 public class RestaurantConverter {
-    private final RestaurantService restaurantService;
     private final ListDishConverter listDishConverter;
     private final RestaurantInfoService restaurantInfoService;
 
@@ -19,7 +18,7 @@ public class RestaurantConverter {
         Restaurant restaurant = new Restaurant();
         restaurant.setId(restaurantDto.getId());
         restaurant.setTitle(restaurantDto.getTitle());
-        restaurant.setRestaurantInfo(restaurantInfoService.findById(restaurantDto.getRestaurant_info_id()));
+        restaurant.setRestaurantInfo(restaurantInfoService.findById(restaurantDto.getRestaurantInfoId()));
         restaurant.setCreatedAt(restaurantDto.getCreatedAt());
         restaurant.setUpdatedAt(restaurantDto.getUpdatedAt());
         return restaurant;
@@ -29,7 +28,7 @@ public class RestaurantConverter {
         RestaurantDto restaurantDto = new RestaurantDto();
         restaurantDto.setId(restaurant.getId());
         restaurantDto.setTitle(restaurant.getTitle());
-        restaurantDto.setRestaurant_info_id(restaurant.getRestaurantInfo().getId());
+        restaurantDto.setRestaurantInfoId(restaurant.getRestaurantInfo().getId());
         restaurantDto.setDishesList(listDishConverter.entityToDto(restaurant.getDishes()));
         restaurantDto.setCreatedAt(restaurant.getCreatedAt());
         restaurantDto.setUpdatedAt(restaurant.getUpdatedAt());

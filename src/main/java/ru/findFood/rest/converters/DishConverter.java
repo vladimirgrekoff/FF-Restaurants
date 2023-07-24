@@ -16,15 +16,12 @@ public class DishConverter {
     private final CategoryService categoryService;
     private final RestaurantService restaurantService;
 
-    private final GroupDishConverter groupDishConverter;
-    private final CategoryConverter categoryConverter;
-
 
     public Dish dtoToEntity(DishDto dishDto) {
         Dish dish = new Dish();
         dish.setId(dishDto.getId());
         dish.setTitle(dishDto.getTitle());
-        dish.setRestaurant(restaurantService.findByTitle(dishDto.getRestaurant_title()));
+        dish.setRestaurant(restaurantService.findByTitle(dishDto.getRestaurantTitle()));
         dish.setDescription(dishDto.getDescription());
         dish.setPrice(dishDto.getPrice());
 //        dish.setImage(dishDto.getImage());
@@ -34,8 +31,8 @@ public class DishConverter {
         dish.setCarbohydrates(dishDto.getCarbohydrates());
         dish.setHealthy(dishDto.getHealthy());
         dish.setApproved(dishDto.getApproved());
-        dish.setGroupDish(groupDishService.findByTitle(dishDto.getGroup_dish_title()));
-        dish.setCategory(categoryService.findByTitle(dishDto.getCategory_title()));
+        dish.setGroupDish(groupDishService.findByTitle(dishDto.getGroupDishTitle()));
+        dish.setCategory(categoryService.findByTitle(dishDto.getCategoryTitle()));
         dish.setCreatedAt(dishDto.getCreatedAt());
         dish.setUpdatedAt(dishDto.getUpdatedAt());
         return dish;
@@ -45,7 +42,7 @@ public class DishConverter {
         DishDto dishDto = new DishDto();
         dishDto.setId(d.getId());
         dishDto.setTitle(d.getTitle());
-        dishDto.setRestaurant_title(d.getRestaurant().getTitle());
+        dishDto.setRestaurantTitle(d.getRestaurant().getTitle());
         dishDto.setDescription(d.getDescription());
         dishDto.setPrice(d.getPrice());
 //        dishDto.setImage(d.getImage());
@@ -55,8 +52,8 @@ public class DishConverter {
         dishDto.setCarbohydrates(d.getCarbohydrates());
         dishDto.setHealthy(d.getHealthy());
         dishDto.setApproved(d.getApproved());
-        dishDto.setGroup_dish_title(d.getGroupDish().getTitle());
-        dishDto.setCategory_title(d.getCategory().getTitle());
+        dishDto.setGroupDishTitle(d.getGroupDish().getTitle());
+        dishDto.setCategoryTitle(d.getCategory().getTitle());
         dishDto.setCreatedAt(d.getCreatedAt());
         dishDto.setUpdatedAt(d.getUpdatedAt());
         return dishDto;

@@ -7,7 +7,6 @@ import ru.findFood.rest.entities.Category;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.services.CategoryService;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,17 +14,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-public class CategoryServiceTest {
+public class CategoryServiceTests {
     @Autowired
     private CategoryService categoryService;
 
     //@Test
     public void findAllTest(){
-        Category mockCategory = new Category("1", LocalDateTime.now());
+        Category mockCategory = new Category("1");
         categoryService.createNewCategory(mockCategory);
-        Category mockCategory1 = new Category("2", LocalDateTime.now());
+        Category mockCategory1 = new Category("2");
         categoryService.createNewCategory(mockCategory1);
-        Category mockCategory2 = new Category("3", LocalDateTime.now());
+        Category mockCategory2 = new Category("3");
         categoryService.createNewCategory(mockCategory2);
         List<Category> correctCategoryList = Arrays.asList(mockCategory, mockCategory1, mockCategory2);
 
@@ -34,9 +33,9 @@ public class CategoryServiceTest {
 
     @Test
     public void findByIdTest(){
-        Category testCategory01 = new Category("Ланч", LocalDateTime.now());
+        Category testCategory01 = new Category("Ланч");
         categoryService.createNewCategory(testCategory01);
-        Category testCategory02 = new Category("Полдник", LocalDateTime.now());
+        Category testCategory02 = new Category("Полдник");
         categoryService.createNewCategory(testCategory02);
         Long testCategory02Id = testCategory02.getId();
 
@@ -46,9 +45,9 @@ public class CategoryServiceTest {
 
     @Test
     public void findByTitleTest(){
-        Category testCategory03 = new Category("Ночной перекус", LocalDateTime.now());
+        Category testCategory03 = new Category("Ночной перекус");
         categoryService.createNewCategory(testCategory03);
-        Category testCategory04 = new Category("Первый завтрак", LocalDateTime.now());
+        Category testCategory04 = new Category("Первый завтрак");
         categoryService.createNewCategory(testCategory04);
         Long testCategory04Id = testCategory04.getId();
 
@@ -58,7 +57,7 @@ public class CategoryServiceTest {
 
     @Test
     public void createNewCategoryTest(){
-        Category testCategory05 = new Category("Второй завтрак", LocalDateTime.now());
+        Category testCategory05 = new Category("Второй завтрак");
         categoryService.createNewCategory(testCategory05);
         Long testCategory05Id = testCategory05.getId();
 
@@ -67,7 +66,7 @@ public class CategoryServiceTest {
 
     @Test
     public void updateCategoryTest(){
-        Category testCategory05 = new Category("Новая категория", LocalDateTime.now());
+        Category testCategory05 = new Category("Новая категория");
         categoryService.createNewCategory(testCategory05);
         Long testCategory05Id = testCategory05.getId();
         testCategory05.setTitle("Чаепитие");
@@ -78,7 +77,7 @@ public class CategoryServiceTest {
 
     @Test
     public void deleteCategoryByIdTest(){
-        Category testCategory05 = new Category("Застолье", LocalDateTime.now());
+        Category testCategory05 = new Category("Застолье");
         categoryService.createNewCategory(testCategory05);
         Long testCategory05Id = testCategory05.getId();
         categoryService.deleteCategoryById(testCategory05Id);

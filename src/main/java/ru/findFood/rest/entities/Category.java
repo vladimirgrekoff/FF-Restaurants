@@ -38,8 +38,7 @@ public class Category {
 
 
 
-    public Category(String title, LocalDateTime createdAt){
+    public Category(String title){
         this.title = title;
-        this.createdAt = createdAt;
     }
 }

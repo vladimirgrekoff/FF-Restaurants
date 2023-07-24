@@ -3,6 +3,7 @@ package ru.findFood.rest.services;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.findFood.rest.dtos.DishDto;
 import ru.findFood.rest.entities.Dish;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.repositories.DishesRepository;
@@ -42,20 +43,22 @@ public class DishesService {
     }
 
     @Transactional
-    public void createNewDish(Dish dish) {
-        dishesRepository.save(dish);
+    public Dish createNewDish(Dish dish) {
+        return dishesRepository.save(dish);
     }
 
 
     @Transactional
-    public void updateDish(Dish dish) {
+    public Dish updateDish(Dish dish) {
         if (dish.getId() != null || dish.getId() != 0) {
             Dish dishFound = dishesRepository.findById(dish.getId())
                     .orElseThrow(() -> new ResourceNotFoundException("Блюдо с id: " + dish.getId() + " не найдено"));
 
             if (dishFound != null) {
-                dishesRepository.save(dish);
+                dishFound = dish;
+                dishesRepository.save(dishFound);
             }
+            return dishFound;
         } else {
             throw new ResourceNotFoundException("Блюдо с id: " + dish.getId() + " не найдено");
         }

@@ -32,8 +32,7 @@ public class GroupDish {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    public GroupDish(String title, LocalDateTime createdAt) {
+    public GroupDish(String title) {
         this.title = title;
-        this.createdAt = createdAt;
     }
 }
