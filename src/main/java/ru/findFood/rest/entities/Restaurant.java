@@ -42,16 +42,14 @@ public class Restaurant {
 
 
 
-    public Restaurant(String title, LocalDateTime createdAt) {
+    public Restaurant(String title) {
         this.title = title;
-        this.createdAt = createdAt;
     }
 
-    public Restaurant(String title, RestaurantInfo restaurantInfo, /*List<Dish> dishes,*/LocalDateTime createdAt) {
+    public Restaurant(String title, RestaurantInfo restaurantInfo /*List<Dish> dishes,*/) {
         this.title = title;
         this.restaurantInfo = restaurantInfo;
 //        this.dishes = dishes;
-        this.createdAt = createdAt;
     }
 
 

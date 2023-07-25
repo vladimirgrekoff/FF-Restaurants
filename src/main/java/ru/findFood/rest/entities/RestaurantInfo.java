@@ -52,7 +52,7 @@ public class RestaurantInfo {
 
 
     //полный конструктор без апдейта и id
-    public RestaurantInfo(Restaurant restaurant, String description, String cuisines, String address, String phoneNumber, String email, String openHours, LocalDateTime createdAt) {
+    public RestaurantInfo(Restaurant restaurant, String description, String cuisines, String address, String phoneNumber, String email, String openHours) {
         this.restaurant = restaurant;
 //        this.restaurantId = restaurant_id;
         this.description = description;
@@ -61,7 +61,6 @@ public class RestaurantInfo {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.openHours = openHours;
-        this.createdAt = createdAt;
     }
 
     public RestaurantInfo(Restaurant restaurant, String description) {

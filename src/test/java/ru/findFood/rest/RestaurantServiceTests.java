@@ -8,8 +8,6 @@ import ru.findFood.rest.entities.RestaurantInfo;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.services.*;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,11 +24,11 @@ public class RestaurantServiceTests {
 
     //@Test
     public void findAllTest(){
-        Restaurant mockRestaurant = new Restaurant("Ресторация", LocalDateTime.now());
+        Restaurant mockRestaurant = new Restaurant("Ресторация");
         restaurantService.createNewRestaurant(mockRestaurant);
-        Restaurant mockRestaurant1 = new Restaurant("Ресторация1", LocalDateTime.now());
+        Restaurant mockRestaurant1 = new Restaurant("Ресторация1");
         restaurantService.createNewRestaurant(mockRestaurant1);
-        Restaurant mockRestaurant2 = new Restaurant("Ресторация2",  LocalDateTime.now());
+        Restaurant mockRestaurant2 = new Restaurant("Ресторация2");
         restaurantService.createNewRestaurant(mockRestaurant2);
         List<Restaurant> correctRestaurantList = Arrays.asList(mockRestaurant, mockRestaurant1, mockRestaurant2);
 
@@ -39,7 +37,7 @@ public class RestaurantServiceTests {
 
     @Test
     public void findByIdTest(){
-        Restaurant testRestaurant = new Restaurant("Ресторан", LocalDateTime.now());
+        Restaurant testRestaurant = new Restaurant("Ресторан");
         restaurantService.createNewRestaurant(testRestaurant);
         Long testRestaurantId = testRestaurant.getId();
 
@@ -48,10 +46,10 @@ public class RestaurantServiceTests {
 
     @Test
     public void findByTitleTest(){
-        Restaurant testRestaurant2 = new Restaurant("Ресторан2", LocalDateTime.now());
+        Restaurant testRestaurant2 = new Restaurant("Ресторан2");
         restaurantService.createNewRestaurant(testRestaurant2);
         Long testRestaurant2Id = testRestaurant2.getId();
-        Restaurant testRestaurant3 = new Restaurant("Ресторан3", LocalDateTime.now());
+        Restaurant testRestaurant3 = new Restaurant("Ресторан3");
         restaurantService.createNewRestaurant(testRestaurant3);
         Long testRestaurant3Id = testRestaurant3.getId();
 
@@ -61,7 +59,7 @@ public class RestaurantServiceTests {
 
     @Test
     public void createNewRestaurantTest() {
-        Restaurant testRestaurant4 = new Restaurant("Ресторан4", LocalDateTime.now());
+        Restaurant testRestaurant4 = new Restaurant("Ресторан4");
         restaurantService.createNewRestaurant(testRestaurant4);
         RestaurantInfo testRestaurantInfo4 = testRestaurant4.getRestaurantInfo();
         testRestaurantInfo4.setDescription("Описание");
@@ -74,7 +72,7 @@ public class RestaurantServiceTests {
 
     @Test
     public void updateRestaurantTest() {
-        Restaurant testRestaurant5 = new Restaurant("Ресторан5", LocalDateTime.now());
+        Restaurant testRestaurant5 = new Restaurant("Ресторан5");
         restaurantService.createNewRestaurant(testRestaurant5);
         testRestaurant5.setTitle("McDonalds");
         restaurantService.updateRestaurant(testRestaurant5);
@@ -84,7 +82,7 @@ public class RestaurantServiceTests {
 
     @Test
     public void deleteRestaurantByIdTest(){
-        Restaurant testRestaurant6 = new Restaurant("Ресторан6", LocalDateTime.now());
+        Restaurant testRestaurant6 = new Restaurant("Ресторан6");
         restaurantService.createNewRestaurant(testRestaurant6);
         Long testRestaurant6Id = testRestaurant6.getId();
         restaurantService.deleteRestaurantById(testRestaurant6Id);

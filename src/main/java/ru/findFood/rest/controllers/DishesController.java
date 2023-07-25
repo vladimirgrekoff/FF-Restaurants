@@ -106,9 +106,9 @@ public class DishesController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewDish(@RequestBody DishDto dishDto) {
+    public DishDto createNewDish(@RequestBody DishDto dishDto) {
         dishValidator.validate(dishDto);
-        dishesService.createNewDish(dishConverter.dtoToEntity(dishDto));
+        return dishConverter.entityToDto(dishesService.createNewDish(dishConverter.dtoToEntity(dishDto)));
     }
 
     @Operation(
