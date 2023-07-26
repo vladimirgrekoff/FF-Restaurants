@@ -61,7 +61,7 @@ public class DishesController {
     }
 
     @GetMapping("/limitedAndByCategory")
-    public List<MenuDishDTO> getByCategory(@RequestParam String category, @RequestParam String querySize) {
+    public List<MenuDishDTO> getByCategory(@RequestParam String category, @RequestParam(defaultValue = "50") Integer querySize) {
         return dishesService.findByCategory(category, querySize)
                 .stream()
                 .map(dishConverter::entityToMenuDishDto)

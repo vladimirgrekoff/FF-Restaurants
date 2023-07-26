@@ -89,8 +89,8 @@ public class DishesService {
         dishesRepository.saveAll(dishes);
     }
 
-    public List<Dish> findByCategory(String category, String querySize) {
-        Pageable pageable = PageRequest.of(0,50);
+    public List<Dish> findByCategory(String category, Integer querySize) {
+        Pageable pageable = PageRequest.of(0,querySize);
         List<Dish> dishes = dishesRepository.findByCategoryTitle(category, pageable);
         if (dishes == null || dishes.isEmpty()) {
             throw new ResourceNotFoundException("Блюда с category: " + category + " не найдены");
