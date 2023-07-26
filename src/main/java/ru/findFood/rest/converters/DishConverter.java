@@ -3,6 +3,7 @@ package ru.findFood.rest.converters;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.findFood.rest.dtos.DishDto;
+import ru.findFood.rest.dtos.MenuDishDTO;
 import ru.findFood.rest.entities.Dish;
 import ru.findFood.rest.services.CategoryService;
 import ru.findFood.rest.services.GroupDishService;
@@ -59,4 +60,20 @@ public class DishConverter {
         return dishDto;
     }
 
+    public MenuDishDTO entityToMenuDishDto(Dish dish) {
+        return new MenuDishDTO(
+                dish.getId(),
+                dish.getTitle(),
+                dish.getHealthy(),
+                dish.getRestaurant().getTitle(),
+                dish.getDescription(),
+                dish.getPrice(),
+                dish.getCalories(),
+                dish.getProteins(),
+                dish.getFats(),
+                dish.getCarbohydrates(),
+                dish.getApproved(),
+                dish.getCategory().getTitle()
+        );
+    }
 }

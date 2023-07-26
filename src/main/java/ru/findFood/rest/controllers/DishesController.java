@@ -10,10 +10,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.findFood.rest.converters.DishConverter;
 import ru.findFood.rest.dtos.DishDto;
+import ru.findFood.rest.dtos.MenuDishDTO;
+import ru.findFood.rest.dtos.UpdateDishTimeRequest;
 import ru.findFood.rest.entities.Dish;
 import ru.findFood.rest.services.DishesService;
 import ru.findFood.rest.validators.DishValidator;
@@ -25,6 +28,7 @@ import java.util.List;
 @RequestMapping("/api/v1/dishes")
 @RequiredArgsConstructor
 @Tag(name = "Блюда", description = "Методы работы с блюдами")
+@Slf4j
 public class DishesController {
     private final DishConverter dishConverter;
     private final DishValidator dishValidator;
@@ -49,11 +53,19 @@ public class DishesController {
     public List<DishDto> readAllDishes() {
         List<Dish> dishList = dishesService.findAll();
         List<DishDto> dishDtoList = new ArrayList<>();
-        for (Dish d: dishList) {
+        for (Dish d : dishList) {
             DishDto dishDto = dishConverter.entityToDto(d);
             dishDtoList.add(dishDto);
         }
         return dishDtoList;
+    }
+
+    @GetMapping("/limitedAndByCategory")
+    public List<MenuDishDTO> getByCategory(@RequestParam String category, @RequestParam String querySize) {
+        return dishesService.findByCategory(category, querySize)
+                .stream()
+                .map(dishConverter::entityToMenuDishDto)
+                .toList();
     }
 
     @Operation(
@@ -69,7 +81,7 @@ public class DishesController {
     public List<DishDto> readAllDishesByRestaurantId(@PathVariable @Parameter(description = "Идентификатор ресторана", required = true) Long id) {
         List<Dish> dishList = dishesService.findAllByRestaurantId(id);
         List<DishDto> dishDtoList = new ArrayList<>();
-        for (Dish d: dishList) {
+        for (Dish d : dishList) {
             DishDto dishDto = dishConverter.entityToDto(d);
             dishDtoList.add(dishDto);
         }
@@ -91,7 +103,7 @@ public class DishesController {
     )
 
     @GetMapping("/{id}")
-    public DishDto readDishById(@PathVariable @Parameter(description = "Идентификатор блюда", required = true) Long id){
+    public DishDto readDishById(@PathVariable @Parameter(description = "Идентификатор блюда", required = true) Long id) {
         return dishConverter.entityToDto(dishesService.findById(id));
     }
 
@@ -126,6 +138,13 @@ public class DishesController {
         dishValidator.validate(dishDto);
         dishesService.updateDish(dishConverter.dtoToEntity(dishDto));
     }
+
+    @PostMapping("/updateUsedLastTime")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateDishLastUsedTime(@RequestBody UpdateDishTimeRequest request) {
+        dishesService.updateLastUsedTime(request);
+    }
+
 
     @Operation(
             summary = "Запрос на удаление блюда по id",
