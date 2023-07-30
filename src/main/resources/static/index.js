@@ -53,6 +53,11 @@
             controller:'newDishController',
             controllerAs:'dish_new'
         })
+        .when('/nutritionist', {
+            templateUrl:'nutritionist/nutritionistTemplate.html',
+            controller:'nutritionistController',
+            controllerAs:'nutritionist'
+        })
         .otherwise({
             redirectTo: '/welcome'
         });
@@ -60,6 +65,16 @@
 })();
 
 angular.module('findFood').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage) {
+
+
+    $rootScope.isCurrentPageNutritionist = function () {
+        if ($rootScope.currentPage == 'nutritionist') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
 
     $rootScope.isCurrentPageDish = function () {
         if ($rootScope.currentPage == 'dish') {

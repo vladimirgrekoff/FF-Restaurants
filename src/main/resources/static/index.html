@@ -38,6 +38,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#!/restaurants">Список ресторанов</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#!/nutritionist">Страница диетолога</a>
+                </li>
 <!--                МЕНЮ СТРАНИЦЫ ВЫБОРА РЕСТОРАНОВ-->
                 <li class="nav-item" ng-show="isCurrentPageRestaurants()">
                     <a class="nav-link" href="" ng-click="showAddRestaurantForm()">Добавить ресторан</a>
@@ -91,6 +94,10 @@
                 <li class="nav-item" ng-show="isCurrentPageRestaurantEditInfo()">
                     <a class="nav-link" href="#!/restaurant_info"><strong><i>Профиль ресторана</i></strong></a>
                 </li>
+                <!--                МЕНЮ ДОМАШНЕЙ СТРАНИЦЫ ДИЕТОЛОГА-->
+                <li class="nav-item" ng-show="isCurrentPageNutritionist()">
+                    <a class="nav-link" href="#!/nutritionist_select" ng-click="">Проверка пришедших запросов</a>
+                </li>
 
             </ul>
         </div>
@@ -110,6 +117,12 @@
 <script src="dish/dishController.js"></script>
 <script src="dish_edit/dishEditController.js"></script>
 <script src="dish_new/newDishController.js"></script>
+<script src="request_create/createRequestController.js"></script>
+<script src="request_send/sendRequestController.js"></script>
+<script src="restaurant_requests/restaurantRequestsController.js"></script>
+<script src="restaurant_verification/dishVerificationController.js"></script>
+<script src="nutritionist/nutritionistController.js"></script>
+<script src="nutritionist_select/selectRestaurantController.js"></script>
 <script src="welcome/welcomeController.js"></script>
 </body>
 </html>
