@@ -32,7 +32,6 @@ angular.module('findFood').controller('restaurantRequestsController', function (
 
         $http.get(contextPath + '/requests/'+ $localStorage.currentRestaurant.title)
             .then(function (response) {
-                console.log('запрос записей запроса по имени ресторана ' + response.data.items);///////////////////////////////////////
                 $scope.restaurantRequests = response.data;
             });
     };
@@ -66,11 +65,8 @@ angular.module('findFood').controller('restaurantRequestsController', function (
     //переходы
     $scope.showDishVerificationPage = function (requestId, item) {
         $localStorage.requestId = requestId;
-                console.log('id запроса до перехода ' + $localStorage.requestId);////////////////////////////
         $localStorage.dishId = item.dishId;
-                console.log('id блюда до перехода ' + $localStorage.dishId);////////////////////////////
         $localStorage.item = item;
-                console.log('id записи до перехода ' + $localStorage.item.id);////////////////////////////
         $location.path('restaurant_verification');
     };
 
