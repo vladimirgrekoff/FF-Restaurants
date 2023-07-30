@@ -25,7 +25,7 @@ angular.module('findFood').controller('dishVerificationController', function ($r
      };
 
     $scope.dishApproved;
-//    $scope.dishHealthy;
+    $scope.dishHealthy;
 
     $scope.updateRequestItem = function() {
             $scope.item.verified = true;
@@ -41,9 +41,9 @@ angular.module('findFood').controller('dishVerificationController', function ($r
 
     $scope.updateDish = function(){
         if ($scope.isEmptyDishData() == false){
-//            $scope.dish.healthy = $scope.dishHealthy;
+            $scope.dish.healthy = $scope.dishHealthy;
             $scope.dish.approved = $scope.dishApproved;
-//            var editedDish = $scope.dish;
+            var editedDish = $scope.dish;
                 $http.put(contextPath + '/dishes', $scope.dish)
                     .then(function (response) {
                         $scope.loadDishById();
@@ -58,10 +58,10 @@ angular.module('findFood').controller('dishVerificationController', function ($r
             alert("При оценке качества блюда все поля должны быть заполнены!");
             return true;
         }
-//        if($scope.dishHealthy == undefined || $scope.groupDishTitle == ''){
-//            alert("Поле 'Здоровое питание' должно иметь одно из значений в списке 'Выбор оценки'!");
-//            return true;
-//        }
+        if($scope.dishHealthy == undefined || $scope.groupDishTitle == ''){
+            alert("Поле 'Здоровое питание' должно иметь одно из значений в списке 'Выбор оценки'!");
+            return true;
+        }
         if($scope.dishApproved == undefined || $scope.groupDishTitle == ''){
             alert("Поле 'Одобрено диетологом' должно иметь одно из значений в списке 'Выбор оценки'!");
             return true;
