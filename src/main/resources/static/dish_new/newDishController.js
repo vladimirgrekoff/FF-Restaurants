@@ -15,30 +15,31 @@ angular.module('findFood').controller('newDishController', function ($rootScope,
 
     $scope.newDish = {
         title:'',
-        restaurant_title:'',
+        restaurantTitle:'',
         description:'',
         price:null,
         calories:null,
         proteins:null,
         fats:null,
         carbohydrates:null,
-        healthy:false,
-        approved:false,
-        category_title:''
+        healthy:null,
+        approved:null,
+        groupDishTitle:'',
+        categoryTitle:''
     };
 
-    $scope.newDish.restaurant_title = restaurant.title;
+    $scope.newDish.restaurantTitle = restaurant.title;
     $scope.groupList = $localStorage.groupDishList;
     $scope.categoriesList = $localStorage.categoriesDishList;
 
     $scope.addNewDish = function () {
         if ($scope.isEmptyNewDishData() == false){
-            $scope.newDish.group_dish_title = $scope.groupDishTitle;
-            $scope.newDish.category_title = $scope.categoryTitle;
+            $scope.newDish.groupDishTitle = $scope.groupDishTitle;
+            $scope.newDish.categoryTitle = $scope.categoryTitle;
             $http.post(contextPath, $scope.newDish)
                 .then(function (response) {
                     $scope.newDish.title = null;
-                    $scope.newDish.restaurant_title = null;
+                    $scope.newDish.restaurantTitle = null;
                     $scope.newDish.description = null;
                     $scope.newDish.price = null;
                     $scope.newDish.calories = null;

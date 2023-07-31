@@ -25,7 +25,6 @@ public class DishConverter {
         dish.setRestaurant(restaurantService.findByTitle(dishDto.getRestaurantTitle()));
         dish.setDescription(dishDto.getDescription());
         dish.setPrice(dishDto.getPrice());
-//        dish.setImage(dishDto.getImage());
         dish.setCalories(dishDto.getCalories());
         dish.setProteins(dishDto.getProteins());
         dish.setFats(dishDto.getFats());
@@ -46,7 +45,6 @@ public class DishConverter {
         dishDto.setRestaurantTitle(d.getRestaurant().getTitle());
         dishDto.setDescription(d.getDescription());
         dishDto.setPrice(d.getPrice());
-//        dishDto.setImage(d.getImage());
         dishDto.setCalories(d.getCalories());
         dishDto.setProteins(d.getProteins());
         dishDto.setFats(d.getFats());

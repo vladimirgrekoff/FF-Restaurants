@@ -14,7 +14,8 @@ angular.module('findFood').controller('restaurantController', function ($rootSco
         return $localStorage.currentRestaurant.title;
     };
 
-
+    //для получения п/я запросов по имени ресторана
+    $localStorage.guestMailBoxId = $localStorage.currentRestaurant.title;
 
     $scope.loadRestaurantInfo = function(restaurant){
         var id;

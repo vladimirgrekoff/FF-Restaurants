@@ -18,7 +18,7 @@ public class RestaurantRequestDto {
     private Long id;
 
     @Schema(description = "Название ресторана",  requiredMode = Schema.RequiredMode.AUTO, example = "1")
-    private String restaurantName;
+    private String restaurantTitle;
 
     @Schema(description = "Список блюд в запросе")
     private List<RestaurantRequestItemDto> items;

@@ -19,7 +19,6 @@ angular.module('findFood').controller("createRequestController", function($rootS
 
 
 
-
 //    $scope.loadDishes = function (offset, limit) {
 //            $http({
 //                url: contextPath + '/dishes',
@@ -45,7 +44,6 @@ angular.module('findFood').controller("createRequestController", function($rootS
              });
      };
 
-//    console.log('ящик ' + $localStorage.guestMailBoxId);/////////////////////////////////
 
 
 

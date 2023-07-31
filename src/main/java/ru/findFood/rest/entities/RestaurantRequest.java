@@ -25,8 +25,8 @@ public class RestaurantRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "restaurant_name")
-    private String restaurantName;
+    @Column(name = "restaurant_title")
+    private String restaurantTitle;
 
     @OneToMany(mappedBy = "restaurantRequest", cascade = CascadeType.ALL)
     @ToString.Exclude

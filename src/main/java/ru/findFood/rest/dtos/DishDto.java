@@ -64,7 +64,7 @@ public class DishDto {
     private LocalDateTime updatedAt;
 
 
-    public DishDto(Long id, String title, String restaurantTitle, String description, BigDecimal price, /*byte[] image,*/ Integer calories, Integer proteins, Integer fats, Integer carbohydrates, Boolean healthy, Boolean approved, String groupDishTitle, String categoryTitle) {
+    public DishDto(Long id, String title, String restaurantTitle, String description, BigDecimal price, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, Boolean healthy, Boolean approved, String groupDishTitle, String categoryTitle) {
 
 
         this.id = id;

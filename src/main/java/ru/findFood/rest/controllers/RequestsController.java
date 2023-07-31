@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/requests")
 @RequiredArgsConstructor
-@Tag(name = "Заказы", description = "Методы работы с заказами продуктов")
+@Tag(name = "Запросы ресторана", description = "Методы работы с запросами  ресторанов")
 public class RequestsController {
 
     private final RestaurantRequestsService restaurantRequestsService;
@@ -31,7 +31,7 @@ public class RequestsController {
     // http://localhost:8189/ff-restaurants/api/v1/requests
 
     @Operation(
-            summary = "Запрос на получение списка заказов ресторана по restaurant_name",
+            summary = "Запрос на получение списка запросов ресторана диетологу по restaurant_title",
             responses = {
                     @ApiResponse(
                             description = "Успешный ответ", responseCode = "200",
@@ -39,14 +39,14 @@ public class RequestsController {
                     )
             }
     )
-    @GetMapping("/{restaurant_name}")
-    public List<RestaurantRequestDto> getRestaurantRequests(@PathVariable @Parameter(description = "Название ресторана", required = true) String restaurant_name) {
+    @GetMapping("/{restaurant_title}")
+    public List<RestaurantRequestDto> getRestaurantRequests(@PathVariable @Parameter(description = "Название ресторана", required = true) String restaurant_title) {
 
-        return restaurantRequestsService.findRestaurantRequests(restaurant_name).stream().map(restaurantRequestConverter::entityToDto).collect(Collectors.toList());
+        return restaurantRequestsService.findRestaurantRequests(restaurant_title).stream().map(restaurantRequestConverter::entityToDto).collect(Collectors.toList());
     }
 
     @Operation(
-            summary = "Запрос на создание нового заказа по названию ресторана",
+            summary = "Запрос на создание нового запроса ресторана диетологу по названию ресторана",
             responses = {
                     @ApiResponse(
                             description = "Успешный ответ", responseCode = "201"
@@ -55,8 +55,8 @@ public class RequestsController {
     )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createRequest(@RequestBody String restaurant_name) {
-        restaurantRequestsService.createRequest(restaurant_name);
+    public void createRequest(@RequestBody String restaurant_title) {
+        restaurantRequestsService.createRequest(restaurant_title);
     }
 
     @PutMapping

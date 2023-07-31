@@ -14,8 +14,17 @@ angular.module('findFood').controller('dishController', function ($rootScope, $s
     };
 
 
-    //загруженное блюдо
-    $scope.Dish = $localStorage.dishToEdit;
+    $scope.Dish;
+
+     $scope.loadDishById = function () {
+        var id;
+        id = $localStorage.dishToEdit.id;
+         $http.get(contextPath + '/' + id)
+             .then(function (response) {
+                 $scope.Dish = response.data;
+                 $localStorage.dishToEdit = $scope.Dish;
+             });
+     };
 
 
 
@@ -25,12 +34,14 @@ angular.module('findFood').controller('dishController', function ($rootScope, $s
 
 
 
-
+    $scope.loadDishById();
 
 
     //переходы
     $rootScope.showDishesPage = function () {
         $location.path('dishes');
     };
+
+
 
 });

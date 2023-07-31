@@ -24,8 +24,19 @@
                 <td>
                     <form name="groupSelect" novalidate>
                         <select class="form-select" id="groupDishTitle" name="groupDishTitle" ng-model="groupDishTitle" ng-init="selected=isInitGroupValue()" required>
-                            <option value="">Выбор группы</option>
+                            <option value="">Выбор группы<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></option>
                             <option ng-repeat="group in groupList" value="{{group.title}}">{{group.title}}</option>
+                        </select>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Категория блюда</b></td><td>{{category_title}}</td>
+                <td>
+                    <form name="groupSelect" novalidate>
+                        <select class="form-select" id="categoryTitle" name="categoryTitle" ng-model="categoryTitle" ng-init="selected=isInitCategoryValue()" required>
+                            <option value="">Выбор категории</option>
+                            <option ng-repeat="category in categoriesList" value="{{category.title}}">{{category.title}}</option>
                         </select>
                     </form>
                 </td>
@@ -47,7 +58,7 @@
             </tr>
             <td align="left"><button class="btn btn-outline-danger btn-sm" style="width: 100%;" type="button" ng-click="updateDish()">Сохранить</button></td>
             <td><button class="btn btn-outline-warning btn-sm" style="width: 100%;" ng-click="undoChanges();isInitGroupValue()">Отменить</button></td></td>
-            <td><button type="button" class="btn btn-outline-success btn-sm" style="width: 100%;" ng-click="showDishesPage()">Вернуться к списку блюд</button></td></td>
+            <td><button type="button" class="btn btn-outline-success btn-sm" style="width: 100%;" ng-click="showDishPage()">На страницу блюда</button></td></td>
             </tr>
             </tbody>
         </table>

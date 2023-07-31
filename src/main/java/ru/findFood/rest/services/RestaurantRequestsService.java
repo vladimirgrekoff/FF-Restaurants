@@ -25,16 +25,16 @@ public class RestaurantRequestsService {
     private final RestaurantService restaurantService;
 //    private final AuthServiceIntegration authServiceIntegration;
 
-    public List<RestaurantRequest> findRestaurantRequests(String restaurant_name) {
-        return restaurantRequestsRepository.findAllByRestaurantName(restaurant_name);
+    public List<RestaurantRequest> findRestaurantRequests(String restaurant_title) {
+        return restaurantRequestsRepository.findAllByRestaurantTitle(restaurant_title);
     }
     @Transactional
-    public void createRequest(String restaurant_name) {
-        Restaurant restaurant = restaurantService.findByTitle(restaurant_name);
-        MailBox mailBox = mailBoxService.getCurrentMailBox(restaurant_name);
+    public void createRequest(String restaurant_title) {
+        Restaurant restaurant = restaurantService.findByTitle(restaurant_title);
+        MailBox mailBox = mailBoxService.getCurrentMailBox(restaurant.getTitle());
         RestaurantRequest restaurantRequest = new RestaurantRequest();
 
-        restaurantRequest.setRestaurantName(restaurant_name);
+        restaurantRequest.setRestaurantTitle(restaurant_title);
         restaurantRequest.setRestaurantRequestItems(mailBox.getItems().stream().map(
                 mailBoxItem -> new RestaurantRequestItem(
                                 mailBoxItem.getDishId(),
@@ -51,7 +51,7 @@ public class RestaurantRequestsService {
                 )
         ).collect(Collectors.toList()));
         restaurantRequestsRepository.save(restaurantRequest);
-        mailBoxService.clearMailBox(restaurant_name);
+        mailBoxService.clearMailBox(restaurant_title);
     }
 
     @Transactional

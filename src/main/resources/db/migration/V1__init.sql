@@ -5,7 +5,7 @@ drop table if exists products cascade;
 create table restaurant_requests
 (
     id                      bigserial primary key,
-    restaurant_name         varchar(255),
+    restaurant_title         varchar(255),
     created_at              timestamp default current_timestamp,
     updated_at              timestamp default current_timestamp
 );
