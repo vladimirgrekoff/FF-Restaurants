@@ -11,7 +11,7 @@ spring:
     password: Normandia1$
 
   jpa:
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
         format-sql: true

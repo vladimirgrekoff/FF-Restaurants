@@ -64,6 +64,10 @@ public class Dish {
     @JoinColumn(name = "category_id")
     private Category category;
 
+
+    @Column(name="used_last_time")
+    private LocalDateTime usedLastTime;
+
     @Column(name = "created_at")
     @CreationTimestamp
     private LocalDateTime createdAt;
