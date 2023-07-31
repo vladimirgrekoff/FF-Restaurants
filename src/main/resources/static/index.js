@@ -53,10 +53,35 @@
             controller:'newDishController',
             controllerAs:'dish_new'
         })
+        .when('/request_create', {
+            templateUrl:'request_create/createRequestTemplate.html',
+            controller:'createRequestController',
+            controllerAs:'request_create'
+        })
+        .when('/request_send', {
+            templateUrl:'request_send/sendRequestTemplate.html',
+            controller:'sendRequestController',
+            controllerAs:'request_send'
+        })
+        .when('/restaurant_requests', {
+            templateUrl:'restaurant_requests/restaurantRequestsTemplate.html',
+            controller:'restaurantRequestsController',
+            controllerAs:'restaurant_requests'
+        })
+        .when('/restaurant_verification', {
+            templateUrl:'restaurant_verification/dishVerificationTemplate.html',
+            controller:'dishVerificationController',
+            controllerAs:'restaurant_verification'
+        })
         .when('/nutritionist', {
             templateUrl:'nutritionist/nutritionistTemplate.html',
             controller:'nutritionistController',
             controllerAs:'nutritionist'
+        })
+        .when('/nutritionist_select', {
+            templateUrl:'nutritionist_select/selectRestaurantTemplate.html',
+            controller:'selectRestaurantController',
+            controllerAs:'nutritionist_select'
         })
         .otherwise({
             redirectTo: '/welcome'
@@ -66,6 +91,13 @@
 
 angular.module('findFood').controller('indexController', function ($rootScope, $scope, $http, $location, $localStorage) {
 
+    $rootScope.isCurrentPageNutritionistSelect = function () {
+        if ($rootScope.currentPage == 'nutritionist_select') {
+            return true;
+        } else {
+            return false;
+        }
+    };
 
     $rootScope.isCurrentPageNutritionist = function () {
         if ($rootScope.currentPage == 'nutritionist') {
@@ -141,5 +173,40 @@ angular.module('findFood').controller('indexController', function ($rootScope, $
             return false;
         }
     };
+
+    $rootScope.isCurrentPageCreateRequest = function () {
+        if ($rootScope.currentPage == 'request_create') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $rootScope.isCurrentPageSendRequest = function () {
+        if ($rootScope.currentPage == 'request_send') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    $rootScope.isCurrentPageRestaurantRequests = function () {
+        if ($rootScope.currentPage == 'restaurant_requests') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+
+
+    $rootScope.isCurrentPageDishVerification = function () {
+        if ($rootScope.currentPage == 'restaurant_verification') {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
 
 });

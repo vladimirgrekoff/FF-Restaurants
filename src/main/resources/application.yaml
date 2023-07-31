@@ -24,3 +24,10 @@ spring:
       path: /h2
       settings:
         web-allow-others: true
+
+  redis:
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+
+    host: "localhost"
+    port: 8188
