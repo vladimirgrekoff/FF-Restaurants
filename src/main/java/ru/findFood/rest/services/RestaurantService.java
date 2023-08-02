@@ -45,7 +45,7 @@ public class RestaurantService {
     }
 
     @Transactional
-    public void createNewRestaurant(Restaurant restaurant) {
+    public Restaurant createNewRestaurant(Restaurant restaurant) {
         if (restaurantRepository.findByTitle(restaurant.getTitle()).isPresent()) {
             throw new ResourceAlreadyInUseException("Название ресторана: '" + restaurant.getTitle() + "' уже используется");
 //        } else if ((restaurant.getId() != null || restaurant.getId() != 0) && restaurantRepository.findById(restaurant.getId()).isPresent()) {
@@ -59,6 +59,7 @@ public class RestaurantService {
         restaurantInfoService.createNewRestaurantInfo(restaurantInfo);
         restaurant.setRestaurantInfo(restaurantInfo);
         restaurantRepository.save(restaurant);
+        return restaurant;
     }
 
     @Transactional
