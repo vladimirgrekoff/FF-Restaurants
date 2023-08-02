@@ -25,9 +25,7 @@ spring:
       settings:
         web-allow-others: true
 
-  redis:
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-
-    host: "localhost"
-    port: 8188
+  data:
+    redis:
+      host: "localhost"
+      port: 6379
