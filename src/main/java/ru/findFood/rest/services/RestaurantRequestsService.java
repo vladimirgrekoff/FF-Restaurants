@@ -27,8 +27,9 @@ public class RestaurantRequestsService {
     public List<RestaurantRequest> findRestaurantRequests(String restaurant_title) {
         return restaurantRequestsRepository.findAllByRestaurantTitle(restaurant_title);
     }
+
     @Transactional
-    public RestaurantRequest createRequest(String restaurant_title) {
+    public void createRequest(String restaurant_title) {
         Restaurant restaurant = restaurantService.findByTitle(restaurant_title);
         MailBox mailBox = mailBoxService.getCurrentMailBox(restaurant.getTitle());
         RestaurantRequest restaurantRequest = new RestaurantRequest();
@@ -36,22 +37,21 @@ public class RestaurantRequestsService {
         restaurantRequest.setRestaurantTitle(restaurant_title);
         restaurantRequest.setRestaurantRequestItems(mailBox.getItems().stream().map(
                 mailBoxItem -> new RestaurantRequestItem(
-                                mailBoxItem.getDishId(),
-                                restaurantRequest,
-                                mailBoxItem.getDishTitle(),
-                                mailBoxItem.getDishDescription(),
-                                mailBoxItem.getDishGroupDishTitle(),
-                                mailBoxItem.getDishCalories(),
-                                mailBoxItem.getDishProteins(),
-                                mailBoxItem.getDishFats(),
-                                mailBoxItem.getDishCarbohydrates(),
-                                mailBoxItem.getDishHealthy(),
-                                mailBoxItem.getDishApproved()
+                        mailBoxItem.getDishId(),
+                        restaurantRequest,
+                        mailBoxItem.getDishTitle(),
+                        mailBoxItem.getDishDescription(),
+                        mailBoxItem.getDishGroupDishTitle(),
+                        mailBoxItem.getDishCalories(),
+                        mailBoxItem.getDishProteins(),
+                        mailBoxItem.getDishFats(),
+                        mailBoxItem.getDishCarbohydrates(),
+                        mailBoxItem.getDishHealthy(),
+                        mailBoxItem.getDishApproved()
                 )
         ).collect(Collectors.toList()));
         restaurantRequestsRepository.save(restaurantRequest);
         mailBoxService.clearMailBox(restaurant_title);
-        return restaurantRequest;
     }
 
     @Transactional
@@ -64,11 +64,11 @@ public class RestaurantRequestsService {
 
 
         List<RestaurantRequestItem> restaurantRequestItemList = restaurantRequest.getRestaurantRequestItems();
-        for (RestaurantRequestItem ri:restaurantRequestItemList) {
-            if(Objects.equals(ri.getId(), updateRequestItemDto.getId())){
+        for (RestaurantRequestItem ri : restaurantRequestItemList) {
+            if (ri.getId() == updateRequestItemDto.getId()) {
                 findItem = true;
-                if(Objects.equals(ri.getRestaurantRequest().getId(), updateRequestItemDto.getRequestId())) {
-                    if(Objects.equals(ri.getDishId(), updateRequestItemDto.getDishId())) {
+                if (ri.getRestaurantRequest().getId() == updateRequestItemDto.getRequestId()) {
+                    if (ri.getDishId() == updateRequestItemDto.getDishId()) {
                         findDish = true;
                         ri.setHealthy(updateRequestItemDto.getDishHealthy());
                         ri.setApproved(updateRequestItemDto.getDishApproved());
@@ -78,7 +78,7 @@ public class RestaurantRequestsService {
             }
         }
 
-        if (!findItem){
+        if (!findItem) {
             throw new ResourceNotFoundException("Запись с ID: " + updateRequestItemDto.getId() + " не найдена");
         }
         if (!findDish) {
