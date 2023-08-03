@@ -83,6 +83,8 @@ public class Dish {
         this.proteins = proteins;
         this.fats = fats;
         this.carbohydrates = carbohydrates;
+        this.approved = false;
+        this.healthy = false;
     }
 
 
@@ -93,6 +95,8 @@ public class Dish {
         this.proteins = proteins;
         this.fats = fats;
         this.carbohydrates = carbohydrates;
+        this.approved = false;
+        this.healthy = false;
     }
 
     //почти полный конструктор

@@ -28,7 +28,7 @@ public class RestaurantRequest {
     @Column(name = "restaurant_title")
     private String restaurantTitle;
 
-    @OneToMany(mappedBy = "restaurantRequest", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "restaurantRequest", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @ToString.Exclude
     private List<RestaurantRequestItem> restaurantRequestItems;
 
@@ -39,6 +39,11 @@ public class RestaurantRequest {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    public RestaurantRequest(String restaurantTitle) {
+        this.restaurantTitle = restaurantTitle;
+    }
+
 
     @Override
     public boolean equals(Object o) {
