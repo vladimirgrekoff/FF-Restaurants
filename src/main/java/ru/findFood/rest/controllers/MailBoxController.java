@@ -39,7 +39,7 @@ public class MailBoxController {
     }
 
     @Operation(
-            summary = "Запрос на получение текущего запроса со списком блюди",
+            summary = "Запрос на получение текущего запроса со списком блюд",
             responses = {
                     @ApiResponse(
                             description = "Успешный ответ", responseCode = "200",

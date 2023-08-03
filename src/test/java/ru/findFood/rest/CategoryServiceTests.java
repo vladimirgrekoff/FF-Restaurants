@@ -6,8 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import ru.findFood.rest.entities.Category;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.services.CategoryService;
+import ru.findFood.rest.utils.Constants;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,8 +18,8 @@ public class CategoryServiceTests {
     @Autowired
     private CategoryService categoryService;
 
-    //@Test
-    public void findAllTest(){
+    @Test
+/*    public void findAllTest(){
         Category mockCategory = new Category("1");
         categoryService.createNewCategory(mockCategory);
         Category mockCategory1 = new Category("2");
@@ -29,6 +29,11 @@ public class CategoryServiceTests {
         List<Category> correctCategoryList = Arrays.asList(mockCategory, mockCategory1, mockCategory2);
 
         assertEquals(correctCategoryList, categoryService.findAll());
+    }*/
+    public void findAllTest(){
+        List<Category> allCategories = categoryService.findAll();
+
+        assertEquals(Constants.INMEMORYDATABASECATEGORYCOUNT, allCategories.size());
     }
 
     @Test
@@ -41,6 +46,9 @@ public class CategoryServiceTests {
 
         assertEquals(testCategory02Id, categoryService.findById(testCategory02Id).getId());
         assertEquals("Полдник", categoryService.findById(testCategory02Id).getTitle());
+
+        categoryService.deleteCategoryById(testCategory01.getId());
+        categoryService.deleteCategoryById(testCategory02Id);
     }
 
     @Test
@@ -53,6 +61,9 @@ public class CategoryServiceTests {
 
         assertEquals("Ночной перекус", categoryService.findByTitle("Ночной перекус").getTitle());
         assertEquals(testCategory04Id, categoryService.findByTitle("Первый завтрак").getId());
+
+        categoryService.deleteCategoryById(testCategory03.getId());
+        categoryService.deleteCategoryById(testCategory04Id);
     }
 
     @Test
@@ -62,26 +73,30 @@ public class CategoryServiceTests {
         Long testCategory05Id = testCategory05.getId();
 
         assertEquals("Второй завтрак", categoryService.findById(testCategory05Id).getTitle());
+
+        categoryService.deleteCategoryById(testCategory05Id);
     }
 
     @Test
     public void updateCategoryTest(){
-        Category testCategory05 = new Category("Новая категория");
-        categoryService.createNewCategory(testCategory05);
-        Long testCategory05Id = testCategory05.getId();
-        testCategory05.setTitle("Чаепитие");
-        categoryService.updateCategory(testCategory05);
+        Category testCategory06 = new Category("Новая категория");
+        categoryService.createNewCategory(testCategory06);
+        Long testCategory06Id = testCategory06.getId();
+        testCategory06.setTitle("Чаепитие");
+        categoryService.updateCategory(testCategory06);
 
-        assertEquals("Чаепитие", categoryService.findById(testCategory05Id).getTitle());
+        assertEquals("Чаепитие", categoryService.findById(testCategory06Id).getTitle());
+
+        categoryService.deleteCategoryById(testCategory06Id);
     }
 
     @Test
     public void deleteCategoryByIdTest(){
-        Category testCategory05 = new Category("Застолье");
-        categoryService.createNewCategory(testCategory05);
-        Long testCategory05Id = testCategory05.getId();
-        categoryService.deleteCategoryById(testCategory05Id);
+        Category testCategory07 = new Category("Застолье");
+        categoryService.createNewCategory(testCategory07);
+        Long testCategory07Id = testCategory07.getId();
+        categoryService.deleteCategoryById(testCategory07Id);
 
-        assertThrows(ResourceNotFoundException.class, () -> categoryService.findById(testCategory05Id));
+        assertThrows(ResourceNotFoundException.class, () -> categoryService.findById(testCategory07Id));
     }
 }

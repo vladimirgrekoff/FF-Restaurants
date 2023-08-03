@@ -13,15 +13,14 @@ import ru.findFood.rest.repositories.RestaurantRequestsRepository;
 import ru.findFood.rest.utils.MailBox;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class RestaurantRequestsService {
-    private final DishesService dishesService;
     private final RestaurantRequestsRepository restaurantRequestsRepository;
     private final MailBoxService mailBoxService;
-    private final RestaurantInfoService restaurantInfoService;
     private final RestaurantService restaurantService;
 //    private final AuthServiceIntegration authServiceIntegration;
 
@@ -29,7 +28,7 @@ public class RestaurantRequestsService {
         return restaurantRequestsRepository.findAllByRestaurantTitle(restaurant_title);
     }
     @Transactional
-    public void createRequest(String restaurant_title) {
+    public RestaurantRequest createRequest(String restaurant_title) {
         Restaurant restaurant = restaurantService.findByTitle(restaurant_title);
         MailBox mailBox = mailBoxService.getCurrentMailBox(restaurant.getTitle());
         RestaurantRequest restaurantRequest = new RestaurantRequest();
@@ -52,6 +51,7 @@ public class RestaurantRequestsService {
         ).collect(Collectors.toList()));
         restaurantRequestsRepository.save(restaurantRequest);
         mailBoxService.clearMailBox(restaurant_title);
+        return restaurantRequest;
     }
 
     @Transactional
@@ -65,10 +65,10 @@ public class RestaurantRequestsService {
 
         List<RestaurantRequestItem> restaurantRequestItemList = restaurantRequest.getRestaurantRequestItems();
         for (RestaurantRequestItem ri:restaurantRequestItemList) {
-            if(ri.getId() == updateRequestItemDto.getId()){
+            if(Objects.equals(ri.getId(), updateRequestItemDto.getId())){
                 findItem = true;
-                if(ri.getRestaurantRequest().getId() == updateRequestItemDto.getRequestId()) {
-                    if(ri.getDishId() == updateRequestItemDto.getDishId()) {
+                if(Objects.equals(ri.getRestaurantRequest().getId(), updateRequestItemDto.getRequestId())) {
+                    if(Objects.equals(ri.getDishId(), updateRequestItemDto.getDishId())) {
                         findDish = true;
                         ri.setHealthy(updateRequestItemDto.getDishHealthy());
                         ri.setApproved(updateRequestItemDto.getDishApproved());

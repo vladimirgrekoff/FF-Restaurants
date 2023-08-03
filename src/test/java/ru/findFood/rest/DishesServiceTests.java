@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import ru.findFood.rest.entities.*;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.services.*;
+import ru.findFood.rest.utils.Constants;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -31,8 +32,8 @@ public class DishesServiceTests {
     private RestaurantService restaurantService;
 
 
-    //@Test
-    public void findAllTest(){
+    @Test
+/*    public void findAllTest(){
         Dish mockDish = new Dish("Салат из помидоров", 19, 0, 0, 5);
         this.dishesService.createNewDish(mockDish);
         Dish mockDish1 = new Dish("Барбадосский резаный огурец", 14, 0, 0, 4);
@@ -43,6 +44,12 @@ public class DishesServiceTests {
         List<Dish> allDishes = this.dishesService.findAll();
 
         assertEquals(allCorrectDishes, allDishes);
+    }*/
+
+    public void findAllTest(){
+        List<Dish> allDishes = this.dishesService.findAll();
+
+        assertEquals(Constants.INMEMORYDATABASEDISHESCOUNT, allDishes.size());
     }
 
     @Test
@@ -77,6 +84,15 @@ public class DishesServiceTests {
 
         assertEquals(correctDishesFromRestaurant, this.dishesService.findAllByRestaurantId(testRestaurant01Id));
         assertEquals(correctDishesFromRestaurant2, this.dishesService.findAllByRestaurantId(testRestaurant02Id));
+
+        dishesService.deleteDishById(testDish.getId());
+        dishesService.deleteDishById(testDish1.getId());
+        dishesService.deleteDishById(testDish2.getId());
+        dishesService.deleteDishById(testDish3.getId());
+        restaurantService.deleteRestaurantById(testRestaurant01Id);
+        restaurantService.deleteRestaurantById(testRestaurant02Id);
+        groupDishService.deleteGroupDishById(testGroupDish.getId());
+        categoryService.deleteCategoryById(testCategory.getId());
     }
 
     @Test
@@ -87,6 +103,8 @@ public class DishesServiceTests {
 
         assertEquals(testDish4Id, this.dishesService.findById(testDish4Id).getId());
         assertEquals("Помидор на мангале", this.dishesService.findById(testDish4Id).getTitle());
+
+        dishesService.deleteDishById(testDish4Id);
     }
 
     @Test
@@ -98,6 +116,9 @@ public class DishesServiceTests {
 
         assertEquals(250, this.dishesService.findByTitle("Сырники").getCalories());
         assertEquals(75, this.dishesService.findByTitle("Картофельное пюре").getCalories());
+
+        dishesService.deleteDishById(testDish5.getId());
+        dishesService.deleteDishById(testDish6.getId());
     }
 
     @Test
@@ -117,6 +138,11 @@ public class DishesServiceTests {
         assertEquals("Апельсиновое мороженое", testDish7.getTitle());
         assertEquals("Марроканские апельсины", testDish7.getDescription());
         assertEquals("Мороженое", testDish7.getGroupDish().getTitle());
+
+        dishesService.deleteDishById(testDish7.getId());
+        groupDishService.deleteGroupDishById(testGroupDish1.getId());
+        categoryService.deleteCategoryById(testCategory1.getId());
+
     }
 
     @Test
@@ -130,6 +156,8 @@ public class DishesServiceTests {
 
         assertEquals("Сливовидные томаты", this.dishesService.findById(testDish8Id).getDescription());
         assertEquals("Томатный соус", this.dishesService.findById(testDish8Id).getTitle());
+
+        dishesService.deleteDishById(testDish8Id);
     }
 
     @Test

@@ -6,8 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import ru.findFood.rest.entities.GroupDish;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.services.GroupDishService;
+import ru.findFood.rest.utils.Constants;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,8 +18,8 @@ public class GroupDishServiceTests {
     @Autowired
     private GroupDishService groupDishService;
 
-    //@Test
-    public void findAllTest(){
+    @Test
+/*    public void findAllTest(){
         GroupDish mockGroupDish = new GroupDish("1");
         groupDishService.createNewGroupDish(mockGroupDish);
         GroupDish mockGroupDish1 = new GroupDish("2");
@@ -29,6 +29,11 @@ public class GroupDishServiceTests {
         List<GroupDish> correctGroupDishList = Arrays.asList(mockGroupDish, mockGroupDish1, mockGroupDish2);
 
         assertEquals(correctGroupDishList, groupDishService.findAll());
+    }*/
+    public void findAllTest(){
+        List<GroupDish> allGroupDishes = groupDishService.findAll();
+
+        assertEquals(Constants.INMEMORYDATABASEGROUPDISHCOUNT, allGroupDishes.size());
     }
 
     @Test
@@ -41,6 +46,9 @@ public class GroupDishServiceTests {
 
         assertEquals(testGroupDish02Id, groupDishService.findById(testGroupDish02Id).getId());
         assertEquals("Хлеб", groupDishService.findById(testGroupDish02Id).getTitle());
+
+        groupDishService.deleteGroupDishById(testGroupDish01.getId());
+        groupDishService.deleteGroupDishById(testGroupDish02Id);
     }
 
     @Test
@@ -54,6 +62,8 @@ public class GroupDishServiceTests {
         assertEquals(testGroupDish03Id, groupDishService.findByTitle("Чипсы").getId());
         assertEquals("Сладости", groupDishService.findByTitle("Сладости").getTitle());
 
+        groupDishService.deleteGroupDishById(testGroupDish03Id);
+        groupDishService.deleteGroupDishById(testGroupDish04.getId());
     }
 
     @Test
@@ -63,6 +73,8 @@ public class GroupDishServiceTests {
         Long testGroupDish05Id = testGroupDish05.getId();
 
         assertEquals("Морепродукты", groupDishService.findById(testGroupDish05Id).getTitle());
+
+        groupDishService.deleteGroupDishById(testGroupDish05Id);
     }
 
     @Test
@@ -74,6 +86,8 @@ public class GroupDishServiceTests {
         groupDishService.updateGroupDish(testGroupDish05);
 
         assertEquals("Мясные блюда", groupDishService.findById(testGroupDish05Id).getTitle());
+
+        groupDishService.deleteGroupDishById(testGroupDish05Id);
     }
 
     @Test
