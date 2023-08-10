@@ -5,8 +5,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.findFood.rest.converters.DishConverter;
-import ru.findFood.rest.dtos.DishDto;
 import ru.findFood.rest.dtos.UpdateDishTimeRequest;
 import ru.findFood.rest.entities.Dish;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
@@ -54,7 +52,7 @@ public class DishesService {
 
     @Transactional
     public Dish updateDish(Dish dish) {
-        if (dish.getId() != null || dish.getId() != 0) {
+        if (dish.getId() != null) {
             Dish dishFound = dishesRepository.findById(dish.getId())
                     .orElseThrow(() -> new ResourceNotFoundException("Блюдо с id: " + dish.getId() + " не найдено"));
 

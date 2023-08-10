@@ -51,7 +51,7 @@ public class GroupDishService {
     }
     @Transactional
     public void updateGroupDish(GroupDish groupDish){
-        if (groupDish.getId() != null || groupDish.getId() != 0) {
+        if (groupDish.getId() != null) {
             groupDishRepository.findById(groupDish.getId())
                     .orElseThrow(() -> new ResourceNotFoundException("Группа блюд с id: " + groupDish.getId() + " не найдена"));
 

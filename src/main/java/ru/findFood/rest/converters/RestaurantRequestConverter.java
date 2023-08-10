@@ -2,6 +2,7 @@ package ru.findFood.rest.converters;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import ru.findFood.rest.dtos.MailBoxDto;
 import ru.findFood.rest.dtos.RestaurantRequestDto;
 import ru.findFood.rest.entities.RestaurantRequest;
 
@@ -13,6 +14,6 @@ public class RestaurantRequestConverter {
     private final RestaurantRequestItemConverter RestaurantRequestItemConverter;
 
     public RestaurantRequestDto entityToDto(RestaurantRequest rq) {
-        return new RestaurantRequestDto(rq.getId(), rq.getRestaurantTitle(), rq.getRestaurantRequestItems().stream().map(RestaurantRequestItemConverter::entityToDto).collect(Collectors.toList()), rq.getCreatedAt());
+        return new RestaurantRequestDto(rq.getId(), rq.getRestaurantName(), rq.getRestaurantRequestItems().stream().map(RestaurantRequestItemConverter::entityToDto).collect(Collectors.toList()), rq.getCreatedAt());
     }
 }

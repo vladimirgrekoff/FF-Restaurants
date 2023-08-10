@@ -45,8 +45,13 @@ public class RestaurantService {
         }
     }
 
+    public Restaurant findByByEmail(String email) {
+        RestaurantInfo restaurantInfo = restaurantInfoService.findByEmail(email);
+        return findById(restaurantInfo.getRestaurant().getId());
+    }
+
     @Transactional
-    public Restaurant createNewRestaurant(Restaurant restaurant) {
+    public void createNewRestaurant(Restaurant restaurant) {
         if (restaurantRepository.findByTitle(restaurant.getTitle()).isPresent()) {
             throw new ResourceAlreadyInUseException("Название ресторана: '" + restaurant.getTitle() + "' уже используется");
         }
@@ -58,7 +63,6 @@ public class RestaurantService {
         restaurantInfoService.createNewRestaurantInfo(restaurantInfo);
         restaurant.setRestaurantInfo(restaurantInfo);
         restaurantRepository.save(restaurant);
-        return restaurant;
     }
 
     @Transactional

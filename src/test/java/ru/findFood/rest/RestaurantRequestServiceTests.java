@@ -39,12 +39,16 @@ public class RestaurantRequestServiceTests {
     public void findRestaurantRequestsTest (){
         Restaurant restaurant = new Restaurant("Ресторан");
         restaurantService.createNewRestaurant(restaurant);
+        restaurant.getRestaurantInfo().setEmail("restaurant@gmail.com");
         Restaurant restaurant1 = new Restaurant("Ресторан1");
         restaurantService.createNewRestaurant(restaurant1);
-        restaurantRequestsService.createRequest("Ресторан");
-        restaurantRequestsService.createRequest("Ресторан1");
-        restaurantRequestsService.createRequest("Ресторан1");
-        restaurantRequestsService.createRequest("Ресторан1");
+        restaurant.getRestaurantInfo().setEmail("restaurant1@gmail.com");
+        String restMailBoxId = mailBoxService.generateMailBoxUuid();
+        String restMailBoxId1 = mailBoxService.generateMailBoxUuid();
+        restaurantRequestsService.createRequest("Ресторан", restMailBoxId);
+        restaurantRequestsService.createRequest("Ресторан1", restMailBoxId1);
+        restaurantRequestsService.createRequest("Ресторан1", restMailBoxId1);
+        restaurantRequestsService.createRequest("Ресторан1", restMailBoxId1);
 
         List<RestaurantRequest> actualRequestList = restaurantRequestsService.findRestaurantRequests("Ресторан");
         List<RestaurantRequest> actualRequestList1 = restaurantRequestsService.findRestaurantRequests("Ресторан1");
@@ -60,15 +64,20 @@ public class RestaurantRequestServiceTests {
     public void createRequestTest (){
         Restaurant restaurant = new Restaurant("Ресторан1");
         restaurantService.createNewRestaurant(restaurant);
+        restaurant.getRestaurantInfo().setEmail("restaurant1@gmail.com");
         GroupDish groupDish = new GroupDish("Группа");
         groupDishService.createNewGroupDish(groupDish);
         Category category = new Category("Категория");
         categoryService.createNewCategory(category);
         Dish dish = new Dish("Салат из помидоров", restaurant, "Описание", BigDecimal.valueOf(100), 19, 0, 0, 5, false, false, groupDish, category);
         dishesService.createNewDish(dish);
+
         String restaurantTitle = restaurant.getTitle();
-        mailBoxService.addToMailBox(restaurantTitle, dish.getId());
-        RestaurantRequest actualRequest = restaurantRequestsService.createRequest(restaurantTitle);
+        String restMailBoxId = mailBoxService.generateMailBoxUuid();
+        mailBoxService.addToMailBox(restMailBoxId, dish.getId());
+        restaurantRequestsService.createRequest("restaurant2@gmail.com", restMailBoxId);
+
+        RestaurantRequest actualRequest = restaurantRequestsService.findRestaurantRequests(restaurantTitle).get(0);
 
         assertEquals(dish.getId(), actualRequest.getRestaurantRequestItems().get(0).getDishId());
         assertEquals(dish.getTitle(), actualRequest.getRestaurantRequestItems().get(0).getTitle());
@@ -92,15 +101,21 @@ public class RestaurantRequestServiceTests {
     public void updateRequestTest (){
         Restaurant restaurant = new Restaurant("Ресторан2");
         restaurantService.createNewRestaurant(restaurant);
+        restaurant.getRestaurantInfo().setEmail("restaurant2@gmail.com");
         GroupDish groupDish = new GroupDish("Группа");
         groupDishService.createNewGroupDish(groupDish);
         Category category = new Category("Категория");
         categoryService.createNewCategory(category);
         Dish dish = new Dish("Салат из помидоров", restaurant, "Описание", BigDecimal.valueOf(100), 19, 0, 0, 5, false, false, groupDish, category);
         dishesService.createNewDish(dish);
+
         String restaurantTitle = restaurant.getTitle();
-        mailBoxService.addToMailBox(restaurantTitle, dish.getId());
-        RestaurantRequest initialRequest = restaurantRequestsService.createRequest(restaurantTitle);
+        String restMailBoxId = mailBoxService.generateMailBoxUuid();
+        mailBoxService.addToMailBox(restMailBoxId, dish.getId());
+        restaurantRequestsService.createRequest("restaurant2@gmail.com", restMailBoxId);
+        RestaurantRequest initialRequest = restaurantRequestsService.findRestaurantRequests(restaurantTitle).get(0);
+
+
         UpdateRequestItemDto updateRequestItemDto = new UpdateRequestItemDto();
         updateRequestItemDto.setId(initialRequest.getRestaurantRequestItems().get(0).getId());
         updateRequestItemDto.setRequestId(initialRequest.getId());
@@ -113,7 +128,7 @@ public class RestaurantRequestServiceTests {
         RestaurantRequestItem restaurantRequestItem = restaurantRequestsService.findRestaurantRequests(restaurantTitle).get(0).getRestaurantRequestItems().get(0);
 
         assertEquals(initialRequest.getId(), updatedRequest.getId());
-        assertEquals(initialRequest.getRestaurantTitle(), updatedRequest.getRestaurantTitle());
+        assertEquals(initialRequest.getRestaurantName(), updatedRequest.getRestaurantName());
         assertEquals(dish.getId(), restaurantRequestItem.getDishId());
         assertTrue(restaurantRequestItem.getApproved());
         assertTrue(restaurantRequestItem.getHealthy());

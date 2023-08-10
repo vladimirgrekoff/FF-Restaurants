@@ -57,7 +57,7 @@ public class RestaurantControllerTests {
             for (RestaurantDto restaurantDto : restaurants) {
                 assertTrue("Missing field: id", restaurantDto.getId() != null);
                 assertTrue("Missing field: title", restaurantDto.getTitle() != null);
-                assertTrue("Missing field: restaurantInfoId", restaurantDto.getRestaurantInfoId() != null);
+                assertTrue("Missing field: restaurantInfoId", restaurantDto.getRestaurant_info_id() != null);
                 assertTrue("Missing field: dishesList", restaurantDto.getDishesList() != null);
                 assertTrue("Missing field: createdAt", restaurantDto.getCreatedAt() != null);
             }
@@ -93,7 +93,7 @@ public class RestaurantControllerTests {
             assertTrue("Missing field: id", actualRestaurantId != null);
             assertEquals(expectedRestaurantId, actualRestaurantId);
             assertTrue("Missing field: title", restaurantDto.getTitle() != null);
-            assertTrue("Missing field: restaurantInfoId", restaurantDto.getRestaurantInfoId() != null);
+            assertTrue("Missing field: restaurantInfoId", restaurantDto.getRestaurant_info_id() != null);
             assertTrue("Missing field: createdAt", restaurantDto.getCreatedAt() != null);
         }
     }
@@ -124,7 +124,7 @@ public class RestaurantControllerTests {
         if (actualRestaurantDto != null) {
             assertTrue("Missing field: id", actualRestaurantDto.getId() != null);
             assertTrue("Missing field: title", Objects.equals(actualRestaurantDto.getTitle(), title));
-            assertTrue("Missing field: restaurantInfoId", actualRestaurantDto.getRestaurantInfoId() != null);
+            assertTrue("Missing field: restaurantInfoId", actualRestaurantDto.getRestaurant_info_id() != null);
             assertTrue("Missing field: createdAt", actualRestaurantDto.getCreatedAt() != null);
         }
 
@@ -152,7 +152,7 @@ public class RestaurantControllerTests {
         restaurantDto.setId(restaurantId);
         restaurantDto.setCreatedAt(responseEntity.getBody().getCreatedAt());
         restaurantDto.setTitle("Новое название");
-        restaurantDto.setRestaurantInfoId(responseEntity.getBody().getRestaurantInfoId());
+        restaurantDto.setRestaurant_info_id(responseEntity.getBody().getRestaurant_info_id());
         HttpHeaders headers1 = new HttpHeaders();
         headers1.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<RestaurantDto> requestEntity1 = new HttpEntity<>(restaurantDto, headers1);

@@ -11,13 +11,10 @@ import ru.findFood.rest.repositories.RestaurantRepository;
 @RequiredArgsConstructor
 public class RestaurantInfoConverter {
 
-    //конвертер вынужден дергать репо, так как ему нужна сущность, а  сервис возвращает ДТО + иначе у нас возникает циклическая зависимость
-    private final RestaurantRepository restaurantRepository;
 
     public RestaurantInfo dtoToEntity (RestaurantInfoDto restaurantInfoDto){
         RestaurantInfo restaurantInfo = new RestaurantInfo();
         restaurantInfo.setId(restaurantInfoDto.getId());
-//        restaurantInfo.setRestaurant(restaurantRepository.findById(restaurantInfoDto.getRestaurantId()).orElseThrow(() -> new ResourceNotFoundException("Ресторан с ID "+ restaurantInfoDto.getRestaurantId() + " не найден")));
         restaurantInfo.setDescription(restaurantInfoDto.getDescription());
         restaurantInfo.setCuisines(restaurantInfoDto.getCuisines());
         restaurantInfo.setAddress(restaurantInfoDto.getAddress());

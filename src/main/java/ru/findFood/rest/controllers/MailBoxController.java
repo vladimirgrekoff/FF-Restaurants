@@ -21,7 +21,6 @@ import java.util.UUID;
 @Tag(name = "Запросы диетологу", description = "Методы работы с запросами диетологу и выбранными блюдами")
 public class MailBoxController {
     private final MailBoxService mailBoxService;
-    private final MailBoxItemConverter mailBoxItemConverter;
     private final MailBoxConverter mailBoxConverter;
 
     @Operation(
@@ -34,8 +33,8 @@ public class MailBoxController {
             }
     )
     @GetMapping("/generate_id")
-    public StringResponse generateGuestMailBoxId() {
-        return new StringResponse(UUID.randomUUID().toString());
+    public StringResponse generateRestMailBoxId() {
+        return new StringResponse(mailBoxService.generateMailBoxUuid());
     }
 
     @Operation(
@@ -47,11 +46,10 @@ public class MailBoxController {
                     )
             }
     )
-    @GetMapping("/{guestMailBoxId}")
-    public MailBoxDto getCurrentMailBox(@RequestHeader(required = false) String username, @PathVariable String guestMailBoxId) {
-        String currentMailBoxId = selectMailBoxId(username, guestMailBoxId);
+    @GetMapping("/{restMailBoxId}")
+    public MailBoxDto getCurrentMailBox(@RequestHeader(required = false) String username, @PathVariable String restMailBoxId) {
 
-        return mailBoxConverter.entityToDto(mailBoxService.getCurrentMailBox(currentMailBoxId));
+        return mailBoxConverter.entityToDto(mailBoxService.getCurrentMailBox(restMailBoxId));
     }
 
 
@@ -63,10 +61,10 @@ public class MailBoxController {
                     )
             }
     )
-    @GetMapping("/{guestMailBoxId}/add/{dishId}")
-    public void addDishToMailBox(@RequestHeader(required = false) String username, @PathVariable String guestMailBoxId, @PathVariable Long dishId) {
-        String currentMailBoxId = selectMailBoxId(username, guestMailBoxId);
-        mailBoxService.addToMailBox(currentMailBoxId, dishId);
+    @GetMapping("/{restMailBoxId}/add/{dishId}")
+    public void addDishToMailBox(@RequestHeader(required = false) String username, @PathVariable String restMailBoxId, @PathVariable Long dishId) {
+
+        mailBoxService.addToMailBox(restMailBoxId, dishId);
     }
 
     @Operation(
@@ -77,10 +75,10 @@ public class MailBoxController {
                     )
             }
     )
-    @DeleteMapping("/{guestMailBoxId}/delete/{dishId}")
-    public void deleteDishFromMailBox(@RequestHeader(required = false) String username, @PathVariable String guestMailBoxId, @PathVariable(name = "dishId") Long dishId) {
-        String currentMailBoxId = selectMailBoxId(username, guestMailBoxId);
-        mailBoxService.deleteFromMailBox(currentMailBoxId, dishId);
+    @DeleteMapping("/{restMailBoxId}/delete/{dishId}")
+    public void deleteDishFromMailBox(@RequestHeader(required = false) String username, @PathVariable String restMailBoxId, @PathVariable(name = "dishId") Long dishId) {
+
+        mailBoxService.deleteFromMailBox(restMailBoxId, dishId);
     }
 
     @Operation(
@@ -91,18 +89,15 @@ public class MailBoxController {
                     )
             }
     )
-    @DeleteMapping("/{guestMailBoxId}/clear")
-    public void clearCurrentMailBox(@RequestHeader(required = false) String username, @PathVariable String guestMailBoxId) {
-        String currentMailBoxId = selectMailBoxId(username, guestMailBoxId);
-        mailBoxService.clearMailBox(currentMailBoxId);
+    @DeleteMapping("/{restMailBoxId}/clear")
+    public void clearCurrentMailBox(@RequestHeader(required = false) String username, @PathVariable String restMailBoxId) {
+
+        mailBoxService.clearMailBox(restMailBoxId);
     }
 
-    private String selectMailBoxId(String username, String guestMailBoxId) {
-        if (username != null) {
-            return username;
-        }
-        return guestMailBoxId;
-    }
+
+
+
 
 }
 

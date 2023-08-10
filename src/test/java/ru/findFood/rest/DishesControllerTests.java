@@ -55,13 +55,13 @@ public class DishesControllerTests {
             for (DishDto dishDto : dishes) {
                 assertTrue("Missing field: id", dishDto.getId() != null);
                 assertTrue("Missing field: title", dishDto.getTitle() != null);
-                assertTrue("Missing field: restaurantTitle", dishDto.getRestaurantTitle() != null);
+                assertTrue("Missing field: restaurantTitle", dishDto.getGroup_dish_title() != null);
                 assertTrue("Missing field: calories", dishDto.getCalories() != null);
                 assertTrue("Missing field: proteins", dishDto.getProteins() != null);
                 assertTrue("Missing field: fats", dishDto.getFats() != null);
                 assertTrue("Missing field: carbohydrates", dishDto.getCarbohydrates() != null);
-                assertTrue("Missing field: groupDishTitle", dishDto.getGroupDishTitle() != null);
-                assertTrue("Missing field: categoryTitle", dishDto.getCategoryTitle() != null);
+                assertTrue("Missing field: groupDishTitle", dishDto.getGroup_dish_title() != null);
+                assertTrue("Missing field: categoryTitle", dishDto.getGroup_dish_title() != null);
                 assertTrue("Missing field: createdAt", dishDto.getCreatedAt() != null);
             }
         }
@@ -96,7 +96,7 @@ public class DishesControllerTests {
         String expectedRestaurantTitle = null;
         if (dishes != null) {
             for (DishDto dishDto : dishes) {
-                String restaurantTitle = dishDto.getRestaurantTitle();
+                String restaurantTitle = dishDto.getRestaurant_title();
                 if (expectedRestaurantTitle == null) {
                     expectedRestaurantTitle = restaurantTitle;
                 } else {
@@ -104,13 +104,13 @@ public class DishesControllerTests {
                 }
                 assertTrue("Missing field: id", dishDto.getId() != null);
                 assertTrue("Missing field: title", dishDto.getTitle() != null);
-                assertTrue("Missing field: restaurantTitle", dishDto.getRestaurantTitle() != null);
+                assertTrue("Missing field: restaurantTitle", dishDto.getRestaurant_title() != null);
                 assertTrue("Missing field: calories", dishDto.getCalories() != null);
                 assertTrue("Missing field: proteins", dishDto.getProteins() != null);
                 assertTrue("Missing field: fats", dishDto.getFats() != null);
                 assertTrue("Missing field: carbohydrates", dishDto.getCarbohydrates() != null);
-                assertTrue("Missing field: groupDishTitle", dishDto.getGroupDishTitle() != null);
-                assertTrue("Missing field: categoryTitle", dishDto.getCategoryTitle() != null);
+                assertTrue("Missing field: groupDishTitle", dishDto.getGroup_dish_title() != null);
+                assertTrue("Missing field: categoryTitle", dishDto.getCategory_title() != null);
                 assertTrue("Missing field: createdAt", dishDto.getCreatedAt() != null);
             }
         }
@@ -138,13 +138,13 @@ public class DishesControllerTests {
             assertEquals(expectedDishId, actualDishId);
             assertTrue("Missing field: id", dishDto.getId() != null);
             assertTrue("Missing field: title", dishDto.getTitle() != null);
-            assertTrue("Missing field: restaurantTitle", dishDto.getRestaurantTitle() != null);
+            assertTrue("Missing field: restaurantTitle", dishDto.getRestaurant_title() != null);
             assertTrue("Missing field: calories", dishDto.getCalories() != null);
             assertTrue("Missing field: proteins", dishDto.getProteins() != null);
             assertTrue("Missing field: fats", dishDto.getFats() != null);
             assertTrue("Missing field: carbohydrates", dishDto.getCarbohydrates() != null);
-            assertTrue("Missing field: groupDishTitle", dishDto.getGroupDishTitle() != null);
-            assertTrue("Missing field: categoryTitle", dishDto.getCategoryTitle() != null);
+            assertTrue("Missing field: groupDishTitle", dishDto.getGroup_dish_title() != null);
+            assertTrue("Missing field: categoryTitle", dishDto.getCategory_title() != null);
             assertTrue("Missing field: createdAt", dishDto.getCreatedAt() != null);
         }
     }
@@ -174,13 +174,13 @@ public class DishesControllerTests {
         if (actualDishDto != null) {
             assertTrue("Missing field: id", actualDishDto.getId() != null);
             assertTrue("Missing field: title", Objects.equals(actualDishDto.getTitle(), dishDto.getTitle()));
-            assertTrue("Missing field: restaurantTitle", Objects.equals(actualDishDto.getRestaurantTitle(), dishDto.getRestaurantTitle()));
+            assertTrue("Missing field: restaurantTitle", Objects.equals(actualDishDto.getRestaurant_title(), dishDto.getRestaurant_title()));
             assertTrue("Missing field: calories", Objects.equals(actualDishDto.getCalories(), dishDto.getCalories()));
             assertTrue("Missing field: proteins", Objects.equals(actualDishDto.getProteins(), dishDto.getProteins()));
             assertTrue("Missing field: fats", Objects.equals(actualDishDto.getFats(), dishDto.getFats()));
             assertTrue("Missing field: carbohydrates", Objects.equals(actualDishDto.getCarbohydrates(), dishDto.getCarbohydrates()));
-            assertTrue("Missing field: groupDishTitle", Objects.equals(actualDishDto.getGroupDishTitle(), dishDto.getGroupDishTitle()));
-            assertTrue("Missing field: categoryTitle", Objects.equals(actualDishDto.getCategoryTitle(), dishDto.getCategoryTitle()));
+            assertTrue("Missing field: groupDishTitle", Objects.equals(actualDishDto.getGroup_dish_title(), dishDto.getGroup_dish_title()));
+            assertTrue("Missing field: categoryTitle", Objects.equals(actualDishDto.getCategory_title(), dishDto.getCategory_title()));
             assertTrue("Missing field: createdAt", actualDishDto.getCreatedAt() != null);
         }
 
@@ -208,10 +208,10 @@ public class DishesControllerTests {
         dishDto1.setId(id);
         dishDto1.setCreatedAt(createdAt);
         dishDto1.setTitle("Жаркое");
-        dishDto1.setRestaurantTitle("Стейкхаус");
+        dishDto1.setRestaurant_title("Стейкхаус");
         dishDto1.setCalories(280);
-        dishDto1.setGroupDishTitle("Второе");
-        dishDto1.setCategoryTitle("Обед");
+        dishDto1.setGroup_dish_title("Второе");
+        dishDto1.setCategory_title("Обед");
         HttpHeaders headers2 = new HttpHeaders();
         headers2.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<DishDto> requestEntity1 = new HttpEntity<>(dishDto1, headers2);
@@ -239,13 +239,13 @@ public class DishesControllerTests {
         if (actualDishDto != null) {
             assertTrue("Missing field: id", Objects.equals(actualDishDto.getId(), id));
             assertTrue("Missing field: title", Objects.equals(actualDishDto.getTitle(), "Жаркое"));
-            assertTrue("Missing field: restaurantTitle", Objects.equals(actualDishDto.getRestaurantTitle(), "Стейкхаус"));
+            assertTrue("Missing field: restaurantTitle", Objects.equals(actualDishDto.getRestaurant_title(), "Стейкхаус"));
             assertTrue("Missing field: calories", actualDishDto.getCalories() == 280);
             assertTrue("Missing field: proteins", actualDishDto.getProteins() == 6);
             assertTrue("Missing field: fats", actualDishDto.getFats() == 4);
             assertTrue("Missing field: carbohydrates", actualDishDto.getCarbohydrates() == 3);
-            assertTrue("Missing field: groupDishTitle", Objects.equals(actualDishDto.getGroupDishTitle(), "Второе"));
-            assertTrue("Missing field: categoryTitle", Objects.equals(actualDishDto.getCategoryTitle(), "Обед"));
+            assertTrue("Missing field: groupDishTitle", Objects.equals(actualDishDto.getGroup_dish_title(), "Второе"));
+            assertTrue("Missing field: categoryTitle", Objects.equals(actualDishDto.getCategory_title(), "Обед"));
             assertTrue("Missing field: createdAt", actualDishDto.getCreatedAt() != null);
             assertTrue("Missing field: updatedAt", actualDishDto.getUpdatedAt() != null);
         }

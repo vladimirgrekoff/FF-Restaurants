@@ -2,8 +2,7 @@ package ru.findFood.rest.dtos;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 

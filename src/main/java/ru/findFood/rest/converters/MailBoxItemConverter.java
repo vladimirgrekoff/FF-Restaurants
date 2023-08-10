@@ -2,7 +2,7 @@ package ru.findFood.rest.converters;
 
 import org.springframework.stereotype.Component;
 import ru.findFood.rest.dtos.MailBoxItemDto;
-import ru.findFood.rest.utils.MailBoxItem;
+import ru.findFood.rest.models.MailBoxItem;
 
 
 @Component

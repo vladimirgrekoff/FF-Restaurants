@@ -46,10 +46,9 @@ public class Restaurant {
         this.title = title;
     }
 
-    public Restaurant(String title, RestaurantInfo restaurantInfo /*List<Dish> dishes,*/) {
+    public Restaurant(String title, RestaurantInfo restaurantInfo) {
         this.title = title;
         this.restaurantInfo = restaurantInfo;
-//        this.dishes = dishes;
     }
 
 

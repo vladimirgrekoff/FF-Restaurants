@@ -25,8 +25,8 @@ public class RestaurantRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "restaurant_title")
-    private String restaurantTitle;
+    @Column(name = "restaurant_name")
+    private String restaurantName;
 
     @OneToMany(mappedBy = "restaurantRequest", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @ToString.Exclude
@@ -40,8 +40,8 @@ public class RestaurantRequest {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    public RestaurantRequest(String restaurantTitle) {
-        this.restaurantTitle = restaurantTitle;
+    public RestaurantRequest(String restaurantName) {
+        this.restaurantName = restaurantName;
     }
 
 

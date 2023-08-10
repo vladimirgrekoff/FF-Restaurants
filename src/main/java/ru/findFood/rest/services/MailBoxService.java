@@ -5,8 +5,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import ru.findFood.rest.entities.Dish;
-import ru.findFood.rest.utils.MailBox;
+import ru.findFood.rest.models.MailBox;
 
+import java.util.UUID;
 import java.util.function.Consumer;
 
 @Service
@@ -17,6 +18,10 @@ public class MailBoxService {
     private final @Qualifier("redisOnServiceTemplate") RedisTemplate<String, Object> redisOnServiceTemplate;
 
 
+
+    public String generateMailBoxUuid() {
+        return UUID.randomUUID().toString();
+    }
 
     public MailBox getCurrentMailBox(String mailBoxId) {
         if (!redisOnServiceTemplate.hasKey(mailBoxId)) {

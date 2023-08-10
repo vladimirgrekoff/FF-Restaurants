@@ -1,4 +1,4 @@
-package ru.findFood.rest.utils;
+package ru.findFood.rest.models;
 
 
 import lombok.AllArgsConstructor;
