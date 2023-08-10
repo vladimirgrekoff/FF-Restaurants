@@ -24,7 +24,7 @@ public class RestaurantDto {
     private Long restaurant_info_id;
 
     @Schema(description = "Блюда ресторана",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Список блюд ресторана")
-    private List<DishDto> dishesList;
+    private List<DishDto> dishes;
 
 
     @Schema(description = "Дата добавления",  requiredMode = Schema.RequiredMode.AUTO)

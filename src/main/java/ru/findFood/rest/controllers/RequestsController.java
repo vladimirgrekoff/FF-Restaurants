@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.findFood.rest.converters.RestaurantRequestConverter;
 import ru.findFood.rest.dtos.RestaurantRequestDto;
 import ru.findFood.rest.dtos.UpdateRequestItemDto;
+import ru.findFood.rest.dtos.ValueRequest;
 import ru.findFood.rest.services.RestaurantRequestsService;
 
 import java.util.List;
@@ -57,9 +58,8 @@ public class RequestsController {
     )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createRequest(@RequestHeader(required = false) String username, @RequestBody String restMailBoxId) {
-
-        restaurantRequestsService.createRequest(username, restMailBoxId);
+    public void createRequest(@RequestHeader(required = false) String username, @RequestBody ValueRequest valueRequest) {
+        restaurantRequestsService.createRequest(username, valueRequest.getValue());
     }
 
     @PutMapping

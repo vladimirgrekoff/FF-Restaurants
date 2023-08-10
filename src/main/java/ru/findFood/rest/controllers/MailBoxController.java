@@ -8,12 +8,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.findFood.rest.converters.MailBoxConverter;
-import ru.findFood.rest.converters.MailBoxItemConverter;
 import ru.findFood.rest.dtos.MailBoxDto;
-import ru.findFood.rest.dtos.StringResponse;
+import ru.findFood.rest.dtos.ValueResponseDto;
 import ru.findFood.rest.services.MailBoxService;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/mail_box")
@@ -22,19 +19,18 @@ import java.util.UUID;
 public class MailBoxController {
     private final MailBoxService mailBoxService;
     private final MailBoxConverter mailBoxConverter;
-
     @Operation(
             summary = "Запрос на получение идентификатора почтового ящика",
             responses = {
                     @ApiResponse(
                             description = "Успешный ответ", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = StringResponse.class))
+                            content = @Content(schema = @Schema(implementation = ValueResponseDto.class))
                     )
             }
     )
     @GetMapping("/generate_id")
-    public StringResponse generateRestMailBoxId() {
-        return new StringResponse(mailBoxService.generateMailBoxUuid());
+    public ValueResponseDto generateRestMailBoxId() {
+        return new ValueResponseDto(mailBoxService.generateMailBoxUuid());
     }
 
     @Operation(
@@ -46,10 +42,10 @@ public class MailBoxController {
                     )
             }
     )
-    @GetMapping("/{restMailBoxId}")
-    public MailBoxDto getCurrentMailBox(@RequestHeader(required = false) String username, @PathVariable String restMailBoxId) {
+    @GetMapping("/{uuid}")
+    public MailBoxDto getCurrentMailBox(@RequestHeader(required = false) String username, @PathVariable String uuid) {
 
-        return mailBoxConverter.entityToDto(mailBoxService.getCurrentMailBox(restMailBoxId));
+        return mailBoxConverter.entityToDto(mailBoxService.getCurrentMailBox(uuid));
     }
 
 
@@ -61,10 +57,10 @@ public class MailBoxController {
                     )
             }
     )
-    @GetMapping("/{restMailBoxId}/add/{dishId}")
-    public void addDishToMailBox(@RequestHeader(required = false) String username, @PathVariable String restMailBoxId, @PathVariable Long dishId) {
+    @GetMapping("/{uuid}/add/{dishId}")
+    public void addDishToMailBox(@RequestHeader(required = false) String username, @PathVariable String uuid, @PathVariable Long dishId) {
 
-        mailBoxService.addToMailBox(restMailBoxId, dishId);
+        mailBoxService.addToMailBox(uuid, dishId);
     }
 
     @Operation(
@@ -75,10 +71,10 @@ public class MailBoxController {
                     )
             }
     )
-    @DeleteMapping("/{restMailBoxId}/delete/{dishId}")
-    public void deleteDishFromMailBox(@RequestHeader(required = false) String username, @PathVariable String restMailBoxId, @PathVariable(name = "dishId") Long dishId) {
+    @DeleteMapping("/{uuid}/delete/{dishId}")
+    public void deleteDishFromMailBox(@RequestHeader(required = false) String username, @PathVariable String uuid, @PathVariable(name = "dishId") Long dishId) {
 
-        mailBoxService.deleteFromMailBox(restMailBoxId, dishId);
+        mailBoxService.deleteFromMailBox(uuid, dishId);
     }
 
     @Operation(
@@ -89,10 +85,10 @@ public class MailBoxController {
                     )
             }
     )
-    @DeleteMapping("/{restMailBoxId}/clear")
-    public void clearCurrentMailBox(@RequestHeader(required = false) String username, @PathVariable String restMailBoxId) {
+    @DeleteMapping("/{uuid}/clear")
+    public void clearCurrentMailBox(@RequestHeader(required = false) String username, @PathVariable String uuid) {
 
-        mailBoxService.clearMailBox(restMailBoxId);
+        mailBoxService.clearMailBox(uuid);
     }
 
 

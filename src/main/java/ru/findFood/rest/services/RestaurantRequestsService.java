@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.findFood.rest.dtos.UpdateRequestItemDto;
+import ru.findFood.rest.dtos.ValueRequest;
 import ru.findFood.rest.entities.Restaurant;
 import ru.findFood.rest.entities.RestaurantRequest;
 import ru.findFood.rest.entities.RestaurantRequestItem;
