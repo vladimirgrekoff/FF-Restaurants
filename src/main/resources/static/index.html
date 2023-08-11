@@ -31,28 +31,37 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-<!--                МЕНЮ ДОМАШНЕЙ СТРАНИЦЫ-->
+                <!--                МЕНЮ ДОМАШНЕЙ СТРАНИЦЫ-->
                 <li class="nav-item">
                     <a class="nav-link" href="#!/welcome">Find Food</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#!/restaurants">Список ресторанов</a>
                 </li>
-<!--                МЕНЮ СТРАНИЦЫ ВЫБОРА РЕСТОРАНОВ-->
+                <li class="nav-item">
+                    <a class="nav-link" href="#!/nutritionist">Страница диетолога</a>
+                </li>
+                <!--                МЕНЮ СТРАНИЦЫ ВЫБОРА РЕСТОРАНОВ-->
                 <li class="nav-item" ng-show="isCurrentPageRestaurants()">
                     <a class="nav-link" href="" ng-click="showAddRestaurantForm()">Добавить ресторан</a>
                 </li>
                 <li class="nav-item" ng-show="isCurrentPageRestaurants()">
                     <a class="nav-link" href="" ng-click="showDeleteRestaurantButton()">Удалить ресторан</a>
                 </li>
-<!--                МЕНЮ ДОМАШНЕЙ СТРАНИЦЫ РЕСТОРАНА-->
+                <!--                МЕНЮ ДОМАШНЕЙ СТРАНИЦЫ РЕСТОРАНА-->
                 <li class="nav-item" ng-show="isCurrentPageRestaurant()">
                     <a class="nav-link" href="#!/dishes" >Список блюд</a>
                 </li>
                 <li class="nav-item" ng-show="isCurrentPageRestaurant()">
                     <a class="nav-link" href="#!/restaurant_info">Профиль ресторана</a>
                 </li>
-<!--                МЕНЮ СТРАНИЦЫ СПИСКА БЛЮД-->
+                <li class="nav-item" ng-show="isCurrentPageRestaurant()">
+                    <a class="nav-link" href="#!/request_create">Запрос диетологу</a>
+                </li>
+                <!--                МЕНЮ СТРАНИЦЫ СПИСКА БЛЮД-->
+                <li class="nav-item" ng-show="isCurrentPageDishes()">
+                    <a class="nav-link" href="#!/restaurant" ng-click="">Домашняя "Страница ресторана"</a>
+                </li>
                 <li class="nav-item" ng-show="isCurrentPageDishes()">
                     <a class="nav-link" href="" ng-click="showDeleteDishButton()">Удалить блюдо</a>
                 </li>
@@ -62,34 +71,64 @@
                 <li class="nav-item" ng-show="isCurrentPageDishes()">
                     <a class="nav-link" href="#!/dish_new" ng-click="showAddNewDishForm()">Добавить блюдо</a>
                 </li>
-                <li class="nav-item" ng-show="isCurrentPageDishes()">
-                    <a class="nav-link" href="#!/restaurant" ng-click=""><strong><i>Домашняя "Страница ресторана"</i></strong></a>
-                </li>
-<!--                МЕНЮ СТРАНИЦЫ ИНФОРМАЦИИ БЛЮДА-->
+                <!--                МЕНЮ СТРАНИЦЫ ИНФОРМАЦИИ БЛЮДА-->
                 <li class="nav-item" ng-show="isCurrentPageDish()">
-                    <a class="nav-link" href="#!/dishes"><strong><i>Вернуться к "Списку блюд"</i></strong></a>
+                    <a class="nav-link" href="#!/dishes">Вернуться к "Списку блюд"</a>
                 </li>
-<!--                МЕНЮ СТРАНИЦЫ ПРАВКИ БЛЮДА-->
+                <li class="nav-item" ng-show="isCurrentPageDish()">
+                    <a class="nav-link" href="#!/dish_edit">Изменить блюдо</a>
+                </li>
+                <!--                МЕНЮ СТРАНИЦЫ ПРАВКИ БЛЮДА-->
                 <li class="nav-item" ng-show="isCurrentPageEditDish()">
-                    <a class="nav-link" href="#!/dishes"><strong><i>Вернуться к "Списку блюд"</i></strong></a>
+                    <a class="nav-link" href="#!/dishes">Вернуться к "Списку блюд"</a>
                 </li>
-<!--                МЕНЮ СТРАНИЦЫ ДОБАВИТЬ БЛЮДО-->
+                <li class="nav-item" ng-show="isCurrentPageEditDish()">
+                    <a class="nav-link" href="#!/dish">На страницу блюда</a>
+                </li>
+                <!--                МЕНЮ СТРАНИЦЫ ДОБАВИТЬ БЛЮДО-->
                 <li class="nav-item" ng-show="isCurrentPageAddNewDish()">
-                    <a class="nav-link" href="#!/dishes"><strong><i>Вернуться к "Списку блюд"</i></strong></a>
+                    <a class="nav-link" href="#!/dishes">Вернуться к "Списку блюд"</a>
                 </li>
-<!--                МЕНЮ СТРАНИЦЫ ПРОФИЛЯ РЕСТОРАНА-->
+                <!--                МЕНЮ СТРАНИЦЫ ПРОФИЛЯ РЕСТОРАНА-->
+                <li class="nav-item" ng-show="isCurrentPageRestaurantInfo()">
+                    <a class="nav-link" href="#!/restaurant" ng-click="">Домашняя "Страница ресторана"</a>
+                </li>
                 <li class="nav-item" ng-show="isCurrentPageRestaurantInfo()">
                     <a class="nav-link" href="#!/restaurant_edit_info" ng-click="">Изменить данные профиля</a>
                 </li>
-                <li class="nav-item" ng-show="isCurrentPageRestaurantInfo()">
-                    <a class="nav-link" href="#!/restaurant" ng-click=""><strong><i>Домашняя "Страница ресторана"</i></strong></a>
-                </li>
-<!--                МЕНЮ СТРАНИЦЫ ПРАВКИ ПРОФИЛЯ РЕСТОРАНА-->
+                <!--                МЕНЮ СТРАНИЦЫ ПРАВКИ ПРОФИЛЯ РЕСТОРАНА-->
                 <li class="nav-item" ng-show="isCurrentPageRestaurantEditInfo()">
                     <a class="nav-link" href="#!/restaurant" ng-click="">Домашняя "Страница ресторана"</a>
                 </li>
                 <li class="nav-item" ng-show="isCurrentPageRestaurantEditInfo()">
-                    <a class="nav-link" href="#!/restaurant_info"><strong><i>Профиль ресторана</i></strong></a>
+                    <a class="nav-link" href="#!/restaurant_info">Профиль ресторана</a>
+                </li>
+                <!--                МЕНЮ СТРАНИЦЫ СОЗДАНИЯ ЗАПРОСА ДИЕТОЛОГУ-->
+                <li class="nav-item" ng-show="isCurrentPageCreateRequest()">
+                    <a class="nav-link" href="#!/restaurant" ng-click="">Домашняя "Страница ресторана"</a>
+                </li>
+                <li class="nav-item" ng-show="isCurrentPageCreateRequest()">
+                    <a class="nav-link" href="#!/request_send" ng-click="">Просмотр/отправка запроса</a>
+                </li>
+                <!--                МЕНЮ СТРАНИЦЫ ОТПРАВКИ ЗАПРОСА ДИЕТОЛОГУ-->
+                <li class="nav-item" ng-show="isCurrentPageSendRequest()">
+                    <a class="nav-link" href="#!/restaurant" ng-click="">Домашняя "Страница ресторана"</a>
+                </li>
+                <li class="nav-item" ng-show="isCurrentPageSendRequest()">
+                    <a class="nav-link" href="#!/request_create" ng-click="">Вернуться к созданию запроса</a>
+                </li>
+                <!--                МЕНЮ ДОМАШНЕЙ СТРАНИЦЫ ДИЕТОЛОГА-->
+                <li class="nav-item" ng-show="isCurrentPageNutritionist()">
+                    <a class="nav-link" href="#!/nutritionist_select" ng-click="">Проверка пришедших запросов</a>
+                </li>
+
+                <!--                МЕНЮ СТРАНИЦЫ ЗАПРОСЫ РЕСТОРАНА ДИЕТОЛОГУ-->
+                <li class="nav-item" ng-show="isCurrentPageRestaurantRequests()">
+                    <a class="nav-link" href="#!/nutritionist_select" ng-click="">Выбор ресторанов с запросами</a>
+                </li>
+                <!--                МЕНЮ СТРАНИЦЫ ПРОВЕРКИ БЛЮДА ДИЕТОЛОГОМ-->
+                <li class="nav-item" ng-show="isCurrentPageDishVerification()">
+                    <a class="nav-link" href="#!/restaurant_requests" ng-click="">Страница запросов ресторана</a>
                 </li>
 
             </ul>
@@ -110,6 +149,12 @@
 <script src="dish/dishController.js"></script>
 <script src="dish_edit/dishEditController.js"></script>
 <script src="dish_new/newDishController.js"></script>
+<script src="request_create/createRequestController.js"></script>
+<script src="request_send/sendRequestController.js"></script>
+<script src="restaurant_requests/restaurantRequestsController.js"></script>
+<script src="restaurant_verification/dishVerificationController.js"></script>
+<script src="nutritionist/nutritionistController.js"></script>
+<script src="nutritionist_select/selectRestaurantController.js"></script>
 <script src="welcome/welcomeController.js"></script>
 </body>
 </html>

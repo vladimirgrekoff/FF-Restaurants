@@ -14,7 +14,6 @@ import ru.findFood.rest.converters.RestaurantInfoConverter;
 import ru.findFood.rest.dtos.RestaurantInfoDto;
 import ru.findFood.rest.entities.RestaurantInfo;
 import ru.findFood.rest.services.RestaurantInfoService;
-import ru.findFood.rest.services.RestaurantService;
 import ru.findFood.rest.validators.RestaurantInfoValidator;
 
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class RestaurantInfoController {
             }
     )
     @GetMapping("/all")
-    public List<RestaurantInfoDto> findAllRestaurantInfos() {
+    public List<RestaurantInfoDto> readAllRestaurantInfos() {
         List<RestaurantInfo> restaurantInfoList = restaurantInfoService.findAll();
         List<RestaurantInfoDto> restaurantInfoDtoList = new ArrayList<>();
         for(RestaurantInfo ri: restaurantInfoList){
@@ -63,7 +62,7 @@ public class RestaurantInfoController {
             }
     )
     @GetMapping("/{id}")
-    public RestaurantInfoDto findRestaurantInfoById(@PathVariable @Parameter(description = "Идентификатор информации о ресторане", required = true) Long id){
+    public RestaurantInfoDto readRestaurantInfoById(@PathVariable @Parameter(description = "Идентификатор информации о ресторане", required = true) Long id){
         return restaurantInfoConverter.entityToDto(restaurantInfoService.findById(id));
     }
 
@@ -81,7 +80,7 @@ public class RestaurantInfoController {
             }
     )
     @GetMapping("/restaurant/{id}")
-    public RestaurantInfoDto findRestaurantInfoByRestaurantId(@PathVariable @Parameter(description = "Идентификатор ресторана", required = true) Long id){
+    public RestaurantInfoDto readRestaurantInfoByRestaurantId(@PathVariable @Parameter(description = "Идентификатор ресторана", required = true) Long id){
         return restaurantInfoConverter.entityToDto(restaurantInfoService.findByRestaurantId(id));
     }
 

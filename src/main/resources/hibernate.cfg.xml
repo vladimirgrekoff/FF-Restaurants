@@ -18,5 +18,7 @@
         <mapping class="ru.findFood.rest.entities.RestaurantInfo"/>
         <mapping class="ru.findFood.rest.entities.Category"/>
         <mapping class="ru.findFood.rest.entities.GroupDish"/>
+        <mapping class="ru.findFood.rest.entities.RestaurantRequest"/>
+        <mapping class="ru.findFood.rest.entities.RestaurantRequestItem"/>
     </session-factory>
 </hibernate-configuration>

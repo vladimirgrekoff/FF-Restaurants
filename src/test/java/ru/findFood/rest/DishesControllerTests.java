@@ -1,14 +1,17 @@
 package ru.findFood.rest;
 
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 
 import org.springframework.web.util.UriComponentsBuilder;
 import ru.findFood.rest.dtos.DishDto;
+import ru.findFood.rest.services.DishesService;
 import ru.findFood.rest.utils.Constants;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,10 +26,14 @@ import java.util.Objects;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DishesControllerTests {
 
-    private int port = Constants.PORT;
+    @LocalServerPort
+    private int port;
 
     @Autowired
     private TestRestTemplate restTemplate;
+
+    @Autowired
+    private DishesService dishesService;
 
 
     @Test
@@ -144,7 +151,8 @@ public class DishesControllerTests {
 
     @Test
     public void createNewDishEndpointTest() {
-        DishDto dishDto = new DishDto("Бульон", "Диетолог", 35, 6, 1, 0, "Суп", "Обед");
+        Faker faker = new Faker();
+        DishDto dishDto = new DishDto(faker.food().dish(), "Диетолог", 35, 6, 1, 0, "Суп", "Обед");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<DishDto> requestEntity = new HttpEntity<>(dishDto, headers);
@@ -165,16 +173,18 @@ public class DishesControllerTests {
         assertNotNull("Response body is empty", actualDishDto);
         if (actualDishDto != null) {
             assertTrue("Missing field: id", actualDishDto.getId() != null);
-            assertTrue("Missing field: title", actualDishDto.getTitle() != null);
-            assertTrue("Missing field: restaurantTitle", actualDishDto.getRestaurantTitle() != null);
-            assertTrue("Missing field: calories", actualDishDto.getCalories() != null);
-            assertTrue("Missing field: proteins", actualDishDto.getProteins() != null);
-            assertTrue("Missing field: fats", actualDishDto.getFats() != null);
-            assertTrue("Missing field: carbohydrates", actualDishDto.getCarbohydrates() != null);
-            assertTrue("Missing field: groupDishTitle", actualDishDto.getGroupDishTitle() != null);
-            assertTrue("Missing field: categoryTitle", actualDishDto.getCategoryTitle() != null);
+            assertTrue("Missing field: title", Objects.equals(actualDishDto.getTitle(), dishDto.getTitle()));
+            assertTrue("Missing field: restaurantTitle", Objects.equals(actualDishDto.getRestaurantTitle(), dishDto.getRestaurantTitle()));
+            assertTrue("Missing field: calories", Objects.equals(actualDishDto.getCalories(), dishDto.getCalories()));
+            assertTrue("Missing field: proteins", Objects.equals(actualDishDto.getProteins(), dishDto.getProteins()));
+            assertTrue("Missing field: fats", Objects.equals(actualDishDto.getFats(), dishDto.getFats()));
+            assertTrue("Missing field: carbohydrates", Objects.equals(actualDishDto.getCarbohydrates(), dishDto.getCarbohydrates()));
+            assertTrue("Missing field: groupDishTitle", Objects.equals(actualDishDto.getGroupDishTitle(), dishDto.getGroupDishTitle()));
+            assertTrue("Missing field: categoryTitle", Objects.equals(actualDishDto.getCategoryTitle(), dishDto.getCategoryTitle()));
             assertTrue("Missing field: createdAt", actualDishDto.getCreatedAt() != null);
         }
+
+        dishesService.deleteDishById(Objects.requireNonNull(responseEntity.getBody()).getId());
     }
 
     @Test
@@ -239,6 +249,8 @@ public class DishesControllerTests {
             assertTrue("Missing field: createdAt", actualDishDto.getCreatedAt() != null);
             assertTrue("Missing field: updatedAt", actualDishDto.getUpdatedAt() != null);
         }
+
+        dishesService.deleteDishById(id);
     }
 
     @Test
@@ -257,7 +269,7 @@ public class DishesControllerTests {
                 requestEntity3,
                 DishDto.class
         );
-        Long id = responseEntity3.getBody().getId();
+        Long id = Objects.requireNonNull(responseEntity3.getBody()).getId();
         URI uri4 = URI.create("http://localhost:" + port + "/ff-restaurants/api/v1/dishes/" + id);
         ResponseEntity<Void> responseEntity4 = restTemplate.exchange(
                 uri4,
@@ -277,6 +289,6 @@ public class DishesControllerTests {
                 },
                 id
         );
-        assertNull(deletedEntity.getBody().getId());
+        assertNull(Objects.requireNonNull(deletedEntity.getBody()).getId());
     }
 }

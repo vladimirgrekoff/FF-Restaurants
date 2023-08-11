@@ -23,4 +23,7 @@ public class NewRestaurantDto {
     @Schema(description = "Дата последнего обновления",  requiredMode = Schema.RequiredMode.AUTO)
     private LocalDateTime updatedAt;
 
+    public NewRestaurantDto(String title) {
+        this.title = title;
+    }
 }

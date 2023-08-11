@@ -17,11 +17,13 @@ angular.module('findFood').controller('dishEditController', function ($rootScope
     $scope.beforeEditDish = $localStorage.dishToEdit;
     $scope.editedDish = $localStorage.dishToEdit;
     $scope.groupList = $localStorage.groupDishList;
+    $scope.categoriesList = $localStorage.categoriesDishList;
 
     //переменные для проверки внесеия изменений
     $scope.title = $scope.beforeEditDish.title;
     $scope.description = $scope.beforeEditDish.description;
-    $scope.group_dish_title = $scope.beforeEditDish.group_dish_title;
+    $scope.group_dish_title = $scope.beforeEditDish.groupDishTitle;
+    $scope.category_title = $scope.beforeEditDish.categoryTitle;
     $scope.calories = $scope.beforeEditDish.calories;
     $scope.fats = $scope.beforeEditDish.fats;
     $scope.proteins = $scope.beforeEditDish.proteins;
@@ -30,28 +32,40 @@ angular.module('findFood').controller('dishEditController', function ($rootScope
 
     $scope.isInitGroupValue = function(){
         for(i=0; i<$scope.groupList.length; i++){
-            if($scope.groupList[i].title == $scope.beforeEditDish.group_dish_title){
+            if($scope.groupList[i].title == $scope.beforeEditDish.groupDishTitle){
                 return $scope.groupDishTitle = $scope.groupList[i].title;
+            }
+        }
+    };
+
+
+    $scope.isInitCategoryValue = function(){
+        for(j=0; j<$scope.categoriesList.length; j++){
+            if($scope.categoriesList[j].title == $scope.beforeEditDish.categoryTitle){
+                return $scope.categoryTitle = $scope.categoriesList[j].title;
             }
         }
     };
 
     $scope.updateDish = function(){
         if ($scope.isEmptyDishData() == false){
-            $scope.editedDish.group_dish_title = $scope.groupDishTitle;
+            $scope.editedDish.groupDishTitle = $scope.groupDishTitle;
+            $scope.editedDish.categoryTitle = $scope.categoryTitle;
             var editedDish = $scope.editedDish;
             if($scope.checkForChanges(editedDish)){
                 $http.put(contextPath, editedDish)
                     .then(function (response) {
                         $scope.editedDish.title = null;
                         $scope.editedDish.description = null;
-                        $scope.editedDish.group_dish_title = null;
+                        $scope.editedDish.groupDishTitle = null;
+                        $scope.editedDish.categoryTitle = null;
                         $scope.editedDish.calories = null;
                         $scope.editedDish.fats = null;
                         $scope.editedDish.proteins = null;
                         $scope.editedDish.carbohydrates = null;
                         $scope.editedDish.price = null;
                         $scope.groupDishTitle = '';
+                        $scope.categoryTitle = '';
                         alert("Изменения в БД внесены");
                 });
             }
@@ -61,7 +75,8 @@ angular.module('findFood').controller('dishEditController', function ($rootScope
     $scope.checkForChanges = function(after){
         if($scope.title == after.title &&
         $scope.description == after.description &&
-        $scope.group_dish_title == after.group_dish_title &&
+        $scope.group_dish_title == after.groupDishTitle &&
+        $scope.category_title == after.categoryTitle &&
         $scope.calories == after.calories &&
         $scope.fats == after.fats &&
         $scope.proteins == after.proteins &&
@@ -84,8 +99,11 @@ angular.module('findFood').controller('dishEditController', function ($rootScope
         if($scope.description != $scope.editedDish.description){
             $scope.editedDish.description = $scope.description;
         }
-        if($scope.group_dish_title != $scope.editedDish.group_dish_title){
-            $scope.editedDish.group_dish_title = $scope.group_dish_title;
+        if($scope.group_dish_title != $scope.groupDishTitle){
+            $scope.groupDishTitle = $scope.group_dish_title;
+        }
+        if($scope.category_title != $scope.categoryTitle){
+            $scope.categoryTitle = $scope.category_title;
         }
         if($scope.calories != $scope.editedDish.calories){
             $scope.editedDish.calories = $scope.calories;
@@ -121,6 +139,10 @@ angular.module('findFood').controller('dishEditController', function ($rootScope
             alert("'Группа блюд' должна иметь одно из значений в списке 'Выбор группы'!");
             return true;
         }
+        if($scope.categoryTitle == undefined || $scope.categoryTitle == ''){
+            alert("'Категория блюда' должна иметь одно из значений в списке 'Выбор категории'!");
+            return true;
+        }
         if($scope.editedDish.calories == undefined || $scope.editedDish.calories == null || $scope.editedDish.calories == ''){
             if(angular.isNumber($scope.editedDish.calories) == false){
                 alert("Поле 'Калории' должно быть заполнено!");
@@ -154,8 +176,8 @@ angular.module('findFood').controller('dishEditController', function ($rootScope
 
 
     //переходы
-    $rootScope.showDishesPage = function () {
-        $location.path('dishes');
+    $rootScope.showDishPage = function () {
+        $location.path('dish');
     };
 
 });
