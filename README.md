@@ -13,7 +13,7 @@ providing information about cooking, creating, editing and deleting dishes.
 
 ### Technologies
 
-* Spring Boot 3.0.2
+* Spring Boot 3.1.1
 * Spring Boot Data JPA
 * Spring Boot Web
 * Embedded-Redis
