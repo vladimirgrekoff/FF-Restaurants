@@ -8,7 +8,6 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 public class FieldsValidationError {
-
     private List<String> errorFieldsMessages;
 
     public FieldsValidationError(List<String> errorFieldsMessages) {

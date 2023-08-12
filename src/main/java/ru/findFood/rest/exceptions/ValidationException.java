@@ -14,5 +14,4 @@ public class ValidationException extends RuntimeException{
         this.errorFieldsMessages = errorFieldsMessages;
     }
 
-
 }

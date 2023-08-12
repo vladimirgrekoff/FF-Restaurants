@@ -13,13 +13,7 @@ public class DishValidator {
     public void validate(DishDto dishDto) {
         List<String> errors = new ArrayList<>();
 
-//        if (dishDto.getPrice().compareTo(BigDecimal.ONE) < 0) {
-//            errors.add("Цена блюда не может быть меньше 1");
-//        }
 
-//        if (dishDto.getTitle().isBlank()) {
-//            errors.add("Блюдо не может иметь пустое название");
-//        }
 
         if (!errors.isEmpty()) {
             throw new ValidationException(errors);
