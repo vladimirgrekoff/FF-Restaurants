@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.findFood.rest.converters.RestaurantRequestConverter;
 import ru.findFood.rest.dtos.RestaurantRequestDto;
 import ru.findFood.rest.dtos.UpdateRequestItemDto;
+import ru.findFood.rest.dtos.ValueRequest;
 import ru.findFood.rest.services.RestaurantRequestsService;
 
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/requests")
 @RequiredArgsConstructor
-@Tag(name = "Запросы ресторана", description = "Методы работы с запросами  ресторанов")
+@Tag(name = "Запросы ресторана", description = "Методы работы с заказами продуктов")
 public class RequestsController {
 
     private final RestaurantRequestsService restaurantRequestsService;
@@ -39,14 +40,16 @@ public class RequestsController {
                     )
             }
     )
-    @GetMapping("/{restaurant_title}")
-    public List<RestaurantRequestDto> getRestaurantRequests(@PathVariable @Parameter(description = "Название ресторана", required = true) String restaurant_title) {
+    @GetMapping("/{restaurant_name}")
+    public List<RestaurantRequestDto> getRestaurantRequests(@PathVariable @Parameter(description = "Название ресторана", required = true) String restaurant_name) {
 
-        return restaurantRequestsService.findRestaurantRequests(restaurant_title).stream().map(restaurantRequestConverter::entityToDto).collect(Collectors.toList());
+        return restaurantRequestsService.findRestaurantRequests(restaurant_name).stream().map(restaurantRequestConverter::entityToDto).collect(Collectors.toList());
     }
 
     @Operation(
             summary = "Запрос на создание нового запроса ресторана диетологу по названию ресторана",
+
+
             responses = {
                     @ApiResponse(
                             description = "Успешный ответ", responseCode = "201"
@@ -55,8 +58,8 @@ public class RequestsController {
     )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createRequest(@RequestBody String restaurant_title) {
-        restaurantRequestsService.createRequest(restaurant_title);
+    public void createRequest(@RequestHeader(required = false) String username, @RequestBody ValueRequest valueRequest) {
+        restaurantRequestsService.createRequest(username, valueRequest.getValue());
     }
 
     @PutMapping

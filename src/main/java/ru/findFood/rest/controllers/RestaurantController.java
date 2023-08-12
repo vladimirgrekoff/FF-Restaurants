@@ -9,10 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.findFood.rest.converters.RestaurantConverter;
 import ru.findFood.rest.dtos.RestaurantDto;
 import ru.findFood.rest.dtos.NewRestaurantDto;
@@ -20,7 +17,6 @@ import ru.findFood.rest.entities.Restaurant;
 import ru.findFood.rest.services.RestaurantService;
 import ru.findFood.rest.validators.RestaurantValidator;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +42,7 @@ public class RestaurantController {
     public List<RestaurantDto> readAllRestaurants() {
         List<Restaurant> restaurantList = restaurantService.findAll();
         List<RestaurantDto> restaurantDtoList = new ArrayList<>();
-        for (Restaurant r : restaurantList) {
+        for (Restaurant r: restaurantList) {
             RestaurantDto restaurantDto = restaurantConverter.entityToDto(r);
             restaurantDtoList.add(restaurantDto);
         }
@@ -67,10 +63,28 @@ public class RestaurantController {
             }
     )
     @GetMapping("/{id}")
-    public RestaurantDto readRestaurantById(@PathVariable @Parameter(description = "Идентификатор ресторана", required = true) Long id) {
+    public RestaurantDto readRestaurantById(@PathVariable @Parameter(description = "Идентификатор ресторана", required = true) Long id){
         return restaurantConverter.entityToDto(restaurantService.findById(id));
     }
 
+    @Operation(
+            summary = "Запрос на получение ресторана по email",
+            responses = {
+                    @ApiResponse(
+                            description = "Успешный ответ", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = RestaurantDto.class))
+                    ),
+                    @ApiResponse(
+                            description = "Ресторан не найден", responseCode = "404",
+                            content = @Content(schema = @Schema(implementation = RestaurantDto.class))
+                    )
+            }
+    )
+    @GetMapping("/email/{email}")
+    public RestaurantDto readRestaurantByEmail(@PathVariable @Parameter(description = "адрес электронной почты ресторана", required = true) String email){
+
+        return restaurantConverter.entityToDto(restaurantService.findByByEmail(email));
+    }
 
     @Operation(
             summary = "Запрос на создание нового ресторана",
@@ -82,9 +96,9 @@ public class RestaurantController {
     )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public RestaurantDto createNewRestaurant(@RequestBody NewRestaurantDto newRestaurantDto) {
-        restaurantValidator.validate(newRestaurantDto);
-        return restaurantConverter.entityToDto(restaurantService.createNewRestaurant(restaurantConverter.dtoToEntity(newRestaurantDto)));
+    public void createNewRestaurant(@RequestBody NewRestaurantDto newRestaurantDto) {
+
+        restaurantService.createNewRestaurant(restaurantConverter.dtoToEntity(newRestaurantDto));
     }
 
     @Operation(
@@ -110,6 +124,7 @@ public class RestaurantController {
                     )
             }
     )
+
     @DeleteMapping("/{id}")
     public void deleteRestaurantById(@PathVariable @Parameter(description = "Идентификатор ресторана", required = true) Long id) {
         restaurantService.deleteRestaurantById(id);

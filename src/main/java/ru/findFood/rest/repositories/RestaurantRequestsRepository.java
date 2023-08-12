@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface RestaurantRequestsRepository extends JpaRepository<RestaurantRequest, Long> {
-    List<RestaurantRequest> findAllByRestaurantTitle(String restaurant_title);
+    List<RestaurantRequest> findAllByRestaurantName(String restaurant_name);
 }

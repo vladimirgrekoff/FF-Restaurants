@@ -2,10 +2,7 @@ package ru.findFood.rest.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.findFood.rest.converters.CategoryConverter;
-import ru.findFood.rest.dtos.CategoryDto;
 import ru.findFood.rest.entities.Category;
-import ru.findFood.rest.entities.Dish;
 import ru.findFood.rest.exceptions.ResourceAlreadyInUseException;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.repositories.CategoryRepository;
@@ -52,7 +49,7 @@ public class CategoryService {
     }
 
     public void updateCategory(Category category){
-        if (category.getId() != null || category.getId() != 0) {
+        if (category.getId() != null) {
             Category categoryFound = categoryRepository.findById(category.getId())
                     .orElseThrow(() -> new ResourceNotFoundException("Категория с ID " + category.getId() + " не найдена"));
             if (categoryFound != null) {

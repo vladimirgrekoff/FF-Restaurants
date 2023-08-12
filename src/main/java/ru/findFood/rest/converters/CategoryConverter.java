@@ -11,7 +11,6 @@ import ru.findFood.rest.services.CategoryService;
 @RequiredArgsConstructor
 public class CategoryConverter {
 
-    private final CategoryService categoryService;
 
     public Category dtoToEntity (CategoryDto categoryDto){
         Category category = new Category();

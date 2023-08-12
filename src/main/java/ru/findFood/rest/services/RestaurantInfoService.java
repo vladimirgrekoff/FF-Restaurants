@@ -15,7 +15,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RestaurantInfoService {
     private final RestaurantInfoRepository restaurantInfoRepository;
-    private final RestaurantInfoConverter restaurantInfoConverter;
 
     public List<RestaurantInfo> findAll(){
         return restaurantInfoRepository.findAll();
@@ -30,14 +29,13 @@ public class RestaurantInfoService {
         }
     }
 
-    public RestaurantInfo findByRestaurantId(Long id){
+    public RestaurantInfo findByRestaurantId(Long id) {
         Optional<RestaurantInfo> restaurantInfo = restaurantInfoRepository.findByRestaurantId(id);
         if (restaurantInfo.isPresent()) {
             return restaurantInfo.get();
         } else {
             throw new ResourceNotFoundException("Информация о ресторане с таким ID - " + id + " не найдена");
         }
-//        return restaurantInfoRepository.findByRestaurantId(id).orElseThrow(()-> new ResourceNotFoundException("Информация о ресторане с таким ID - " + id + " не найдена")));
     }
 
     public void createNewRestaurantInfo(RestaurantInfo restaurantInfo) {
@@ -56,6 +54,15 @@ public class RestaurantInfoService {
             restaurantInfoRepository.save(restaurantInfo);
         } else {
             throw new ResourceNotFoundException("Информация о ресторане с ID " +restaurantInfo.getId()+ " не найдена");
+        }
+    }
+
+    public RestaurantInfo findByEmail(String email) {
+        Optional<RestaurantInfo> restaurantInfo = restaurantInfoRepository.findByEmail(email);
+        if (restaurantInfo.isPresent()) {
+            return restaurantInfo.get();
+        } else {
+            throw new ResourceNotFoundException("Информация с email " + email + " не найдена");
         }
     }
 }

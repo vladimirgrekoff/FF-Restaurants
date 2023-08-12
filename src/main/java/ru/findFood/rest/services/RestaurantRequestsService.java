@@ -5,15 +5,15 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.findFood.rest.dtos.UpdateRequestItemDto;
+import ru.findFood.rest.dtos.ValueRequest;
 import ru.findFood.rest.entities.Restaurant;
 import ru.findFood.rest.entities.RestaurantRequest;
 import ru.findFood.rest.entities.RestaurantRequestItem;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.repositories.RestaurantRequestsRepository;
-import ru.findFood.rest.utils.MailBox;
+import ru.findFood.rest.models.MailBox;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,17 +24,17 @@ public class RestaurantRequestsService {
     private final RestaurantService restaurantService;
 //    private final AuthServiceIntegration authServiceIntegration;
 
-    public List<RestaurantRequest> findRestaurantRequests(String restaurant_title) {
-        return restaurantRequestsRepository.findAllByRestaurantTitle(restaurant_title);
+    public List<RestaurantRequest> findRestaurantRequests(String restaurant_name) {
+        return restaurantRequestsRepository.findAllByRestaurantName(restaurant_name);
     }
 
     @Transactional
-    public void createRequest(String restaurant_title) {
-        Restaurant restaurant = restaurantService.findByTitle(restaurant_title);
-        MailBox mailBox = mailBoxService.getCurrentMailBox(restaurant.getTitle());
+    public void createRequest(String username, String restMailBoxId) {
+        Restaurant restaurant = restaurantService.findByByEmail(username);
+        MailBox mailBox = mailBoxService.getCurrentMailBox(restMailBoxId);
         RestaurantRequest restaurantRequest = new RestaurantRequest();
 
-        restaurantRequest.setRestaurantTitle(restaurant_title);
+        restaurantRequest.setRestaurantName(restaurant.getTitle());
         restaurantRequest.setRestaurantRequestItems(mailBox.getItems().stream().map(
                 mailBoxItem -> new RestaurantRequestItem(
                         mailBoxItem.getDishId(),
@@ -50,8 +50,9 @@ public class RestaurantRequestsService {
                         mailBoxItem.getDishApproved()
                 )
         ).collect(Collectors.toList()));
+
         restaurantRequestsRepository.save(restaurantRequest);
-        mailBoxService.clearMailBox(restaurant_title);
+        mailBoxService.clearMailBox(restMailBoxId);
     }
 
     @Transactional

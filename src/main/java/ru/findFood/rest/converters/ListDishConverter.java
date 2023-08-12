@@ -14,7 +14,7 @@ public class ListDishConverter {
     private final DishConverter dishConverter;
 
     public List<DishDto> entityToDto (List<Dish> dishList){
-    List<DishDto> dishDtoList = new ArrayList<>();
+        List<DishDto> dishDtoList = new ArrayList<>();
         for (Dish d: dishList) {
             DishDto dishDto = dishConverter.entityToDto(d);
             dishDtoList.add(dishDto);

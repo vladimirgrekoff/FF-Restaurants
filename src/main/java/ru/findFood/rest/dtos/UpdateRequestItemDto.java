@@ -20,7 +20,7 @@ public class UpdateRequestItemDto {
     @Schema(description = "ID блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "10")
     private Long dishId;
 
-    @Schema(description = "Здоровое питание",  requiredMode = Schema.RequiredMode.REQUIRED, example = "false")
+    @Schema(description = "Здоровое питание",  requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 255, minLength = 3, example = "false")
     private Boolean dishHealthy;
 
     @Schema(description = "Одобрено диетологом",  requiredMode = Schema.RequiredMode.REQUIRED, example = "false")

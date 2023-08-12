@@ -22,16 +22,13 @@ public class DishDto {
     private String title;
 
     @Schema(description = "Ресторан",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Диетолог")
-    private String restaurantTitle;
+    private String restaurant_title;
 
     @Schema(description = "Описание блюда",  requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 255, minLength = 3, example = "Борщ с говядиной, ломтиком сала на хлебном чипсе и сметаной")
     private String description;
 
     @Schema(description = "Цена блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "360.00")
     private BigDecimal price;
-
-//    @Schema(description = "Ссылка на фото",  requiredMode = Schema.RequiredMode.REQUIRED, example = "")
-//    private byte[] image;
 
     @Schema(description = "Калории",  requiredMode = Schema.RequiredMode.REQUIRED, example = "58")
     private Integer calories;
@@ -45,17 +42,17 @@ public class DishDto {
     @Schema(description = "Углеводы",  requiredMode = Schema.RequiredMode.REQUIRED, example = "4")
     private Integer carbohydrates;
 
-    @Schema(description = "Одобрено диетологом",  requiredMode = Schema.RequiredMode.REQUIRED, example = "false")
+    @Schema(description = "Здоровое питание",  requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 255, minLength = 3, example = "false")
     private Boolean healthy;
 
-    @Schema(description = "К/Б/Ж/У подтверждаю",  requiredMode = Schema.RequiredMode.REQUIRED, example = "false")
+    @Schema(description = "Одобрено диетологом",  requiredMode = Schema.RequiredMode.REQUIRED, example = "false")
     private Boolean approved;
 
     @Schema(description = "Группа блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Суп")
-    private String groupDishTitle;
+    private String group_dish_title;
 
     @Schema(description = "Категория блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Обед")
-    private String categoryTitle;
+    private String category_title;
 
     @Schema(description = "Дата добавления",  requiredMode = Schema.RequiredMode.AUTO)
     private LocalDateTime createdAt;
@@ -64,33 +61,32 @@ public class DishDto {
     private LocalDateTime updatedAt;
 
 
-    public DishDto(Long id, String title, String restaurantTitle, String description, BigDecimal price, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, Boolean healthy, Boolean approved, String groupDishTitle, String categoryTitle) {
+    public DishDto(Long id, String title, String restaurant_title, String description, BigDecimal price, /*byte[] image,*/ Integer calories, Integer proteins, Integer fats, Integer carbohydrates, Boolean healthy, Boolean approved, String group_dish_title, String category_title) {
 
 
         this.id = id;
         this.title = title;
-        this.restaurantTitle = restaurantTitle;
+        this.restaurant_title = restaurant_title;
         this.description = description;
         this.price = price;
-//        this.image = image;
         this.calories = calories;
         this.proteins = proteins;
         this.fats = fats;
         this.carbohydrates = carbohydrates;
         this.healthy = healthy;
         this.approved = approved;
-        this.groupDishTitle = groupDishTitle;
-        this.categoryTitle = categoryTitle;
+        this.group_dish_title = group_dish_title;
+        this.category_title = category_title;
     }
 
     public DishDto(String title, String restaurantTitle, Integer calories, Integer proteins, Integer fats, Integer carbohydrates, String groupDishTitle, String categoryTitle) {
         this.title = title;
-        this.restaurantTitle = restaurantTitle;
+        this.restaurant_title = restaurantTitle;
         this.calories = calories;
         this.proteins = proteins;
         this.fats = fats;
         this.carbohydrates = carbohydrates;
-        this.groupDishTitle = groupDishTitle;
-        this.categoryTitle = categoryTitle;
+        this.category_title = groupDishTitle;
+        this.category_title = categoryTitle;
     }
 }

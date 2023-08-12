@@ -17,9 +17,9 @@ public class RestaurantConverter {
         Restaurant restaurant = new Restaurant();
         restaurant.setId(restaurantDto.getId());
         restaurant.setTitle(restaurantDto.getTitle());
-        restaurant.setRestaurantInfo(restaurantInfoService.findById(restaurantDto.getRestaurantInfoId()));
-        if((restaurantDto.getDishesList()) != null){
-            restaurant.setDishes(listDishConverter.dtoToEntity(restaurantDto.getDishesList()));
+        restaurant.setRestaurantInfo(restaurantInfoService.findById(restaurantDto.getRestaurant_info_id()));
+        if((restaurantDto.getDishes()) != null){
+            restaurant.setDishes(listDishConverter.dtoToEntity(restaurantDto.getDishes()));
         }
         restaurant.setCreatedAt(restaurantDto.getCreatedAt());
         restaurant.setUpdatedAt(restaurantDto.getUpdatedAt());
@@ -30,9 +30,9 @@ public class RestaurantConverter {
         RestaurantDto restaurantDto = new RestaurantDto();
         restaurantDto.setId(restaurant.getId());
         restaurantDto.setTitle(restaurant.getTitle());
-        restaurantDto.setRestaurantInfoId(restaurant.getRestaurantInfo().getId());
+        restaurantDto.setRestaurant_info_id(restaurant.getRestaurantInfo().getId());
         if((restaurant.getDishes()) != null) {
-            restaurantDto.setDishesList(listDishConverter.entityToDto(restaurant.getDishes()));
+            restaurantDto.setDishes(listDishConverter.entityToDto(restaurant.getDishes()));
         }
         restaurantDto.setCreatedAt(restaurant.getCreatedAt());
         restaurantDto.setUpdatedAt(restaurant.getUpdatedAt());

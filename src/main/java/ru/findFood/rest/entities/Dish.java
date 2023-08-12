@@ -35,9 +35,6 @@ public class Dish {
     @Column(name = "price")
     private BigDecimal price;
 
-    @Column(name = "image_data")
-    private byte[] image;
-
     @Column(name = "calories", nullable = false)
     private Integer calories;
 

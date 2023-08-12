@@ -14,4 +14,6 @@ public interface RestaurantInfoRepository extends JpaRepository<RestaurantInfo, 
 //    @Query("select ri from RestaurantInfo ri where ri.restaurant.id = :requestedId")
 //    Optional<RestaurantInfo> findByRestaurantId(@Param("requestedId")Long requestedId);
     Optional<RestaurantInfo> findByRestaurantId(Long restaurant_id);
+
+    Optional<RestaurantInfo> findByEmail(String email);
 }
