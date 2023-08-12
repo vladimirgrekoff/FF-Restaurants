@@ -17,7 +17,11 @@ public class RestApplication {
 	}
 
 	private static void embeddedServerInit() throws IOException {
-		redisServer = new RedisServer(6379);
+//		redisServer = new RedisServer(6379);
+		redisServer = RedisServer.builder()
+				.port(6379)
+				.setting("maxheap 256M")
+				.build();
 		redisServer.start();
 
 	}
