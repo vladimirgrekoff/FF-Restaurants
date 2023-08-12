@@ -58,7 +58,7 @@ public class RestaurantControllerTests {
                 assertTrue("Missing field: id", restaurantDto.getId() != null);
                 assertTrue("Missing field: title", restaurantDto.getTitle() != null);
                 assertTrue("Missing field: restaurantInfoId", restaurantDto.getRestaurant_info_id() != null);
-                assertTrue("Missing field: dishesList", restaurantDto.getDishesList() != null);
+                assertTrue("Missing field: dishesList", restaurantDto.getDishes() != null);
                 assertTrue("Missing field: createdAt", restaurantDto.getCreatedAt() != null);
             }
         }
