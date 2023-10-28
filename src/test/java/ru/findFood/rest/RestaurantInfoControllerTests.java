@@ -128,7 +128,7 @@ public class RestaurantInfoControllerTests {
     public void updateRestaurantInfoEndpointTest() {
         Faker faker = new Faker();
         Restaurant restaurant = new Restaurant(faker.company().name());
-        restaurantService.createNewRestaurant(restaurant);
+//        restaurantService.createNewRestaurant(restaurant);////////////////////////////////////////
         RestaurantInfoDto restaurantInfoDto = restaurantInfoConverter.entityToDto(restaurant.getRestaurantInfo());
         restaurantInfoDto.setDescription("Описание ресторана");
         restaurantInfoDto.setAddress("Адрес ресторана");

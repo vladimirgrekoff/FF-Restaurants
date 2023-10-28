@@ -25,7 +25,6 @@ public class RestaurantRequestItemConverter {
                 rRqItem.getCarbohydrates(),
                 rRqItem.getHealthy(),
                 rRqItem.getApproved(),
-                rRqItem.getVerified()
-        );
+                rRqItem.getLastname());
     }
 }

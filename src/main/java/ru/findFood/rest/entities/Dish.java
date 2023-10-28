@@ -61,6 +61,9 @@ public class Dish {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @Column(name = "nutritionist_lastname")
+    private String nutritionist_lastname;
+
 
     @Column(name="used_last_time")
     private LocalDateTime usedLastTime;

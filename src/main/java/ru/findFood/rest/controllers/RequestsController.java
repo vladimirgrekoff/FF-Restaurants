@@ -9,12 +9,16 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.findFood.rest.converters.RestaurantRequestConverter;
 import ru.findFood.rest.dtos.RestaurantRequestDto;
 import ru.findFood.rest.dtos.UpdateRequestItemDto;
 import ru.findFood.rest.dtos.ValueRequest;
+import ru.findFood.rest.exceptions.AppError;
+import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.services.RestaurantRequestsService;
 
 import java.util.List;
@@ -58,8 +62,13 @@ public class RequestsController {
     )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createRequest(@RequestHeader(required = false) String username, @RequestBody ValueRequest valueRequest) {
-        restaurantRequestsService.createRequest(username, valueRequest.getValue());
+    public ResponseEntity<?> createRequest(@RequestHeader(required = false) String username, @RequestBody ValueRequest valueRequest) {
+        try {
+            restaurantRequestsService.createRequest(username, valueRequest.getValue());
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }catch (ResourceNotFoundException e){
+            return new ResponseEntity<>(new AppError(HttpStatus.BAD_REQUEST.value(), e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping

@@ -2,6 +2,7 @@ package ru.findFood.rest.dtos;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -54,6 +55,9 @@ public class DishDto {
     @Schema(description = "Категория блюда",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Обед")
     private String category_title;
 
+    @Schema(description = "Диетолог",  requiredMode = Schema.RequiredMode.REQUIRED, example = "Иванов")
+    private String nutritionist_lastname;
+
     @Schema(description = "Дата добавления",  requiredMode = Schema.RequiredMode.AUTO)
     private LocalDateTime createdAt;
 
@@ -86,7 +90,7 @@ public class DishDto {
         this.proteins = proteins;
         this.fats = fats;
         this.carbohydrates = carbohydrates;
-        this.category_title = groupDishTitle;
+        this.group_dish_title = groupDishTitle;
         this.category_title = categoryTitle;
     }
 }

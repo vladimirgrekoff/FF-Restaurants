@@ -56,11 +56,11 @@ public class DishesServiceTests {
     public void findAllByRestaurantIdTest(){
         Restaurant testRestaurant01 = new Restaurant();
         testRestaurant01.setTitle("Ресторан01");
-        this.restaurantService.createNewRestaurant(testRestaurant01);
+//        this.restaurantService.createNewRestaurant(testRestaurant01);////////////////////////
         Long testRestaurant01Id = testRestaurant01.getId();
         Restaurant testRestaurant02 = new Restaurant();
         testRestaurant02.setTitle("Ресторан02");
-        this.restaurantService.createNewRestaurant(testRestaurant02);
+//        this.restaurantService.createNewRestaurant(testRestaurant02);/////////////////////////
         Long testRestaurant02Id = testRestaurant02.getId();
 
         GroupDish testGroupDish = new GroupDish();

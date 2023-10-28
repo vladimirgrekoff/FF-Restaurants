@@ -38,10 +38,10 @@ public class RestaurantRequestServiceTests {
     @Test
     public void findRestaurantRequestsTest (){
         Restaurant restaurant = new Restaurant("Ресторан");
-        restaurantService.createNewRestaurant(restaurant);
+//        restaurantService.createNewRestaurant(restaurant);///////////////////////////////
         restaurant.getRestaurantInfo().setEmail("restaurant@gmail.com");
         Restaurant restaurant1 = new Restaurant("Ресторан1");
-        restaurantService.createNewRestaurant(restaurant1);
+//        restaurantService.createNewRestaurant(restaurant1);///////////////////////////////////
         restaurant.getRestaurantInfo().setEmail("restaurant1@gmail.com");
         String restMailBoxId = mailBoxService.generateMailBoxUuid();
         String restMailBoxId1 = mailBoxService.generateMailBoxUuid();
@@ -63,7 +63,7 @@ public class RestaurantRequestServiceTests {
     @Test
     public void createRequestTest (){
         Restaurant restaurant = new Restaurant("Ресторан1");
-        restaurantService.createNewRestaurant(restaurant);
+//        restaurantService.createNewRestaurant(restaurant);///////////////////////////////
         restaurant.getRestaurantInfo().setEmail("restaurant1@gmail.com");
         GroupDish groupDish = new GroupDish("Группа");
         groupDishService.createNewGroupDish(groupDish);
@@ -100,7 +100,7 @@ public class RestaurantRequestServiceTests {
     @Test
     public void updateRequestTest (){
         Restaurant restaurant = new Restaurant("Ресторан2");
-        restaurantService.createNewRestaurant(restaurant);
+//        restaurantService.createNewRestaurant(restaurant);/////////////////////////////////
         restaurant.getRestaurantInfo().setEmail("restaurant2@gmail.com");
         GroupDish groupDish = new GroupDish("Группа");
         groupDishService.createNewGroupDish(groupDish);
@@ -122,7 +122,6 @@ public class RestaurantRequestServiceTests {
         updateRequestItemDto.setDishId(dish.getId());
         updateRequestItemDto.setDishApproved(true);
         updateRequestItemDto.setDishHealthy(true);
-        updateRequestItemDto.setVerified(true);
         restaurantRequestsService.updateRequest(updateRequestItemDto);
         RestaurantRequest updatedRequest = restaurantRequestsService.findRestaurantRequests(restaurantTitle).get(0);
         RestaurantRequestItem restaurantRequestItem = restaurantRequestsService.findRestaurantRequests(restaurantTitle).get(0).getRestaurantRequestItems().get(0);
@@ -132,7 +131,6 @@ public class RestaurantRequestServiceTests {
         assertEquals(dish.getId(), restaurantRequestItem.getDishId());
         assertTrue(restaurantRequestItem.getApproved());
         assertTrue(restaurantRequestItem.getHealthy());
-        assertTrue(restaurantRequestItem.getVerified());
 
         restaurantService.deleteRestaurantById(restaurant.getId());
         dishesService.deleteDishById(dish.getId());

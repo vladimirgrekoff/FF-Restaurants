@@ -4,15 +4,15 @@ import lombok.Data;
 
 @Data
 public class AppError {
-    private int statusCode;
+    private int status;
     private String message;
 
-    public int getStatusCode() {
-        return statusCode;
+    public int getStatus() {
+        return status;
     }
 
-    public void setStatusCode(int statusCode) {
-        this.statusCode = statusCode;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getMessage() {
@@ -26,10 +26,9 @@ public class AppError {
     public AppError() {
     }
 
-    public AppError(int statusCode, String message) {
-        this.statusCode = statusCode;
+    public AppError(int status, String message) {
+        this.status = status;
         this.message = message;
     }
-
 
 }

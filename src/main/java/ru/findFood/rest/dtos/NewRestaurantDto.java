@@ -17,13 +17,8 @@ public class NewRestaurantDto {
     @Schema(description = "Название",  requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 255, minLength = 1, example = "Стейкхаус")
     private String title;
 
-    @Schema(description = "Дата добавления",  requiredMode = Schema.RequiredMode.AUTO)
-    private LocalDateTime createdAt;
+    @Schema(description = "E-mail",  requiredMode = Schema.RequiredMode.REQUIRED, maxLength = 255, minLength = 6, example = "stake@house.ru")
+    private String email;
 
-    @Schema(description = "Дата последнего обновления",  requiredMode = Schema.RequiredMode.AUTO)
-    private LocalDateTime updatedAt;
 
-    public NewRestaurantDto(String title) {
-        this.title = title;
-    }
 }

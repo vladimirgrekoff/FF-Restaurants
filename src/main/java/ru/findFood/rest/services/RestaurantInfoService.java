@@ -4,6 +4,7 @@ import jakarta.xml.bind.ValidationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.findFood.rest.converters.RestaurantInfoConverter;
+import ru.findFood.rest.dtos.EmailToNewEmail;
 import ru.findFood.rest.entities.RestaurantInfo;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.repositories.RestaurantInfoRepository;
@@ -40,20 +41,30 @@ public class RestaurantInfoService {
 
     public void createNewRestaurantInfo(RestaurantInfo restaurantInfo) {
             if(restaurantInfo.getRestaurant() != null) {
-            restaurantInfoRepository.save(restaurantInfo);
+                restaurantInfoRepository.save(restaurantInfo);
             } else {
                 throw new ResourceNotFoundException("ID ресторана не указан");
             }
     }
 
+    public void changeRestaurantEmail(EmailToNewEmail emailToNewEmail){
+        Optional<RestaurantInfo> restaurantInfoOptional = restaurantInfoRepository.findByEmail(emailToNewEmail.getEmail());
+        if (restaurantInfoOptional.isPresent()){
+            RestaurantInfo restaurantInfo = restaurantInfoOptional.get();
+            restaurantInfo.setEmail(emailToNewEmail.getNewEmail());
+            restaurantInfoRepository.save(restaurantInfo);
+        }else {
+            throw new ResourceNotFoundException("Информация с email " + emailToNewEmail.getEmail() + " не найдена");
+        }
+    }
     public void updateRestaurantInfo(RestaurantInfo restaurantInfo) {
-        if (restaurantInfo.getId() != null || restaurantInfo.getId() != 0) {
+        if (restaurantInfo.getId() != null) {
             restaurantInfoRepository.findById(restaurantInfo.getId())
                     .orElseThrow(() -> new ResourceNotFoundException("Информация о ресторане с ID " +restaurantInfo.getId()+ " не найдена"));
 
             restaurantInfoRepository.save(restaurantInfo);
         } else {
-            throw new ResourceNotFoundException("Информация о ресторане с ID " +restaurantInfo.getId()+ " не найдена");
+            throw new ResourceNotFoundException("Информация о ресторане с ID " + restaurantInfo.getId() + " не найдена");
         }
     }
 

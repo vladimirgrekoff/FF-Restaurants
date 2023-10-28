@@ -11,8 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.findFood.rest.converters.RestaurantInfoConverter;
+import ru.findFood.rest.dtos.EmailToNewEmail;
 import ru.findFood.rest.dtos.RestaurantInfoDto;
 import ru.findFood.rest.entities.RestaurantInfo;
+import ru.findFood.rest.exceptions.AppError;
 import ru.findFood.rest.services.RestaurantInfoService;
 import ru.findFood.rest.services.RestaurantService;
 import ru.findFood.rest.validators.RestaurantInfoValidator;
@@ -98,7 +100,25 @@ public class RestaurantInfoController {
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public void updateRestaurantInfo(@RequestBody RestaurantInfoDto restaurantInfoDto) {
-        restaurantInfoValidator.validate(restaurantInfoDto);
+//        restaurantInfoValidator.validate(restaurantInfoDto);
         restaurantInfoService.updateRestaurantInfo(restaurantInfoConverter.dtoToEntity(restaurantInfoDto));
+    }
+    @Operation(
+            summary = "Запрос на изменение email ресторана",
+            responses = {
+                    @ApiResponse(
+                            description = "Email успешно обновлен", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = HttpStatus.class))
+                    ),
+                    @ApiResponse(
+                            description = "Ошибка обновления email",responseCode = "400",
+                            content = @Content(schema = @Schema(implementation = AppError.class))
+                    )
+            }
+    )
+    @PutMapping("/change/email")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateRestaurantEmail(@RequestBody @Parameter(description = "Новый email пользователя", required = true) EmailToNewEmail emailToNewEmail){
+        restaurantInfoService.changeRestaurantEmail(emailToNewEmail);
     }
 }

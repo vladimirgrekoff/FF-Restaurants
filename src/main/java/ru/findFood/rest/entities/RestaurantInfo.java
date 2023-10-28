@@ -9,9 +9,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "restaurant_infos")
 @Data
 @NoArgsConstructor
+@Table(name = "restaurant_infos")
 public class RestaurantInfo {
 
     @Id

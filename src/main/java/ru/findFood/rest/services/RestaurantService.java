@@ -1,6 +1,7 @@
 package ru.findFood.rest.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.findFood.rest.entities.Dish;
@@ -9,6 +10,8 @@ import ru.findFood.rest.entities.RestaurantInfo;
 import ru.findFood.rest.exceptions.ResourceAlreadyInUseException;
 import ru.findFood.rest.exceptions.ResourceNotFoundException;
 import ru.findFood.rest.repositories.RestaurantRepository;
+import ru.findFood.rest.services.specifications.RestaurantsSpecifications;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -21,8 +24,13 @@ public class RestaurantService {
     private final DishesService dishesService;
 
 
-    public List<Restaurant> findAll(){
-        return restaurantRepository.findAll();
+    public List<Restaurant> findAll(String partTitle){
+        Specification<Restaurant> spec = Specification.where(null);
+
+        if (partTitle != null) {
+            spec = spec.and(RestaurantsSpecifications.titleLike(partTitle));
+        }
+        return restaurantRepository.findAll(spec);
     }
 
     public Restaurant findById(Long id){
@@ -45,22 +53,26 @@ public class RestaurantService {
         }
     }
 
-    public Restaurant findByByEmail(String email) {
+    public Boolean isTitleFree(String title){
+        Optional<Restaurant> restaurant = restaurantRepository.findByTitle(title);
+        return restaurant.isEmpty();
+    }
+
+    public Restaurant findByEmail(String email) {
         RestaurantInfo restaurantInfo = restaurantInfoService.findByEmail(email);
         return findById(restaurantInfo.getRestaurant().getId());
     }
 
     @Transactional
-    public void createNewRestaurant(Restaurant restaurant) {
+    public void createNewRestaurant(Restaurant restaurant, String email) {
         if (restaurantRepository.findByTitle(restaurant.getTitle()).isPresent()) {
             throw new ResourceAlreadyInUseException("Название ресторана: '" + restaurant.getTitle() + "' уже используется");
         }
 
         RestaurantInfo restaurantInfo = new RestaurantInfo();
 
-        restaurantRepository.save(restaurant);
         restaurantInfo.setRestaurant(restaurant);
-        restaurantInfoService.createNewRestaurantInfo(restaurantInfo);
+        restaurantInfo.setEmail(email);
         restaurant.setRestaurantInfo(restaurantInfo);
         restaurantRepository.save(restaurant);
     }

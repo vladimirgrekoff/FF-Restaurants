@@ -26,7 +26,7 @@ public class UpdateRequestItemDto {
     @Schema(description = "Одобрено диетологом",  requiredMode = Schema.RequiredMode.REQUIRED, example = "false")
     private Boolean dishApproved;
 
-    @Schema(description = "Проверено",  requiredMode = Schema.RequiredMode.REQUIRED, example = "false")
-    private Boolean verified;
+    @Schema(description = "Проверено (фамилия)",  requiredMode = Schema.RequiredMode.REQUIRED, example = "false")
+    private String lastname;
 
 }
