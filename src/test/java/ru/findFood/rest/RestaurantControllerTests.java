@@ -101,7 +101,7 @@ public class RestaurantControllerTests {
     @Test
     public void createNewRestaurantEndpointTest() throws IOException {
         Faker faker = new Faker();
-        NewRestaurantDto newRestaurantDto = new NewRestaurantDto(faker.company().name());
+        NewRestaurantDto newRestaurantDto = new NewRestaurantDto(faker.company().name(), faker.internet().emailAddress());
         String title = newRestaurantDto.getTitle();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

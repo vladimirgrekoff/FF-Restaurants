@@ -26,5 +26,5 @@ spring:
         web-allow-others: true
 
   redis:
-    host: "localhost"
+    host: localhost
     port: 6379

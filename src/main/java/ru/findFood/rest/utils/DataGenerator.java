@@ -35,9 +35,9 @@ public class DataGenerator {
         Faker faker = new Faker();
 
         //Создаем рестораны и инфо
-        Restaurant restaurant1 = new Restaurant("Диетолог");
+        Restaurant restaurant1 = new Restaurant("Диета");
         restaurantRepository.save(restaurant1);
-        RestaurantInfo restaurantInfo1 = new RestaurantInfo(restaurant1, faker.company().industry(), faker.backToTheFuture().character(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), "dietolog@gmail.com", faker.job().seniority());
+        RestaurantInfo restaurantInfo1 = new RestaurantInfo(restaurant1, faker.company().industry(), faker.backToTheFuture().character(), faker.address().streetAddress(), faker.phoneNumber().phoneNumber(), "dieta@gmail.com", faker.job().seniority());
         restaurantInfoRepository.save(restaurantInfo1);
         restaurant1.setRestaurantInfo(restaurantInfo1);
         restaurantRepository.save(restaurant1);

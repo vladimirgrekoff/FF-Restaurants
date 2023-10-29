@@ -56,8 +56,8 @@ public class RestaurantRequestItem {
     @Column(name = "approved")
     private Boolean approved;
 
-    @Column(name = "verified")
-    private Boolean verified;
+    @Column(name = "lastname")
+    private String lastname;
 
     @CreationTimestamp
     @Column(name = "created_at")
@@ -95,4 +95,6 @@ public class RestaurantRequestItem {
     public int hashCode() {
         return getClass().hashCode();
     }
+
+
 }

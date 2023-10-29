@@ -33,6 +33,7 @@ public class DishConverter {
         dish.setApproved(dishDto.getApproved());
         dish.setGroupDish(groupDishService.findByTitle(dishDto.getGroup_dish_title()));
         dish.setCategory(categoryService.findByTitle(dishDto.getCategory_title()));
+        dish.setNutritionist_lastname(dishDto.getNutritionist_lastname());
         dish.setCreatedAt(dishDto.getCreatedAt());
         dish.setUpdatedAt(dishDto.getUpdatedAt());
         return dish;
@@ -53,6 +54,7 @@ public class DishConverter {
         dishDto.setApproved(d.getApproved());
         dishDto.setGroup_dish_title(d.getGroupDish().getTitle());
         dishDto.setCategory_title(d.getCategory().getTitle());
+        dishDto.setNutritionist_lastname(d.getNutritionist_lastname());
         dishDto.setCreatedAt(d.getCreatedAt());
         dishDto.setUpdatedAt(d.getUpdatedAt());
         return dishDto;

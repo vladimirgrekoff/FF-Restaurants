@@ -5,7 +5,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.findFood.rest.dtos.UpdateRequestItemDto;
-import ru.findFood.rest.dtos.ValueRequest;
 import ru.findFood.rest.entities.Restaurant;
 import ru.findFood.rest.entities.RestaurantRequest;
 import ru.findFood.rest.entities.RestaurantRequestItem;
@@ -22,16 +21,19 @@ public class RestaurantRequestsService {
     private final RestaurantRequestsRepository restaurantRequestsRepository;
     private final MailBoxService mailBoxService;
     private final RestaurantService restaurantService;
-//    private final AuthServiceIntegration authServiceIntegration;
 
     public List<RestaurantRequest> findRestaurantRequests(String restaurant_name) {
         return restaurantRequestsRepository.findAllByRestaurantName(restaurant_name);
     }
 
     @Transactional
-    public void createRequest(String username, String restMailBoxId) {
-        Restaurant restaurant = restaurantService.findByByEmail(username);
+    public void createRequest(String username, String restMailBoxId) throws ResourceNotFoundException{
+        Restaurant restaurant = restaurantService.findByEmail(username);
         MailBox mailBox = mailBoxService.getCurrentMailBox(restMailBoxId);
+        if(mailBox.getItems().size()==0){
+            throw new ResourceNotFoundException("Список для отправки запроса диетологу пуст. Запрос не отправлен!!!");
+        }
+
         RestaurantRequest restaurantRequest = new RestaurantRequest();
 
         restaurantRequest.setRestaurantName(restaurant.getTitle());
@@ -73,7 +75,7 @@ public class RestaurantRequestsService {
                         findDish = true;
                         ri.setHealthy(updateRequestItemDto.getDishHealthy());
                         ri.setApproved(updateRequestItemDto.getDishApproved());
-                        ri.setVerified(updateRequestItemDto.getVerified());
+                        ri.setLastname(updateRequestItemDto.getLastname());
                     }
                 }
             }
